@@ -10,6 +10,12 @@ export type EventCallback = (
   instance: Curry
 ) => void
 
+export type IteratorCallback = (
+  this: Element,
+  index: number,
+  instance: Curry
+) => void
+
 export type DynamicObject = { [key: string | number]: any }
 
 export type ValueOf<T> = T[keyof T]

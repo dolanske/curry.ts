@@ -9,9 +9,9 @@ export type Is = (
 
 /**
  *
- * @param condition A CSS selector or an array of CSS selectors.
- * @param apply Decides wether to check if the condition is true for all, some or none of the selected elements.
- * @returns Results of the condition check.
+ * @param condition A CSS selector or an array of CSS selectors
+ * @param apply Decides wether to check if the condition is true for all, some or none of the selected elements
+ * @returns Results of the condition check
  */
 
 export const _is: Is = function (condition, apply = "some") {

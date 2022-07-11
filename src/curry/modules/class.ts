@@ -8,9 +8,9 @@ export type ClassManipulation = (
 
 /**
  *
- * @param this Curry instance.
- * @param className A string or array of strings to add to the class attribute.
- * @returns Curry instance.
+ * @param this Curry instance
+ * @param className A string or array of strings to add to the class attribute
+ * @returns Curry instance
  */
 
 export const _addClass: ClassManipulation = function (this, className) {
@@ -25,9 +25,9 @@ export const _addClass: ClassManipulation = function (this, className) {
 
 /**
  *
- * @param this Curry instance.
- * @param className A string or array of strings to remove from the class attribute.
- * @returns Curry instance.
+ * @param this Curry instance
+ * @param className A string or array of strings to remove from the class attribute
+ * @returns Curry instance
  */
 export const _delClass: ClassManipulation = function (this, className) {
   this.nodes.forEach((node: Node) => {
@@ -41,9 +41,9 @@ export const _delClass: ClassManipulation = function (this, className) {
 
 /**
  *
- * @param this Curry instance.
- * @param className A string or array of strings to toggle the class attribute.
- * @returns Curry instance.
+ * @param this Curry instance
+ * @param className A string or array of strings to toggle the class attribute
+ * @returns Curry instance
  */
 export const _tglClass: ClassManipulation = function (this, className) {
   this.nodes.forEach((node: Node) => {

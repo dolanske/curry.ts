@@ -7,9 +7,9 @@ export type Get = {
 
 /**
  *
- * @param this Curry instance.
- * @param key A property of the selected element(s).
- * @returns Selected nodes or an array of values matched by the key.
+ * @param this Curry instance
+ * @param key A property of the selected element(s)
+ * @returns Selected nodes or an array of values matched by the key
  */
 
 export const _get: Get = function (this, key) {
