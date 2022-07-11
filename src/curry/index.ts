@@ -7,10 +7,19 @@ import { _on, On } from "./modules/on"
 import { _click, Click } from "./modules/click"
 import { _del, Del } from "./modules/del"
 import { _css, CSS } from "./modules/css"
+import {
+  _addClass,
+  _delClass,
+  _tglClass,
+  ClassManipulation
+} from "./modules/class"
 
 export interface Curry {
   nodes: Node[]
   $state: DynamicObject
+  addClass: ClassManipulation
+  delClass: ClassManipulation
+  tglClass: ClassManipulation
   click: Click
   text: Text
   css: CSS
@@ -44,6 +53,9 @@ export class Curry implements Curry {
     this.$state = {}
 
     // Curry methods
+    this.addClass = _addClass.bind(this)
+    this.delClass = _delClass.bind(this)
+    this.tglClass = _tglClass.bind(this)
     this.click = _click.bind(this)
     this.text = _text.bind(this)
     this.del = _del.bind(this)
