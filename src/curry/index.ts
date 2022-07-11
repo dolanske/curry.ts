@@ -5,12 +5,14 @@ import { _get, Get } from "./modules/get"
 import { _is, Is } from "./modules/is"
 import { _on, On } from "./modules/on"
 import { _click, Click } from "./modules/click"
+import { _del, Del } from "./modules/del"
 
 export interface Curry {
   nodes: Node[]
   $state: DynamicObject
   click: Click
   text: Text
+  del: Del
   get: Get
   is: Is
   on: On
@@ -42,6 +44,7 @@ export class Curry implements Curry {
     // Curry methods
     this.click = _click.bind(this)
     this.text = _text.bind(this)
+    this.del = _del.bind(this)
     this.get = _get.bind(this)
     this.is = _is.bind(this)
     this.on = _on.bind(this)
