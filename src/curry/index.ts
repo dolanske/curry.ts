@@ -6,12 +6,14 @@ import { _is, Is } from "./modules/is"
 import { _on, On } from "./modules/on"
 import { _click, Click } from "./modules/click"
 import { _del, Del } from "./modules/del"
+import { _css, CSS } from "./modules/css"
 
 export interface Curry {
   nodes: Node[]
   $state: DynamicObject
   click: Click
   text: Text
+  css: CSS
   del: Del
   get: Get
   is: Is
@@ -46,6 +48,7 @@ export class Curry implements Curry {
     this.text = _text.bind(this)
     this.del = _del.bind(this)
     this.get = _get.bind(this)
+    this.css = _css.bind(this)
     this.is = _is.bind(this)
     this.on = _on.bind(this)
   }

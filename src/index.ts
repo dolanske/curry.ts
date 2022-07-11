@@ -1,5 +1,5 @@
 import { $ } from "./curry"
 
 $("button").click(function () {
-  $(this).del()
+  $(this).css("color", "red")
 })

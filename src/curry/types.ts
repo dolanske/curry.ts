@@ -11,3 +11,5 @@ export type EventCallback = (
 ) => void
 
 export type DynamicObject = { [key: string | number]: any }
+
+export type ValueOf<T> = T[keyof T]

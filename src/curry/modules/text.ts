@@ -11,7 +11,7 @@ export type Text = (
  * @param this Curry instance.
  * @param text Text content to set to the element.
  * @param location Where to place the text. Leave empty if you want to replace the text.
- * @returns Curry instance.
+ * @returns Curry instance for optional chaining.
  */
 
 export const _text: Text = function (this, text, location) {

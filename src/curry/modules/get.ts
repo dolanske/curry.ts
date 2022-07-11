@@ -1,4 +1,5 @@
 import { Curry } from ".."
+import { toEl } from "../util"
 
 export type Get = {
   (this: Curry, key?: string): NodeList | any[]
@@ -17,9 +18,8 @@ export const _get: Get = function (this, key) {
   const values: any[] = []
 
   this.nodes.forEach((node: Node) => {
-    const el = node as Element
     if (node) {
-      values.push(Reflect.get(el, key))
+      values.push(Reflect.get(toEl(node), key))
     }
   })
 

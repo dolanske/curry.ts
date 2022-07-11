@@ -15,7 +15,7 @@ export type On = (
  * @param eventName Event name.
  * @param callback Executed when the event is triggered.
  * @param options Event listener options.
- * @returns Curry instance.
+ * @returns Curry instance for optional chaining.
  */
 
 export const _on: On = function (this, eventName, callback, options) {
