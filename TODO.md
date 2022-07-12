@@ -1,8 +1,8 @@
 # TODO
 
-## Methods
+## Api
 
-- [ ] nthChild
+- [] hasClass([/*classlist*/])
 
 ## Functionality
 
