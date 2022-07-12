@@ -1,8 +1,13 @@
 import { Curry } from "."
 
-export interface GenericCallback {
-  self: Node
-}
+export type GenericCallback = (
+  this: Element,
+  options: {
+    self: Element
+    instance: Curry
+    index?: number
+  }
+) => void
 
 export type EventCallback = (
   this: Element,

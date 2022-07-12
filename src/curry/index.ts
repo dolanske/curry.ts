@@ -15,6 +15,9 @@ import {
 } from "./modules/class"
 import { _each, Each } from "./modules/each"
 import { _asyncEach, AsyncEach } from "./modules/asyncEach"
+import { _nth, Nth } from "./modules/nth"
+import { _first, First } from "./modules/first"
+import { _last, Last } from "./modules/last"
 
 export interface Curry {
   nodes: Node[]
@@ -24,11 +27,14 @@ export interface Curry {
   tglClass: ClassManipulation
   asyncEach: AsyncEach
   click: Click
+  first: First
+  last: Last
   each: Each
   text: Text
   css: CSS
   del: Del
   get: Get
+  nth: Nth
   is: Is
   on: On
 }
@@ -63,11 +69,14 @@ export class Curry implements Curry {
     this.delClass = _delClass.bind(this)
     this.tglClass = _tglClass.bind(this)
     this.click = _click.bind(this)
+    this.first = _first.bind(this)
     this.text = _text.bind(this)
     this.each = _each.bind(this)
+    this.last = _last.bind(this)
     this.del = _del.bind(this)
     this.get = _get.bind(this)
     this.css = _css.bind(this)
+    this.nth = _nth.bind(this)
     this.is = _is.bind(this)
     this.on = _on.bind(this)
   }
