@@ -18,6 +18,8 @@ import { _asyncEach, AsyncEach } from "./modules/asyncEach"
 import { _nth, Nth } from "./modules/nth"
 import { _first, First } from "./modules/first"
 import { _last, Last } from "./modules/last"
+import { _odd, Odd } from "./modules/odd"
+import { _even, Even } from "./modules/even"
 
 export interface Curry {
   nodes: Node[]
@@ -28,9 +30,11 @@ export interface Curry {
   asyncEach: AsyncEach
   click: Click
   first: First
+  even: Even
   last: Last
   each: Each
   text: Text
+  odd: Odd
   css: CSS
   del: Del
   get: Get
@@ -73,7 +77,9 @@ export class Curry implements Curry {
     this.text = _text.bind(this)
     this.each = _each.bind(this)
     this.last = _last.bind(this)
+    this.even = _even.bind(this)
     this.del = _del.bind(this)
+    this.odd = _odd.bind(this)
     this.get = _get.bind(this)
     this.css = _css.bind(this)
     this.nth = _nth.bind(this)

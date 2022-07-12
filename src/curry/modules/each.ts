@@ -8,7 +8,7 @@ export type Each = (this: Curry, callback: IteratorCallback) => Curry
  *
  * @param this Curry instance
  * @param callback Function to call for each node
- * @returns Curry instance
+ * @returns Curry instance for optional chaining
  */
 export const _each: Each = function (this, callback) {
   const that = this

@@ -1,3 +1,5 @@
 import { $ } from "./curry"
 
-$("span").last().text("XD")
+$("span").odd(function () {
+  console.log(this.textContent)
+})

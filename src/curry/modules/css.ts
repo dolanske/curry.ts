@@ -16,7 +16,7 @@ export type CSS = (
  * @param this Curry instance
  * @param key Object containing CSS properties or a property name
  * @param value Property value
- * @returns Curry instance for optional chaining for optional chaining
+ * @returns Curry instance for optional chaining
  */
 
 export const _css: CSS = function (this, key, value) {

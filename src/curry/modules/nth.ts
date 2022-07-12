@@ -14,7 +14,7 @@ export type Nth = (
  * @param this Curry instance
  * @param index Selects the node by index
  * @param callback Function to call for selected node
- * @returns Curry instance
+ * @returns Curry instance for optional chaining
  */
 
 export const _nth: Nth = function (this, index, callback) {

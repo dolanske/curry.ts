@@ -9,7 +9,7 @@ export type Last = (this: Curry, callback?: GenericCallback) => Curry
  *
  * @param this Curry instance
  * @param callback Function to call for selected node
- * @returns Curry instance
+ * @returns Curry instance for optional chaining
  */
 
 export const _last: Last = function (this, callback) {
