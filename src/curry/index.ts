@@ -20,6 +20,8 @@ import { _first, First } from "./modules/first"
 import { _last, Last } from "./modules/last"
 import { _odd, Odd } from "./modules/odd"
 import { _even, Even } from "./modules/even"
+import { _next, Next } from "./modules/next"
+import { _prev } from "./modules/prev"
 
 export interface Curry {
   nodes: Node[]
@@ -31,6 +33,8 @@ export interface Curry {
   click: Click
   first: First
   even: Even
+  next: Next
+  prev: Next
   last: Last
   each: Each
   text: Text
@@ -78,6 +82,8 @@ export class Curry implements Curry {
     this.each = _each.bind(this)
     this.last = _last.bind(this)
     this.even = _even.bind(this)
+    this.next = _next.bind(this)
+    this.prev = _prev.bind(this)
     this.del = _del.bind(this)
     this.odd = _odd.bind(this)
     this.get = _get.bind(this)

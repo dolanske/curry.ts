@@ -23,4 +23,6 @@ export type IteratorCallback = (
 
 export type DynamicObject = { [key: string | number]: any }
 
+export type PrevNextCallback = GenericCallback & { prev: Element }
+
 export type ValueOf<T> = T[keyof T]
