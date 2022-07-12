@@ -22,6 +22,7 @@ import { _odd, Odd } from "./modules/odd"
 import { _even, Even } from "./modules/even"
 import { _next, Next } from "./modules/next"
 import { _prev } from "./modules/prev"
+import { _children, Children } from "./modules/children"
 
 export interface Curry {
   nodes: Node[]
@@ -30,6 +31,7 @@ export interface Curry {
   delClass: ClassManipulation
   tglClass: ClassManipulation
   asyncEach: AsyncEach
+  children: Children
   click: Click
   first: First
   even: Even
@@ -76,6 +78,7 @@ export class Curry implements Curry {
     this.addClass = _addClass.bind(this)
     this.delClass = _delClass.bind(this)
     this.tglClass = _tglClass.bind(this)
+    this.children = _children.bind(this)
     this.click = _click.bind(this)
     this.first = _first.bind(this)
     this.text = _text.bind(this)

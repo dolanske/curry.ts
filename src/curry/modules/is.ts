@@ -1,5 +1,5 @@
 import { Curry } from ".."
-import { isArray } from "../util"
+import { isArray, toEl } from "../util"
 
 export type Is = (
   this: Curry,
@@ -17,12 +17,12 @@ export type Is = (
 export const _is: Is = function (condition, apply = "some") {
   let results: boolean[] = []
 
-  this.nodes.forEach((node: Node) => {
-    const el = node as Element
+  this.nodes.forEach((_node: Node) => {
+    const el = toEl(_node)
 
     if (isArray(condition)) {
       results.push(condition.every((c: string) => el.matches(c)))
-    } else if (el.matches(condition)) {
+    } else if (el.matches && el.matches(condition)) {
       results.push(true)
     } else {
       results.push(false)

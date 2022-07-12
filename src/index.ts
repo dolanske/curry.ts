@@ -1,3 +1,7 @@
 import { $ } from "./curry"
 
-$("span").first().next()
+$("#app")
+  .children()
+  .each(function () {
+    console.log(this.textContent)
+  })
