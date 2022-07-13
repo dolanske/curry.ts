@@ -15,6 +15,10 @@ export function isObject(value: any): value is object {
   return value != null && (type == "object" || type == "function")
 }
 
+export function isFunction(value: any): value is Function {
+  return value && {}.toString.call(value) === "[object Function]"
+}
+
 function getSiblingIndex(el: Element) {
   if (!el) return 0
 

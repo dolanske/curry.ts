@@ -15,11 +15,11 @@ export type EventCallback = (
   instance: Curry
 ) => void
 
-export type IteratorCallback = (
+export type IteratorCallback<T = void> = (
   this: Element,
   index: number,
   instance: Curry
-) => void
+) => T
 
 export type DynamicObject = { [key: string | number]: any }
 

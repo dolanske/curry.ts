@@ -27,6 +27,7 @@ import { _prev } from "./modules/prev"
 import { _children, Children } from "./modules/children"
 import { _show, _hide, _toggle, Visibility } from "./modules/visibility"
 import { _setAttr, SetAttr, _getAttr, GetAttr } from "./modules/attr"
+import { _filter, Filter } from "./modules/filter"
 
 export interface Curry {
   nodes: Node[]
@@ -42,6 +43,7 @@ export interface Curry {
   hide: Visibility
   setAttr: SetAttr
   getAttr: GetAttr
+  filter: Filter
   click: Click
   first: First
   even: Even
@@ -92,6 +94,7 @@ export class Curry implements Curry {
     this.hasClass = _hasClass.bind(this)
     this.setAttr = _setAttr.bind(this)
     this.getAttr = _getAttr.bind(this)
+    this.filter = _filter.bind(this)
     this.toggle = _toggle.bind(this)
     this.click = _click.bind(this)
     this.first = _first.bind(this)
