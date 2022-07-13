@@ -23,6 +23,7 @@ import { _even, Even } from "./modules/even"
 import { _next, Next } from "./modules/next"
 import { _prev } from "./modules/prev"
 import { _children, Children } from "./modules/children"
+import { _show, _hide, _toggle, Visibility } from "./modules/visibility"
 
 export interface Curry {
   nodes: Node[]
@@ -32,6 +33,9 @@ export interface Curry {
   tglClass: ClassManipulation
   asyncEach: AsyncEach
   children: Children
+  toggle: Visibility
+  show: Visibility
+  hide: Visibility
   click: Click
   first: First
   even: Even
@@ -79,8 +83,11 @@ export class Curry implements Curry {
     this.delClass = _delClass.bind(this)
     this.tglClass = _tglClass.bind(this)
     this.children = _children.bind(this)
+    this.toggle = _toggle.bind(this)
     this.click = _click.bind(this)
     this.first = _first.bind(this)
+    this.show = _show.bind(this)
+    this.hide = _hide.bind(this)
     this.text = _text.bind(this)
     this.each = _each.bind(this)
     this.last = _last.bind(this)

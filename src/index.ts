@@ -1,7 +1,5 @@
 import { $ } from "./curry"
 
-$("#app")
-  .children()
-  .each(function () {
-    console.log(this.textContent)
-  })
+$("button").click(function () {
+  $(this).next().next().toggle()
+})
