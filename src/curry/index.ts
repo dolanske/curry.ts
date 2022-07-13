@@ -11,6 +11,8 @@ import {
   _addClass,
   _delClass,
   _tglClass,
+  _hasClass,
+  ClassCheck,
   ClassManipulation
 } from "./modules/class"
 import { _each, Each } from "./modules/each"
@@ -24,6 +26,7 @@ import { _next, Next } from "./modules/next"
 import { _prev } from "./modules/prev"
 import { _children, Children } from "./modules/children"
 import { _show, _hide, _toggle, Visibility } from "./modules/visibility"
+import { _setAttr, SetAttr, _getAttr, GetAttr } from "./modules/attr"
 
 export interface Curry {
   nodes: Node[]
@@ -31,11 +34,14 @@ export interface Curry {
   addClass: ClassManipulation
   delClass: ClassManipulation
   tglClass: ClassManipulation
+  hasClass: ClassCheck
   asyncEach: AsyncEach
   children: Children
   toggle: Visibility
   show: Visibility
   hide: Visibility
+  setAttr: SetAttr
+  getAttr: GetAttr
   click: Click
   first: First
   even: Even
@@ -83,6 +89,9 @@ export class Curry implements Curry {
     this.delClass = _delClass.bind(this)
     this.tglClass = _tglClass.bind(this)
     this.children = _children.bind(this)
+    this.hasClass = _hasClass.bind(this)
+    this.setAttr = _setAttr.bind(this)
+    this.getAttr = _getAttr.bind(this)
     this.toggle = _toggle.bind(this)
     this.click = _click.bind(this)
     this.first = _first.bind(this)

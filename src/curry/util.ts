@@ -10,6 +10,11 @@ export function toEl<T = Element>(node: Node): T {
   return node as T
 }
 
+export function isObject(value: any): value is object {
+  let type = typeof value
+  return value != null && (type == "object" || type == "function")
+}
+
 function getSiblingIndex(el: Element) {
   if (!el) return 0
 
@@ -55,6 +60,8 @@ export function selectNTHSibling(
             break
           }
         }
+
+        // TODO: finish implementation
 
         // Callback
         // if (callback) {

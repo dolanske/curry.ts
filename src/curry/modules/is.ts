@@ -4,17 +4,17 @@ import { isArray, toEl } from "../util"
 export type Is = (
   this: Curry,
   condition: string | string[],
-  apply?: "some" | "every" | "none"
+  applyTo?: "some" | "every" | "none"
 ) => boolean
 
 /**
  *
  * @param condition A CSS selector or an array of CSS selectors
- * @param apply Decides wether to check if the condition is true for all, some or none of the selected elements
+ * @param applyTo Decides wether to check if the condition is true for all, some or none of the selected elements
  * @returns Results of the condition check
  */
 
-export const _is: Is = function (condition, apply = "some") {
+export const _is: Is = function (condition, applyTo = "some") {
   let results: boolean[] = []
 
   this.nodes.forEach((_node: Node) => {
@@ -29,7 +29,7 @@ export const _is: Is = function (condition, apply = "some") {
     }
   })
 
-  switch (apply) {
+  switch (applyTo) {
     case "some": {
       return results.some((r) => r)
     }

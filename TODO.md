@@ -2,7 +2,11 @@
 
 ## Api
 
-- [] hasClass([/*classlist*/])
+- [x] hasClass([/*classlist*/])
+- [ ] attr
+  - setAttr()
+  - getAttr()
+  - attr ()
 
 ## Functionality
 
