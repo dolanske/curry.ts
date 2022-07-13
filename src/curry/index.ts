@@ -28,6 +28,7 @@ import { _children, Children } from "./modules/children"
 import { _show, _hide, _toggle, Visibility } from "./modules/visibility"
 import { _setAttr, SetAttr, _getAttr, GetAttr } from "./modules/attr"
 import { _filter, Filter } from "./modules/filter"
+import { _teleport, Teleport } from "./modules/teleport"
 
 export interface Curry {
   nodes: Node[]
@@ -38,6 +39,7 @@ export interface Curry {
   hasClass: ClassCheck
   asyncEach: AsyncEach
   children: Children
+  teleport: Teleport
   toggle: Visibility
   show: Visibility
   hide: Visibility
@@ -92,6 +94,7 @@ export class Curry implements Curry {
     this.tglClass = _tglClass.bind(this)
     this.children = _children.bind(this)
     this.hasClass = _hasClass.bind(this)
+    this.teleport = _teleport.bind(this)
     this.setAttr = _setAttr.bind(this)
     this.getAttr = _getAttr.bind(this)
     this.filter = _filter.bind(this)

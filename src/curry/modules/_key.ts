@@ -1,1 +1,1 @@
-// functions related to key events
+// functions related to keypress events
