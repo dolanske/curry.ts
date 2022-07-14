@@ -43,8 +43,6 @@ export const _getAttr: GetAttr = function (this, key) {
  * @param value Value to set the attribute to
  */
 export const _setAttr: SetAttr = function (this, key, value) {
-  console.log(this)
-
   this.nodes.forEach((_node) => {
     const node = toEl(_node)
 

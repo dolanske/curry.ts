@@ -1,5 +1,5 @@
 import { $ } from "./curry"
 
-$("button").click(function () {
-  $("span").teleport("#app")
+$("button").hover(function () {
+  this.textContent = "cum"
 })

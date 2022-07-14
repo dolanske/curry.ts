@@ -29,6 +29,7 @@ import { _show, _hide, _toggle, Visibility } from "./modules/visibility"
 import { _setAttr, SetAttr, _getAttr, GetAttr } from "./modules/attr"
 import { _filter, Filter } from "./modules/filter"
 import { _teleport, Teleport } from "./modules/teleport"
+import { _hover, Hover } from "./modules/hover"
 
 export interface Curry {
   nodes: Node[]
@@ -48,6 +49,7 @@ export interface Curry {
   filter: Filter
   click: Click
   first: First
+  hover: Hover
   even: Even
   next: Next
   prev: Next
@@ -101,6 +103,7 @@ export class Curry implements Curry {
     this.toggle = _toggle.bind(this)
     this.click = _click.bind(this)
     this.first = _first.bind(this)
+    this.hover = _hover.bind(this)
     this.show = _show.bind(this)
     this.hide = _hide.bind(this)
     this.text = _text.bind(this)
