@@ -12,7 +12,7 @@ export type Filter = (
  *
  * @param this Curry instance
  * @param condition Condition to filter the nodes by
- * @returns
+ * @returns Curry instance for optional chaining
  */
 
 export const _filter: Filter = function (this, condition) {

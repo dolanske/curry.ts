@@ -30,10 +30,10 @@ import { _setAttr, SetAttr, _getAttr, GetAttr } from "./modules/attr"
 import { _filter, Filter } from "./modules/filter"
 import { _teleport, Teleport } from "./modules/teleport"
 import { _hover, Hover } from "./modules/hover"
+import { _parent, Parent } from "./modules/parent"
 
 export interface Curry {
   nodes: Node[]
-  $state: DynamicObject
   addClass: ClassManipulation
   delClass: ClassManipulation
   tglClass: ClassManipulation
@@ -46,6 +46,7 @@ export interface Curry {
   hide: Visibility
   setAttr: SetAttr
   getAttr: GetAttr
+  parent: Parent
   filter: Filter
   click: Click
   first: First
@@ -87,8 +88,6 @@ export class Curry implements Curry {
       return selector
     })()
 
-    this.$state = {}
-
     // Curry methods
     this.asyncEach = _asyncEach.bind(this)
     this.addClass = _addClass.bind(this)
@@ -101,6 +100,7 @@ export class Curry implements Curry {
     this.getAttr = _getAttr.bind(this)
     this.filter = _filter.bind(this)
     this.toggle = _toggle.bind(this)
+    this.parent = _parent.bind(this)
     this.click = _click.bind(this)
     this.first = _first.bind(this)
     this.hover = _hover.bind(this)
@@ -125,6 +125,8 @@ export class Curry implements Curry {
     return this.nodes.length
   }
 }
+
+export const $state: DynamicObject = {}
 
 // Webpack
 if (typeof module === "object" && module.exports) {

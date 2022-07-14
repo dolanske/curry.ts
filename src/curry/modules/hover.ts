@@ -13,6 +13,14 @@ export type Hover = (
   options?: EventListenerOptions
 ) => Curry
 
+/**
+ *
+ * @param this Curry instance
+ * @param states Functions to execute when the mouse enters or leaves the element
+ * @param options Event listner options
+ * @returns Curry instance for optional chaining
+ */
+
 export const _hover: Hover = function (this, states, options) {
   if (!isFunction(states)) {
     const { enter, leave } = states
