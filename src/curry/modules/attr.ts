@@ -5,12 +5,6 @@ export type Attr = {
   [key: string]: string | number
 }
 
-export type SetAttr = (
-  this: Curry,
-  key: Attr | Attr[] | string,
-  value?: any
-) => void
-
 export type GetAttr = (
   this: Curry,
   key: string | string[]
@@ -35,6 +29,12 @@ export const _getAttr: GetAttr = function (this, key) {
     return node.getAttribute(key)
   }
 }
+
+export type SetAttr = (
+  this: Curry,
+  key: Attr | Attr[] | string,
+  value?: any
+) => void
 
 /**
  *

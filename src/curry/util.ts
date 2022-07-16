@@ -90,3 +90,9 @@ export function selectNTHSibling(
 
   return this
 }
+
+export function createElement(el: string): Element {
+  const fragment = document.createElement("div")
+  fragment.insertAdjacentHTML("beforeend", el)
+  return fragment.children[0]
+}
