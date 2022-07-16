@@ -23,6 +23,14 @@ export type IteratorCallback<T = void> = (
 
 export type DynamicObject = { [key: string | number]: any }
 
-export type PrevNextCallback = GenericCallback & { prev: Element }
+export type PrevNextCallback = (
+  this: Element,
+  options: {
+    self?: Element | null
+    prev?: Element | null
+    instance: Curry
+    index?: number
+  }
+) => void
 
 export type ValueOf<T> = T[keyof T]

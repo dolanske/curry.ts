@@ -50,37 +50,38 @@ export function selectNTHSibling(
 
   for (const _node of this.nodes) {
     const node = toEl(_node)
+    const sibling = node[siblingPlace]
 
-    if (node[siblingPlace]) {
-      // If index is provided
-      if (index) {
-        const prev = node
-        // Loop over next children and find element at index
-        for (let i = 0; i < index; i++) {
-          const sibling = node[siblingPlace]
+    // When no index jump is provided
+    // Just select the next element
+    if (!index || index === 1) {
+      if (sibling) {
+        matches.push(sibling)
 
-          if (sibling) {
-            matches.push(sibling)
-            break
-          }
+        if (callback) {
+          callback.apply(sibling, [
+            // prettier-ignore
+            { self: sibling, prev: node, index: getSiblingIndex(sibling), instance: this }
+          ])
         }
+      }
+    } else {
+      let el: Element | null = node
+      // Loop over next children and find element at index
+      for (let i = 0; i < index; i++) {
+        if (el) {
+          el = el[siblingPlace]
+        }
+      }
 
-        // TODO: finish implementation
+      if (el) {
+        matches.push(el)
 
-        // Callback
-        // if (callback) {
-        //   callback.apply(node, [{ self: node, prev, index: getSiblingIndex(node) }]) //prettier-ignore
-        // }
-      } else {
-        // otherwise just select the next item
-        // if (callback) {
-        //   callback.apply(node, [{ self: node[siblingPlace], prev: node, index: getSiblingIndex(node[siblingPlace]) }]) //prettier-ignore
-        // }
-
-        const sibling = node[siblingPlace]
-
-        if (sibling) {
-          matches.push(sibling)
+        if (callback) {
+          callback.apply(el, [
+            // prettier-ignore
+            { self: el, prev: node, index: getSiblingIndex(node), instance: this }
+          ])
         }
       }
     }
