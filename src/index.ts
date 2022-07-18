@@ -1,10 +1,7 @@
-import { Curry, $ } from "./curry"
-
-Curry.swap("#first", "#third")
+import { $ } from "./curry"
 
 // console.log(
-// $("#third").prev().text("CUMCUMCUCMU")
 
-// $("button").click(function () {
-//   $("#third").replace("#second", "#first")
-// })
+$("button").click(function () {
+  $(this).wait(1000).text("HENLHNLEo")
+})
