@@ -19,15 +19,15 @@ export type On = (
  */
 
 export const _on: On = function (this, eventName, callback, options) {
-  // this.queue(() => {
-  this.nodes.forEach((node: Node) => {
-    node.addEventListener(
-      eventName,
-      (event) => callback.apply(toEl(node), [event, this]),
-      options
-    )
+  this.queue(() => {
+    this.nodes.forEach((node: Node) => {
+      node.addEventListener(
+        eventName,
+        (event) => callback.apply(toEl(node), [event, this]),
+        options
+      )
+    })
   })
-  // })
 
   return this
 }

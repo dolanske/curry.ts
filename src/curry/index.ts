@@ -109,6 +109,12 @@ export class Curry implements Curry {
     this.taskQueue = Promise.resolve()
   }
 
+  /**
+   * Functions which return Curry instance can be queued to be asyncronously executed.
+   *
+   *
+   */
+
   queue<T = void>(fn: () => T) {
     this.taskQueue = this.taskQueue.then(fn)
   }
