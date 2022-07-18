@@ -16,8 +16,6 @@ export type Next = (
  * @returns Curry instance for optional chaining
  */
 
-// TODO: Add a $.is() possible selector for index
-// FIXME: index doesnt work
 export const _next: Next = function (this, index, callback) {
   return selectNTHSibling.apply(this, ["next", index, callback])
 }

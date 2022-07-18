@@ -23,7 +23,7 @@ export const _text: Text = function (this, text, location) {
           break
         }
         case "append": {
-          node.textContent = text + node.textContent
+          node.textContent = node.textContent + text
           break
         }
         default: {

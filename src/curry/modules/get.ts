@@ -1,9 +1,7 @@
 import { Curry } from ".."
 import { toEl } from "../util"
 
-export type Get = {
-  (this: Curry, key?: string): NodeList | any[]
-}
+export type Get = (this: Curry, key?: string) => Element[]
 
 /**
  *
@@ -19,9 +17,9 @@ export const _get: Get = function (this, key) {
 
   this.nodes.forEach((node: Node) => {
     if (node) {
-      values.push(Reflect.get(toEl(node), key))
+      values.push(Reflect.get(toEl<Element>(node), key))
     }
   })
 
-  return values
+  return values.length === 1 ? values[0] : values
 }

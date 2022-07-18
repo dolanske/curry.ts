@@ -77,7 +77,7 @@ export interface Curry {
   on: On
 }
 
-type Selector = string | Node | Node[]
+type Selector = string | Node | Node[] | HTMLCollection | Curry
 
 export function $(selector: Selector) {
   const instance = new Curry(selector)
@@ -94,7 +94,14 @@ export class Curry implements Curry {
         return [...nodes]
       }
 
+      if (selector instanceof HTMLCollection) {
+        //@ts-ignore
+        return [...selector]
+      }
+
       if (selector instanceof Node) return [selector]
+
+      if (selector instanceof Curry) return this.nodes
 
       return selector
     })()
@@ -143,9 +150,3 @@ export class Curry implements Curry {
 }
 
 export const $state: DynamicObject = {}
-
-// Webpack
-if (typeof module === "object" && module.exports) {
-  module.exports = $
-  module.exports.$ = $
-}
