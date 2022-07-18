@@ -11,10 +11,12 @@ export type Each = (this: Curry, callback: IteratorCallback) => Curry
  * @returns Curry instance for optional chaining
  */
 export const _each: Each = function (this, callback) {
-  const that = this
+  this.queue(() => {
+    const that = this
 
-  this.nodes.forEach((node, index) => {
-    callback.apply(toEl(node), [index, that])
+    this.nodes.forEach((node, index) => {
+      callback.apply(toEl(node), [index, that])
+    })
   })
 
   return this

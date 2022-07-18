@@ -31,7 +31,7 @@ import { _filter, Filter } from "./modules/filter"
 import { _teleport, Teleport } from "./modules/teleport"
 import { _hover, Hover } from "./modules/hover"
 import { _parent, Parent } from "./modules/parent"
-import { _wait, Wait } from "./modules/_wait"
+import { _wait, Wait } from "./modules/wait"
 import {
   _replace,
   Replace,
@@ -92,14 +92,11 @@ export class Curry implements Curry {
     this.nodes = (() => {
       if (typeof selector === "string") {
         const nodes = document.querySelectorAll(selector)
-        //@ts-ignore
-        // I am unsure how to tell typescript that this will always work
-        return [...nodes]
+        return Array.from(nodes)
       }
 
       if (selector instanceof HTMLCollection) {
-        //@ts-ignore
-        return [...selector]
+        return Array.from(selector)
       }
 
       if (selector instanceof Node) return [selector]
@@ -112,7 +109,7 @@ export class Curry implements Curry {
     this.taskQueue = Promise.resolve()
   }
 
-  queue(fn: () => void) {
+  queue<T = void>(fn: () => T) {
     this.taskQueue = this.taskQueue.then(fn)
   }
 

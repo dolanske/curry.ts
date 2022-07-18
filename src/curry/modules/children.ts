@@ -11,27 +11,29 @@ export type Children = (this: Curry, selector?: string) => Curry
  */
 
 export const _children: Children = function (this, selector) {
-  const children: Element[] = []
+  this.queue(() => {
+    const children: Element[] = []
 
-  for (const _node of this.nodes) {
-    const node = toEl(_node)
+    for (const _node of this.nodes) {
+      const node = toEl(_node)
 
-    if (node.children) {
-      if (selector) {
-        node.childNodes.forEach((_child) => {
-          const child = toEl(_child)
+      if (node.children) {
+        if (selector) {
+          node.childNodes.forEach((_child) => {
+            const child = toEl(_child)
 
-          if ($(child).is(selector)) {
-            children.push(child)
-          }
-        })
-      } else {
-        children.push(...Array.from(node.children))
+            if ($(child).is(selector)) {
+              children.push(child)
+            }
+          })
+        } else {
+          children.push(...Array.from(node.children))
+        }
       }
     }
-  }
 
-  this.nodes = children
+    this.nodes = children
+  })
 
   return this
 }

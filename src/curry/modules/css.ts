@@ -20,13 +20,15 @@ export type CSS = (
  */
 
 export const _css: CSS = function (this, key, value) {
-  this.nodes.forEach((node: Node) => {
-    const el = toEl<HTMLElement>(node)
-    if (!value) {
-      Object.assign(el.style, key)
-    } else if (typeof key === "string") {
-      el.style.setProperty(key, String(value))
-    }
+  this.queue(() => {
+    this.nodes.forEach((node: Node) => {
+      const el = toEl<HTMLElement>(node)
+      if (!value) {
+        Object.assign(el.style, key)
+      } else if (typeof key === "string") {
+        el.style.setProperty(key, String(value))
+      }
+    })
   })
 
   return this

@@ -12,18 +12,19 @@ export type Odd = (this: Curry, callback?: GenericCallback) => Curry
  */
 
 export const _odd: Odd = function (this, callback) {
-  this.nodes = this.nodes.filter((_, index) => index % 2 === 0)
+  this.queue(() => {
+    this.nodes = this.nodes.filter((_, index) => index % 2 === 0)
 
-  if (callback) {
-    this.nodes.forEach((node) => {
-      callback.apply(toEl(node), [
-        {
-          instance: this,
-          self: toEl(node)
-        }
-      ])
-    })
-  }
-
+    if (callback) {
+      this.nodes.forEach((node) => {
+        callback.apply(toEl(node), [
+          {
+            instance: this,
+            self: toEl(node)
+          }
+        ])
+      })
+    }
+  })
   return this
 }

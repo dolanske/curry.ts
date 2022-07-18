@@ -10,7 +10,7 @@ export type Swap = (
 ) => Curry
 
 export const _swap: Swap = function (this, target, el) {
-  _staticSwap(target, el)
+  this.queue(() => _staticSwap(target, el))
   return this
 }
 

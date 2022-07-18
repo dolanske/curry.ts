@@ -11,7 +11,7 @@ export type AsyncEach = (
       instance: Curry
     }
   ) => void
-) => void
+) => Curry
 
 /**
  * Works the same as $.each() but to go the next loop we need to call next()
@@ -20,20 +20,26 @@ export type AsyncEach = (
  * @param callback Asynchronous function to call for each node
  */
 
-export const _asyncEach: AsyncEach = async function (this, callback) {
-  let index: number = 0
-
-  for (const node of this.nodes) {
-    await new Promise((resolve) => {
-      return callback.apply(toEl(node), [
-        resolve,
-        {
-          index,
-          instance: this
+export const _asyncEach: AsyncEach = function (this, callback) {
+  this.queue(
+    () =>
+      new Promise(async (resolve) => {
+        let index = 0
+        for (const node of this.nodes) {
+          await new Promise((resolve) => {
+            return callback.apply(toEl(node), [
+              resolve,
+              {
+                index,
+                instance: this
+              }
+            ])
+          })
         }
-      ])
-    })
 
-    index++
-  }
+        resolve(true)
+      })
+  )
+
+  return this
 }

@@ -19,6 +19,7 @@ export type On = (
  */
 
 export const _on: On = function (this, eventName, callback, options) {
+  // this.queue(() => {
   this.nodes.forEach((node: Node) => {
     node.addEventListener(
       eventName,
@@ -26,6 +27,7 @@ export const _on: On = function (this, eventName, callback, options) {
       options
     )
   })
+  // })
 
   return this
 }

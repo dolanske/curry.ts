@@ -16,21 +16,23 @@ export type Filter = (
  */
 
 export const _filter: Filter = function (this, condition) {
-  const matches: Element[] = []
+  this.queue(() => {
+    const matches: Element[] = []
 
-  this.nodes.forEach((_node, index) => {
-    const node = toEl(_node)
+    this.nodes.forEach((_node, index) => {
+      const node = toEl(_node)
 
-    if (isArray(condition) || typeof condition === "string") {
-      if ($(node).is(condition)) matches.push(node)
-    } else {
-      const result = condition.apply(node, [index, this])
+      if (isArray(condition) || typeof condition === "string") {
+        if ($(node).is(condition)) matches.push(node)
+      } else {
+        const result = condition.apply(node, [index, this])
 
-      if (result) matches.push(node)
-    }
+        if (result) matches.push(node)
+      }
+    })
+
+    this.nodes = matches
   })
-
-  this.nodes = matches
 
   return this
 }

@@ -1,7 +1,10 @@
 import { $ } from "./curry"
 
-// console.log(
-
-$("button").click(function () {
-  $(this).wait(1000).text("HENLHNLEo")
-})
+$("span")
+  .asyncEach(function (r) {
+    setTimeout(() => {
+      console.log($(this).getAttr("id"))
+      r()
+    }, 1000)
+  })
+  .text("Completed")

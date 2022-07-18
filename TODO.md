@@ -11,3 +11,5 @@
 Add actual method scheduling instead of calling them instantly. This will allow implementation of async chains.
 
 Reference: https://stackoverflow.com/questions/66275674/how-to-sleep-a-method-in-javascript-method-chaining
+
+- Decide async callbacks should be allowed meaning if it doesnt return Pro

@@ -11,25 +11,27 @@ export type Parent = (this: Curry, selector?: string) => Curry
  */
 
 export const _parent: Parent = function (this, selector) {
-  const parents: Set<Element> = new Set()
+  this.queue(() => {
+    const parents: Set<Element> = new Set()
 
-  for (const _node of this.nodes) {
-    const node = toEl(_node)
+    for (const _node of this.nodes) {
+      const node = toEl(_node)
 
-    if (node.parentNode) {
-      if (selector) {
-        const child = toEl(node.parentNode)
+      if (node.parentNode) {
+        if (selector) {
+          const child = toEl(node.parentNode)
 
-        if ($(child).is(selector)) {
-          parents.add(child)
+          if ($(child).is(selector)) {
+            parents.add(child)
+          }
+        } else {
+          parents.add(toEl(node.parentNode))
         }
-      } else {
-        parents.add(toEl(node.parentNode))
       }
     }
-  }
 
-  this.nodes = Array.from(parents)
+    this.nodes = Array.from(parents)
+  })
 
   return this
 }

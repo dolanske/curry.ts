@@ -18,31 +18,33 @@ export type Nth = (
  */
 
 export const _nth: Nth = function (this, index, callback) {
-  let newNodes: Element[] = []
+  this.queue(() => {
+    let newNodes: Element[] = []
 
-  // Convert to array if it's not
-  if (typeof index === "number") index = [index]
+    // Convert to array if it's not
+    if (typeof index === "number") index = [index]
 
-  // for (const node of this.nodes) {
-  for (let i = 1; i <= this.nodes.length; i++) {
-    if (index.includes(i)) {
-      newNodes.push(toEl(this.nodes[i - 1]))
+    // for (const node of this.nodes) {
+    for (let i = 1; i <= this.nodes.length; i++) {
+      if (index.includes(i)) {
+        newNodes.push(toEl(this.nodes[i - 1]))
+      }
     }
-  }
 
-  this.nodes = newNodes
+    this.nodes = newNodes
 
-  if (callback) {
-    this.nodes.forEach((node, i) => {
-      callback.apply(toEl(node), [
-        {
-          instance: this,
-          self: toEl(node),
-          index: Array.isArray(index) ? index[i] : index
-        }
-      ])
-    })
-  }
+    if (callback) {
+      this.nodes.forEach((node, i) => {
+        callback.apply(toEl(node), [
+          {
+            instance: this,
+            self: toEl(node),
+            index: Array.isArray(index) ? index[i] : index
+          }
+        ])
+      })
+    }
+  })
 
   return this
 }
