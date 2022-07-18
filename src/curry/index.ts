@@ -38,6 +38,7 @@ import {
   _staticReplace,
   StaticReplace
 } from "./modules/replace"
+import { _swap, Swap, _staticSwap, StaticSwap } from "./modules/swap"
 
 export interface Curry {
   nodes: Node[]
@@ -59,6 +60,7 @@ export interface Curry {
   click: Click
   first: First
   hover: Hover
+  swap: Swap
   even: Even
   next: Next
   prev: Next
@@ -115,6 +117,7 @@ export class Curry implements Curry {
   click = _click.bind(this)
   first = _first.bind(this)
   hover = _hover.bind(this)
+  swap = _swap.bind(this)
   show = _show.bind(this)
   hide = _hide.bind(this)
   text = _text.bind(this)
@@ -132,6 +135,7 @@ export class Curry implements Curry {
   on = _on.bind(this)
 
   static replace: StaticReplace = _staticReplace
+  static swap: StaticSwap = _staticSwap
 
   get length() {
     return this.nodes.length
