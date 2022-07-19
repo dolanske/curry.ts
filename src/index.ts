@@ -1,4 +1,4 @@
-import { $ } from "./curry"
+// import { $ } from "./curry"
 
 // $("span")
 //   .asyncEach(function (r) {
