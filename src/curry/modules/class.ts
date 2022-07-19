@@ -21,10 +21,12 @@ export type ClassCheck = (
  */
 
 export const _addClass: ClassManipulation = function (this, className) {
-  this.nodes.forEach((node: Node) => {
-    const el = toEl(node)
-    className = typeof className === "string" ? [className] : className
-    el.classList.add(...className)
+  this.queue(() => {
+    this.nodes.forEach((node: Node) => {
+      const el = toEl(node)
+      className = typeof className === "string" ? [className] : className
+      el.classList.add(...className)
+    })
   })
 
   return this
@@ -37,10 +39,12 @@ export const _addClass: ClassManipulation = function (this, className) {
  * @returns Curry instance for optional chaining
  */
 export const _delClass: ClassManipulation = function (this, className) {
-  this.nodes.forEach((node: Node) => {
-    const el = toEl(node)
-    className = typeof className === "string" ? [className] : className
-    el.classList.remove(...className)
+  this.queue(() => {
+    this.nodes.forEach((node: Node) => {
+      const el = toEl(node)
+      className = typeof className === "string" ? [className] : className
+      el.classList.remove(...className)
+    })
   })
 
   return this
@@ -53,12 +57,14 @@ export const _delClass: ClassManipulation = function (this, className) {
  * @returns Curry instance for optional chaining
  */
 export const _tglClass: ClassManipulation = function (this, className) {
-  this.nodes.forEach((node: Node) => {
-    const el = toEl(node)
-    className = typeof className === "string" ? [className] : className
+  this.queue(() => {
+    this.nodes.forEach((node: Node) => {
+      const el = toEl(node)
+      className = typeof className === "string" ? [className] : className
 
-    className.map((cls: string) => {
-      el.classList.toggle(cls)
+      className.map((cls: string) => {
+        el.classList.toggle(cls)
+      })
     })
   })
 

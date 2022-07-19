@@ -1,10 +1,10 @@
-import { Curry, $ } from "./curry"
+import { $ } from "./curry"
 
-Curry.swap("#first", "#third")
-
-// console.log(
-// $("#third").prev().text("CUMCUMCUCMU")
-
-// $("button").click(function () {
-//   $("#third").replace("#second", "#first")
-// })
+// $("span")
+//   .asyncEach(function (r) {
+//     setTimeout(() => {
+//       console.log($(this).getAttr("id"))
+//       r()
+//     }, 1000)
+//   })
+//   .text("Completed")

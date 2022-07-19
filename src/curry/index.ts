@@ -31,7 +31,7 @@ import { _filter, Filter } from "./modules/filter"
 import { _teleport, Teleport } from "./modules/teleport"
 import { _hover, Hover } from "./modules/hover"
 import { _parent, Parent } from "./modules/parent"
-// import { _wait, Wait } from "./modules/_wait"
+import { _wait, Wait } from "./modules/wait"
 import {
   _replace,
   Replace,
@@ -41,7 +41,10 @@ import {
 import { _swap, Swap, _staticSwap, StaticSwap } from "./modules/swap"
 
 export interface Curry {
+  // Curry
   nodes: Node[]
+  taskQueue: Promise<any>
+
   addClass: ClassManipulation
   delClass: ClassManipulation
   tglClass: ClassManipulation
@@ -60,6 +63,7 @@ export interface Curry {
   click: Click
   first: First
   hover: Hover
+  wait: Wait
   swap: Swap
   even: Even
   next: Next
@@ -67,7 +71,6 @@ export interface Curry {
   last: Last
   each: Each
   text: Text
-  // wait: Wait
   odd: Odd
   css: CSS
   del: Del
@@ -89,14 +92,11 @@ export class Curry implements Curry {
     this.nodes = (() => {
       if (typeof selector === "string") {
         const nodes = document.querySelectorAll(selector)
-        //@ts-ignore
-        // I am unsure how to tell typescript that this will always work
-        return [...nodes]
+        return Array.from(nodes)
       }
 
       if (selector instanceof HTMLCollection) {
-        //@ts-ignore
-        return [...selector]
+        return Array.from(selector)
       }
 
       if (selector instanceof Node) return [selector]
@@ -105,6 +105,18 @@ export class Curry implements Curry {
 
       return selector
     })()
+
+    this.taskQueue = Promise.resolve()
+  }
+
+  /**
+   * Functions which return Curry instance can be queued to be asyncronously executed.
+   *
+   *
+   */
+
+  async queue<T = void>(fn: () => T) {
+    return await (this.taskQueue = this.taskQueue.then(fn))
   }
 
   // Curry methods
@@ -124,6 +136,7 @@ export class Curry implements Curry {
   click = _click.bind(this)
   first = _first.bind(this)
   hover = _hover.bind(this)
+  wait = _wait.bind(this)
   swap = _swap.bind(this)
   show = _show.bind(this)
   hide = _hide.bind(this)

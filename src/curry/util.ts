@@ -38,56 +38,58 @@ export function selectNTHSibling(
   index?: number | PrevNextCallback,
   callback?: PrevNextCallback
 ): Curry {
-  const siblingPlace =
-    selectType === "next" ? "nextElementSibling" : "previousElementSibling"
+  this.queue(() => {
+    const siblingPlace =
+      selectType === "next" ? "nextElementSibling" : "previousElementSibling"
 
-  // If callback has been provided but index hasn't
-  if (typeof index !== "number") {
-    callback = index
-  }
+    // If callback has been provided but index hasn't
+    if (typeof index !== "number") {
+      callback = index
+    }
 
-  const matches: Element[] = []
+    const matches: Element[] = []
 
-  for (const _node of this.nodes) {
-    const node = toEl(_node)
-    const sibling = node[siblingPlace]
+    for (const _node of this.nodes) {
+      const node = toEl(_node)
+      const sibling = node[siblingPlace]
 
-    // When no index jump is provided
-    // Just select the next element
-    if (!index || index === 1) {
-      if (sibling) {
-        matches.push(sibling)
+      // When no index jump is provided
+      // Just select the next element
+      if (!index || index === 1) {
+        if (sibling) {
+          matches.push(sibling)
 
-        if (callback) {
-          callback.apply(sibling, [
-            // prettier-ignore
-            { self: sibling, prev: node, index: getSiblingIndex(sibling), instance: this }
-          ])
+          if (callback) {
+            callback.apply(sibling, [
+              // prettier-ignore
+              { self: sibling, prev: node, index: getSiblingIndex(sibling), instance: this }
+            ])
+          }
         }
-      }
-    } else {
-      let el: Element | null = node
-      // Loop over next children and find element at index
-      for (let i = 0; i < index; i++) {
+      } else {
+        let el: Element | null = node
+        // Loop over next children and find element at index
+        for (let i = 0; i < index; i++) {
+          if (el) {
+            el = el[siblingPlace]
+          }
+        }
+
         if (el) {
-          el = el[siblingPlace]
-        }
-      }
+          matches.push(el)
 
-      if (el) {
-        matches.push(el)
-
-        if (callback) {
-          callback.apply(el, [
-            // prettier-ignore
-            { self: el, prev: node, index: getSiblingIndex(node), instance: this }
-          ])
+          if (callback) {
+            callback.apply(el, [
+              // prettier-ignore
+              { self: el, prev: node, index: getSiblingIndex(node), instance: this }
+            ])
+          }
         }
       }
     }
-  }
 
-  this.nodes = matches
+    this.nodes = matches
+  })
 
   return this
 }
@@ -96,4 +98,8 @@ export function createElement(el: string): Element {
   const fragment = document.createElement("div")
   fragment.insertAdjacentHTML("beforeend", el)
   return fragment.children[0]
+}
+
+export function delay(ms: number = 10): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
 }

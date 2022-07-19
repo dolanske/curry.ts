@@ -13,16 +13,18 @@ export type First = (this: Curry, callback?: GenericCallback) => Curry
  */
 
 export const _first: First = function (this, callback) {
-  this.nodes = [this.nodes[0]]
+  this.queue(() => {
+    this.nodes = [this.nodes[0]]
 
-  if (callback) {
-    callback.apply(toEl(this.nodes[0]), [
-      {
-        self: toEl(this.nodes[0]),
-        instance: this
-      }
-    ])
-  }
+    if (callback) {
+      callback.apply(toEl(this.nodes[0]), [
+        {
+          self: toEl(this.nodes[0]),
+          instance: this
+        }
+      ])
+    }
+  })
 
   return this
 }

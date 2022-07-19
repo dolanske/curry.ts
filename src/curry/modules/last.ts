@@ -13,18 +13,20 @@ export type Last = (this: Curry, callback?: GenericCallback) => Curry
  */
 
 export const _last: Last = function (this, callback) {
-  const index = this.nodes.length
-  this.nodes = [this.nodes[index - 1]]
+  this.queue(() => {
+    const index = this.nodes.length
+    this.nodes = [this.nodes[index - 1]]
 
-  if (callback) {
-    callback.apply(toEl(this.nodes[index]), [
-      {
-        self: toEl(this.nodes[index]),
-        instance: this,
-        index: index - 1
-      }
-    ])
-  }
+    if (callback) {
+      callback.apply(toEl(this.nodes[index]), [
+        {
+          self: toEl(this.nodes[index]),
+          instance: this,
+          index: index - 1
+        }
+      ])
+    }
+  })
 
   return this
 }

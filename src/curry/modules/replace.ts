@@ -17,7 +17,7 @@ export type Replace = (
  */
 
 export const _replace: Replace = function (this, target, el) {
-  _staticReplace(target, el ?? this.nodes[0])
+  this.queue(() => _staticReplace(target, el ?? this.nodes[0]))
   return this
 }
 

@@ -1,7 +1,10 @@
 import { Curry } from ".."
 import { toEl } from "../util"
 
-export type Get = (this: Curry, key?: string) => Element[]
+export type Get = (
+  this: Curry,
+  key?: string
+) => Promise<Element[] | Element | undefined>
 
 /**
  *
@@ -11,15 +14,19 @@ export type Get = (this: Curry, key?: string) => Element[]
  */
 
 export const _get: Get = function (this, key) {
-  if (!key) return this.nodes
+  return this.queue(() => {
+    if (this.nodes.length === 0) return undefined
 
-  const values: any[] = []
+    if (!key) return this.nodes.length === 1 ? this.nodes[0] : this.nodes
 
-  this.nodes.forEach((node: Node) => {
-    if (node) {
-      values.push(Reflect.get(toEl<Element>(node), key))
-    }
+    const values: any[] = []
+
+    this.nodes.forEach((node: Node) => {
+      if (node) {
+        values.push(Reflect.get(toEl<Element>(node), key))
+      }
+    })
+
+    return values.length === 1 ? values[0] : values
   })
-
-  return values.length === 1 ? values[0] : values
 }
