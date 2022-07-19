@@ -18,9 +18,9 @@ export const _last: Last = function (this, callback) {
     this.nodes = [this.nodes[index - 1]]
 
     if (callback) {
-      callback.apply(toEl(this.nodes[index]), [
+      callback.apply(toEl(this.nodes[0]), [
         {
-          self: toEl(this.nodes[index]),
+          self: toEl(this.nodes[0]),
           instance: this,
           index: index - 1
         }

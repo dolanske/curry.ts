@@ -100,6 +100,6 @@ export function createElement(el: string): Element {
   return fragment.children[0]
 }
 
-export function delay(ms: number = 10): Promise<void> {
+export function delay(ms: number = 1): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }

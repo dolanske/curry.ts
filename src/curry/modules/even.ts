@@ -6,7 +6,7 @@ export type Even = (this: Curry, callback?: GenericCallback) => Curry
 
 export const _even: Even = function (this, callback) {
   this.queue(() => {
-    this.nodes = this.nodes.filter((_, index) => index % 2 !== 0)
+    this.nodes = this.nodes.filter((_, index) => index % 2 === 0)
 
     if (callback) {
       this.nodes.forEach((node) => {
