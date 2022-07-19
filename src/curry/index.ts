@@ -39,6 +39,7 @@ import {
   StaticReplace
 } from "./modules/replace"
 import { _swap, Swap, _staticSwap, StaticSwap } from "./modules/swap"
+import { delay } from "./util"
 
 export interface Curry {
   // Curry
@@ -115,8 +116,10 @@ export class Curry implements Curry {
    *
    */
 
-  queue<T = void>(fn: () => T) {
-    this.taskQueue = this.taskQueue.then(fn)
+  async queue<T = void>(fn: () => T) {
+    return await (this.taskQueue = this.taskQueue.then(fn))
+    // await delay(1)
+    // return Promise.resolve()
   }
 
   // Curry methods

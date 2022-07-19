@@ -4,8 +4,9 @@
 
 import { expect, test } from "vitest"
 import { $ } from "../curry/index"
+import { delay } from "../curry/util"
 
-test("Selects the next node $.next()", () => {
+test("Selects the next node $.next()", async () => {
   const div = document.createElement("div")
 
   const first = document.createElement("span")
@@ -17,12 +18,16 @@ test("Selects the next node $.next()", () => {
   div.appendChild(first)
   div.appendChild(second)
 
-  const shouldBeSecond = $(first).next().get()
+  const shouldBeSecond = await $(first).next().get()
+
+  // await delay(1)
 
   expect(shouldBeSecond[0]).toBe(second)
   expect(shouldBeSecond[0]).not.toBe(first)
 
-  const shouldNotExist = $(first).next().next().get()
+  const shouldNotExist = await $(first).next().next().get()
+
+  // await delay(1)
 
   expect(shouldNotExist[0]).toBe(undefined)
 })
