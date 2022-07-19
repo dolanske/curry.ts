@@ -7,10 +7,10 @@ export type NthChild = (
   callback?: GenericCallback
 ) => Curry
 
-export const _nthChild: NthChild = function (this, index, callback) {
-  this.nodes.forEach((node) => {
-    // const filtered =
-  })
+// export const _nthChild: NthChild = function (this, index, callback) {
+//   this.nodes.forEach((node) => {
+//     // const filtered =
+//   })
 
-  return this
-}
+//   return this
+// }
