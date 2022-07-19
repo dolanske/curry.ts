@@ -1,7 +1,10 @@
 import { Curry } from ".."
 import { toEl } from "../util"
 
-export type Get = (this: Curry, key?: string) => Promise<Element | Element>
+export type Get = (
+  this: Curry,
+  key?: string
+) => Promise<Element[] | Element | undefined>
 
 /**
  *
@@ -12,6 +15,8 @@ export type Get = (this: Curry, key?: string) => Promise<Element | Element>
 
 export const _get: Get = function (this, key) {
   return this.queue(() => {
+    if (this.nodes.length === 0) return undefined
+
     if (!key) return this.nodes.length === 1 ? this.nodes[0] : this.nodes
 
     const values: any[] = []

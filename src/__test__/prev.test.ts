@@ -5,7 +5,7 @@
 import { expect, test } from "vitest"
 import { $ } from "../curry/index"
 
-test("Selects the next node $.next()", async () => {
+test("Selects the next node $.prev()", async () => {
   // Prepare some DOM elements
   const div = document.createElement("div")
   const first = document.createElement("span")
@@ -20,22 +20,22 @@ test("Selects the next node $.next()", async () => {
 
   /* Getting elements which exist */
 
-  const shouldBeSecond = await $(first).next().get()
+  const shouldBeSecond = await $(third).prev().get()
   expect(shouldBeSecond).toBe(second)
   expect(shouldBeSecond).not.toBe(first)
 
-  const shouldBeThird = await $(first).next(2).get()
-  expect(shouldBeThird).toBe(third)
+  const shouldBeThird = await $(third).prev(2).get()
+  expect(shouldBeThird).toBe(first)
 
   /* Getting elements which should not exist */
 
-  const shouldNotExist = await $(first).next(10).get()
-  const shouldNotExistEither = await $(first)
-    .next()
-    .next()
-    .next()
-    .next()
-    .next()
+  const shouldNotExist = await $(third).prev(10).get()
+  const shouldNotExistEither = await $(third)
+    .prev()
+    .prev()
+    .prev()
+    .prev()
+    .prev()
     .get()
 
   expect(shouldNotExist).toBe(undefined)

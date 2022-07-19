@@ -8,5 +8,3 @@ import { $ } from "./curry"
 //     }, 1000)
 //   })
 //   .text("Completed")
-
-console.log(await $("#first").next().get())

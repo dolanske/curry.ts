@@ -7,7 +7,10 @@ export const _show: Visibility = function () {
   this.queue(() => {
     for (const _node of this.nodes) {
       const node = toEl<HTMLElement>(_node)
-      node.style.removeProperty("display")
+
+      if (node && node.style) {
+        node.style.removeProperty("display")
+      }
     }
   })
 
@@ -18,7 +21,10 @@ export const _hide: Visibility = function () {
   this.queue(() => {
     for (const _node of this.nodes) {
       const node = toEl<HTMLElement>(_node)
-      node.style.display = "none"
+
+      if (node && node.style) {
+        node.style.display = "none"
+      }
     }
   })
 
