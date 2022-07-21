@@ -9,6 +9,8 @@ export type Swap = (
   el: Element | Node | string
 ) => Curry
 
+// TODO: make el optional, if omitted, swap this.nodes[0] with target
+
 export const _swap: Swap = function (this, target, el) {
   this.queue(() => _staticSwap(target, el))
   return this

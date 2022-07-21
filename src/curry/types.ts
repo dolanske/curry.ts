@@ -17,8 +17,11 @@ export type EventCallback = (
 
 export type IteratorCallback<T = void> = (
   this: Element,
-  index: number,
-  instance: Curry
+  options: {
+    self: Element
+    instance: Curry
+    index: number
+  }
 ) => T
 
 export type DynamicObject = { [key: string | number]: any }

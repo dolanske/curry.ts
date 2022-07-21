@@ -16,9 +16,11 @@ export const _teleport: Teleport = function (this, destination) {
         ? document.querySelector(destination)
         : destination
 
-    this.nodes.forEach((node) => {
-      teleportTo?.appendChild(node)
-    })
+    if (teleportTo) {
+      this.nodes.forEach((node) => {
+        teleportTo.appendChild(node)
+      })
+    }
   })
 
   return this

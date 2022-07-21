@@ -6,7 +6,7 @@ import { expect, test } from "vitest"
 import { $, Curry } from "../curry/index"
 import { delay } from "../curry/util"
 
-test("Select every odd element", async () => {
+test("Select every even element", async () => {
   const div = document.createElement("div")
 
   for (let i = 0; i < 4; i++) {
@@ -15,15 +15,15 @@ test("Select every odd element", async () => {
     div.appendChild(span)
   }
 
-  const oddChildren = await $(div.children).odd().get()
+  const evenChildren = await $(div.children).even().get()
 
   await delay(10)
 
-  expect(oddChildren).toHaveLength(2)
-  expect(oddChildren).toStrictEqual([div.children[1], div.children[3]])
+  expect(evenChildren).toHaveLength(2)
+  expect(evenChildren).toStrictEqual([div.children[0], div.children[2]])
 })
 
-test("Apply correct callback parameters to $.odd()", () => {
+test("Apply correct callback parameters to $.even()", () => {
   const div = document.createElement("div")
   for (let i = 0; i < 2; i++) {
     const span = document.createElement("span")
@@ -31,9 +31,9 @@ test("Apply correct callback parameters to $.odd()", () => {
     div.appendChild(span)
   }
 
-  $(div.children).odd(function ({ self, instance }) {
-    expect(this).toStrictEqual(div.children[1])
-    expect(self).toStrictEqual(div.children[1])
+  $(div.children).even(function ({ self, instance }) {
+    expect(this).toStrictEqual(div.children[0])
+    expect(self).toStrictEqual(div.children[0])
     expect(instance).toBeInstanceOf(Curry)
   })
 })

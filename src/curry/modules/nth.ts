@@ -1,11 +1,11 @@
 import { Curry } from ".."
-import { GenericCallback } from "../types"
+import { IteratorCallback } from "../types"
 import { toEl } from "../util"
 
 export type Nth = (
   this: Curry,
   index: number | number[],
-  callback?: GenericCallback
+  callback?: IteratorCallback
 ) => Curry
 
 /**

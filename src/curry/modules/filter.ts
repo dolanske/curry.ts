@@ -25,7 +25,9 @@ export const _filter: Filter = function (this, condition) {
       if (isArray(condition) || typeof condition === "string") {
         if ($(node).is(condition)) matches.push(node)
       } else {
-        const result = condition.apply(node, [index, this])
+        const result = condition.apply(node, [
+          { instance: this, self: node, index }
+        ])
 
         if (result) matches.push(node)
       }

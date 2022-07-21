@@ -1,8 +1,8 @@
 import { Curry } from ".."
-import { GenericCallback } from "../types"
+import { IteratorCallback } from "../types"
 import { toEl } from "../util"
 
-export type Odd = (this: Curry, callback?: GenericCallback) => Curry
+export type Odd = (this: Curry, callback?: IteratorCallback) => Curry
 
 /**
  *
@@ -16,11 +16,12 @@ export const _odd: Odd = function (this, callback) {
     this.nodes = this.nodes.filter((_, index) => index % 2 !== 0)
 
     if (callback) {
-      this.nodes.forEach((node) => {
+      this.nodes.forEach((node, index) => {
         callback.apply(toEl(node), [
           {
             instance: this,
-            self: toEl(node)
+            self: toEl(node),
+            index
           }
         ])
       })

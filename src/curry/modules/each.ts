@@ -15,7 +15,13 @@ export const _each: Each = function (this, callback) {
     const that = this
 
     this.nodes.forEach((node, index) => {
-      callback.apply(toEl(node), [index, that])
+      callback.apply(toEl(node), [
+        {
+          index,
+          self: toEl(node),
+          instance: that
+        }
+      ])
     })
   })
 

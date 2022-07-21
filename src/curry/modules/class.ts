@@ -89,7 +89,7 @@ export const _hasClass: ClassCheck = function (
 
   this.nodes.forEach((node: Node) => {
     const el = toEl(node)
-    results.push(modelled.every((cls: string) => el.classList.contains(cls)))
+    results.push(modelled.some((cls: string) => el.classList.contains(cls)))
   })
 
   switch (applyTo) {
