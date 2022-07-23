@@ -119,7 +119,7 @@ export class Curry implements Curry {
     return await (this.taskQueue = this.taskQueue.then(fn))
   }
 
-  // Curry methods
+  /*----------  Chaining API  ----------*/
   asyncEach = _asyncEach.bind(this)
   addClass = _addClass.bind(this)
   delClass = _delClass.bind(this)
@@ -154,8 +154,15 @@ export class Curry implements Curry {
   is = _is.bind(this)
   on = _on.bind(this)
 
+  /*----------  Static API  ----------*/
+
   static replace: StaticReplace = _staticReplace
   static swap: StaticSwap = _staticSwap
+
+  static text(el: Selector, text: string | number) {
+    const instance = $(el)
+    return _text.bind(instance)(text)
+  }
 
   get length() {
     return this.nodes.length

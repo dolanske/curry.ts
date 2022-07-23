@@ -2,7 +2,7 @@ import { Curry } from ".."
 
 export type Text = (
   this: Curry,
-  text: string,
+  text: string | number,
   location?: "prepend" | "append"
 ) => Curry
 
@@ -20,15 +20,15 @@ export const _text: Text = function (this, text, location) {
       if (text) {
         switch (location) {
           case "prepend": {
-            node.textContent = text + node.textContent
+            node.textContent = String(text) + node.textContent
             break
           }
           case "append": {
-            node.textContent = node.textContent + text
+            node.textContent = node.textContent + String(text)
             break
           }
           default: {
-            node.textContent = text
+            node.textContent = String(text)
           }
         }
       }

@@ -4,6 +4,7 @@
 
 import { expect, test } from "vitest"
 import { $, Curry } from "../curry/index"
+import { delay } from "../curry/util"
 
 test("Iterate over selected elements and execute a provided callback", async () => {
   const div = document.createElement("div")
@@ -16,8 +17,13 @@ test("Iterate over selected elements and execute a provided callback", async () 
 
   $(div)
     .children()
-    .each(function ({ self, index, instance }) {
+    .asyncEach(async function (next, { self, index, instance }) {
       expect(self).toStrictEqual(div.children[index])
       expect(instance).toBeInstanceOf(Curry)
+      expect(index).toBeDefined()
+
+      await delay(100)
+
+      next()
     })
 })

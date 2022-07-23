@@ -5,8 +5,9 @@ export type AsyncEach = (
   this: Curry,
   callback: (
     this: Element,
-    next: (value?: unknown) => void,
+    next: <T>(value?: T | PromiseLike<T>) => void,
     options: {
+      self: Element
       index: number
       instance: Curry
     }
@@ -23,21 +24,22 @@ export type AsyncEach = (
 export const _asyncEach: AsyncEach = function (this, callback) {
   this.queue(
     () =>
-      new Promise(async (resolve) => {
-        let index = 0
+      new Promise(async () => {
+        let index: number = 0
         for (const node of this.nodes) {
           await new Promise((resolve) => {
             return callback.apply(toEl(node), [
               resolve,
               {
+                self: toEl(node),
                 index,
                 instance: this
               }
             ])
           })
-        }
 
-        resolve(true)
+          index++
+        }
       })
   )
 
