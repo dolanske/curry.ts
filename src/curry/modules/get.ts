@@ -1,10 +1,10 @@
 import { Curry } from ".."
 import { toEl } from "../util"
 
-export type Get = (
+export type Get = <T = Element[] | Element | undefined>(
   this: Curry,
   key?: string
-) => Promise<Element[] | Element | undefined>
+) => Promise<T>
 
 /**
  *

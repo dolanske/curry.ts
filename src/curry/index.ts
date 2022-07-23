@@ -39,9 +39,9 @@ import {
   StaticReplace
 } from "./modules/replace"
 import { _swap, Swap, _staticSwap, StaticSwap } from "./modules/swap"
+import { _nthChild, NthChild } from "./modules/nthChild"
 
 export interface Curry {
-  // Curry
   nodes: Node[]
   taskQueue: Promise<any>
 
@@ -53,6 +53,7 @@ export interface Curry {
   children: Children
   teleport: Teleport
   toggle: Visibility
+  nthChild: NthChild
   replace: Replace
   show: Visibility
   hide: Visibility
@@ -127,6 +128,7 @@ export class Curry implements Curry {
   children = _children.bind(this)
   hasClass = _hasClass.bind(this)
   teleport = _teleport.bind(this)
+  nthChild = _nthChild.bind(this)
   setAttr = _setAttr.bind(this)
   getAttr = _getAttr.bind(this)
   replace = _replace.bind(this)
@@ -148,7 +150,7 @@ export class Curry implements Curry {
   prev = _prev.bind(this)
   del = _del.bind(this)
   odd = _odd.bind(this)
-  get = _get.bind(this)
+  get = _get.bind(this) as Get
   css = _css.bind(this)
   nth = _nth.bind(this)
   is = _is.bind(this)
@@ -158,7 +160,6 @@ export class Curry implements Curry {
 
   static replace: StaticReplace = _staticReplace
   static swap: StaticSwap = _staticSwap
-
   static text(el: Selector, text: string | number) {
     const instance = $(el)
     return _text.bind(instance)(text)

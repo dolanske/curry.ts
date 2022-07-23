@@ -1,19 +1,23 @@
-import { Curry } from ".."
+import { $, Curry } from ".."
 import { toEl } from "../util"
 
-export type Del = (this: Curry) => void
+export type Del = (this: Curry, selector?: string | string[]) => void
 
 /**
  *
- * @param this Curry instance
+ * @param this Currt instance
+ * @param selector Optionally filter nodes to remove
  */
 
-// TODO add selector
-
-export const _del: Del = function (this) {
+export const _del: Del = function (this, selector) {
   this.queue(() => {
-    this.nodes.forEach((node: Node) => {
+    this.nodes.forEach((node) => {
       const el = toEl(node)
+
+      if (selector && !$(el).is(selector)) {
+        return
+      }
+
       el.remove()
     })
   })
