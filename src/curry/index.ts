@@ -40,6 +40,8 @@ import {
 } from "./modules/replace"
 import { _swap, Swap, _staticSwap, StaticSwap } from "./modules/swap"
 import { _nthChild, NthChild } from "./modules/nthChild"
+import { _add, Add } from "./modules/add"
+import { _addChild } from "./modules/addChild"
 
 export interface Curry {
   nodes: Node[]
@@ -59,6 +61,7 @@ export interface Curry {
   hide: Visibility
   setAttr: SetAttr
   getAttr: GetAttr
+  addChild: Add
   parent: Parent
   filter: Filter
   click: Click
@@ -72,6 +75,7 @@ export interface Curry {
   last: Last
   each: Each
   text: Text
+  add: Add
   odd: Odd
   css: CSS
   del: Del
@@ -129,6 +133,7 @@ export class Curry implements Curry {
   hasClass = _hasClass.bind(this)
   teleport = _teleport.bind(this)
   nthChild = _nthChild.bind(this)
+  addChild = _addChild.bind(this)
   setAttr = _setAttr.bind(this)
   getAttr = _getAttr.bind(this)
   replace = _replace.bind(this)
@@ -148,6 +153,7 @@ export class Curry implements Curry {
   even = _even.bind(this)
   next = _next.bind(this)
   prev = _prev.bind(this)
+  add = _add.bind(this)
   del = _del.bind(this)
   odd = _odd.bind(this)
   get = _get.bind(this) as Get

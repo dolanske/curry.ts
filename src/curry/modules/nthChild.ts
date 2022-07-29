@@ -15,14 +15,22 @@ export const _nthChild: NthChild = function (this, index, callback) {
 
         Promise.all(
           this.nodes.map(async (node) => {
-            const el = await $(node).children().nth(index).get()
+            const _el = await $(node).children().nth(index).get()
 
-            if (el) {
-              collected.push(...(Array.isArray(el) ? el : [el]))
+            if (_el) {
+              const el: Element[] = Array.isArray(_el) ? _el : [_el]
+              collected.push(...el)
 
               if (callback) {
-                //FIXME: Execute callback for each child
-                callback.apply(el, [{ self: el, instance: this }])
+                el.map((oneEl, i) =>
+                  callback.apply(oneEl, [
+                    {
+                      self: oneEl,
+                      instance: this,
+                      index: Array.isArray(index) ? index[i] : index
+                    }
+                  ])
+                )
               }
             }
           })

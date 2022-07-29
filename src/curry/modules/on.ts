@@ -18,6 +18,8 @@ export type On = (
  * @returns Curry instance for optional chaining
  */
 
+// TODO: Add custom events
+
 export const _on: On = function (this, eventName, callback, options) {
   this.queue(() => {
     this.nodes.forEach((node: Node) => {

@@ -38,8 +38,8 @@ export type PrevNextCallback = (
 
 export type ValueOf<T> = T[keyof T]
 
-export type VNode = {
-  tag: string
-  props: DynamicObject
-  children: VNode[] | string | string[]
-}
+// export type VNode = {
+//   tag: string
+//   props: DynamicObject
+//   children: VNode[] | string | string[]
+// }
