@@ -45,9 +45,21 @@ export const _add: Add = function (this, node, location = "append") {
   return this
 }
 
-// TODO: Add $.append and $.prepend shorthands
+/**
+ * Shorthands for $.add()
+ *
+ * $.add('<element>', 'prepend')
+ * $.add('<element>', 'append')
+ */
 
-// export const _prepend: Add = function (this, node, location = "prepend") {
-//   _add.call(this, [node, location])
-//   return this
-// }
+export type AddShorthand = (this: Curry, node: NewNode) => Curry
+
+export const _prepend: AddShorthand = function (this, node) {
+  _add.call(this, node, "prepend")
+  return this
+}
+
+export const _append: AddShorthand = function (this, node) {
+  _add.call(this, node, "append")
+  return this
+}

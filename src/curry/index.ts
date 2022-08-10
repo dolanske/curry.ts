@@ -40,8 +40,8 @@ import {
 } from "./modules/replace"
 import { _swap, Swap, _staticSwap, StaticSwap } from "./modules/swap"
 import { _nthChild, NthChild } from "./modules/nthChild"
-import { _add, Add } from "./modules/add"
-import { _addChild } from "./modules/addChild"
+import { _add, Add, _prepend, _append, AddShorthand } from "./modules/add"
+import { _addChild, _prependChild, _appendChild } from "./modules/addChild"
 
 export interface Curry {
   nodes: Node[]
@@ -50,6 +50,10 @@ export interface Curry {
   addClass: ClassManipulation
   delClass: ClassManipulation
   tglClass: ClassManipulation
+  prependChild: AddShorthand
+  appendChild: AddShorthand
+  prepend: AddShorthand
+  prened: AddShorthand
   hasClass: ClassCheck
   asyncEach: AsyncEach
   children: Children
@@ -125,6 +129,8 @@ export class Curry implements Curry {
   }
 
   /*----------  Chaining API  ----------*/
+  prependChild = _prependChild.bind(this)
+  appendChild = _appendChild.bind(this)
   asyncEach = _asyncEach.bind(this)
   addClass = _addClass.bind(this)
   delClass = _delClass.bind(this)
@@ -134,10 +140,12 @@ export class Curry implements Curry {
   teleport = _teleport.bind(this)
   nthChild = _nthChild.bind(this)
   addChild = _addChild.bind(this)
+  prepend = _prepend.bind(this)
   setAttr = _setAttr.bind(this)
   getAttr = _getAttr.bind(this)
   replace = _replace.bind(this)
   filter = _filter.bind(this)
+  append = _append.bind(this)
   toggle = _toggle.bind(this)
   parent = _parent.bind(this)
   click = _click.bind(this)

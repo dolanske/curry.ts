@@ -9,31 +9,61 @@ import { delay } from "../curry/util"
 describe("Creating elements adjacent to the selected element", () => {
   test("Append a new element next to the wrapper", async () => {
     const wrapper = document.createElement("div")
-    const h1 = document.createElement("span")
-    wrapper.appendChild(h1)
+    const base = document.createElement("span")
+    wrapper.appendChild(base)
 
-    $(h1).add(document.createElement("a"))
-    $(h1).add("<h2></h2>")
+    $(base).add(document.createElement("a"))
+    $(base).add("<h2></h2>")
 
     await delay(10)
 
-    expect(wrapper.children[0]).toStrictEqual(h1)
+    expect(wrapper.children[0]).toStrictEqual(base)
     expect(wrapper.children[1]).toBeInstanceOf(HTMLHeadingElement)
     expect(wrapper.children[2]).toBeInstanceOf(HTMLAnchorElement)
   })
 
   test("Preppend a new element before the wrapper", async () => {
     const wrapper = document.createElement("div")
-    const h1 = document.createElement("span")
-    wrapper.appendChild(h1)
+    const base = document.createElement("span")
+    wrapper.appendChild(base)
 
-    $(h1).add("<h2></h2>", "prepend")
-    $(h1).add(document.createElement("a"), "prepend")
+    $(base).add("<h2></h2>", "prepend")
+    $(base).add(document.createElement("a"), "prepend")
 
     await delay(10)
 
     expect(wrapper.children[0]).toBeInstanceOf(HTMLHeadingElement)
     expect(wrapper.children[1]).toBeInstanceOf(HTMLAnchorElement)
-    expect(wrapper.children[2]).toStrictEqual(h1)
+    expect(wrapper.children[2]).toStrictEqual(base)
+  })
+
+  test("Using $.prepend shorthand", async () => {
+    const wrapper = document.createElement("div")
+    const base = document.createElement("span")
+    wrapper.appendChild(base)
+
+    $(base).prepend("<h2></h2>")
+    $(base).prepend(document.createElement("a"))
+
+    await delay(10)
+
+    expect(wrapper.children[0]).toBeInstanceOf(HTMLHeadingElement)
+    expect(wrapper.children[1]).toBeInstanceOf(HTMLAnchorElement)
+    expect(wrapper.children[2]).toStrictEqual(base)
+  })
+
+  test("sing $.append shorthand", async () => {
+    const wrapper = document.createElement("div")
+    const base = document.createElement("span")
+    wrapper.appendChild(base)
+
+    $(base).append(document.createElement("a"))
+    $(base).append("<h2></h2>")
+
+    await delay(10)
+
+    expect(wrapper.children[0]).toStrictEqual(base)
+    expect(wrapper.children[1]).toBeInstanceOf(HTMLHeadingElement)
+    expect(wrapper.children[2]).toBeInstanceOf(HTMLAnchorElement)
   })
 })
