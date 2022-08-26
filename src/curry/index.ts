@@ -42,6 +42,8 @@ import { _swap, Swap, _staticSwap, StaticSwap } from "./modules/swap"
 import { _nthChild, NthChild } from "./modules/nthChild"
 import { _add, Add, _prepend, _append, AddShorthand } from "./modules/add"
 import { _addChild, _prependChild, _appendChild } from "./modules/addChild"
+// import { _key, Key } from "./modules/_key"
+// import { keyCodes, KeyCodes } from "./keycodes"
 
 export interface Curry {
   nodes: Node[]
@@ -85,6 +87,7 @@ export interface Curry {
   del: Del
   get: Get
   nth: Nth
+  // key: Key
   is: Is
   on: On
 }
@@ -116,16 +119,6 @@ export class Curry implements Curry {
     })()
 
     this.taskQueue = Promise.resolve()
-  }
-
-  /**
-   * Functions which return Curry instance can be queued to be asyncronously executed.
-   *
-   *
-   */
-
-  async queue<T = void>(fn: () => T) {
-    return await (this.taskQueue = this.taskQueue.then(fn))
   }
 
   /*----------  Chaining API  ----------*/
@@ -167,8 +160,23 @@ export class Curry implements Curry {
   get = _get.bind(this) as Get
   css = _css.bind(this)
   nth = _nth.bind(this)
+  // key = {
+  //   down: _key.down.bind(this),
+  //   up: _key.up.bind(this),
+  //   press: _key.press.bind(this)
+  // }
   is = _is.bind(this)
   on = _on.bind(this)
+
+  /**
+   * Functions which return Curry instance can be queued to be asyncronously executed.
+   *
+   *
+   */
+
+  async queue<T = void>(fn: () => T) {
+    return await (this.taskQueue = this.taskQueue.then(fn))
+  }
 
   /*----------  Static API  ----------*/
 

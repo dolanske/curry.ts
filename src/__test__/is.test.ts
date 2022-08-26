@@ -3,7 +3,7 @@
  */
 
 import { describe, expect, test } from "vitest"
-import { $, Curry } from "../curry/index"
+import { $ } from "../curry/index"
 // TODO: rewrite after function refactor
 
 describe("Conditional element matching", () => {

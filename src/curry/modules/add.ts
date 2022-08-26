@@ -1,6 +1,6 @@
 // append
 
-import { $, Curry } from ".."
+import { Curry } from ".."
 import { isArray, toEl } from "../util"
 
 type NewNode = Element | string | Node | Array<Element | string | Node>

@@ -1,5 +1,2 @@
-import { $, Curry } from "./curry"
-
-$("button").click(function () {
-  $(this).append(`<span>NEW CHILD</span>`)
-})
+import { Curry } from "./curry"
+export { Curry }

@@ -1,4 +1,4 @@
-import { $, Curry } from ".."
+import { Curry } from ".."
 import { isArray, toEl } from "../util"
 
 export type Is = (

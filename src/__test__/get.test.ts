@@ -4,7 +4,6 @@
 
 import { expect, test } from "vitest"
 import { $ } from "../curry/index"
-import { delay } from "../curry/util"
 
 test("Return nodes from current chain", async () => {
   const div = document.createElement("div")

@@ -4,7 +4,6 @@
 
 import { describe, expect, test } from "vitest"
 import { $, Curry } from "../curry/index"
-import { delay } from "../curry/util"
 
 describe("Filter element selection", () => {
   // Prepare DOM stuff
