@@ -1,76 +1,64 @@
-// // functions related to keypress events
+// functions related to keypress events
 
-// import { Curry } from ".."
-// import { EventCallback } from "../types"
-// import { KeyCodes } from "../keycodes"
-// import { _on } from "./on"
-// import { isArray } from "../util"
+import { Curry } from ".."
+import { EventCallback } from "../types"
+import { KeyCodes } from "../keycodes"
+import { _on } from "./on"
+import { isArray } from "../util"
 
-// // export type KeyboardEvents = {
-// //   down: (this: Curry, callback: EventCallback) => void
-// //   up: (this: Curry, callback: EventCallback) => void
-// //   press: (this: Curry, callback: EventCallback) => void
-// // }
+type KeyboardEvents = "keydown" | "keyup" | "keypress"
 
-// // export type Key = {
-// //   [key in keyof KeyCodes]: KeyboardEvents
-// // }
+type KeyboardKeys = keyof KeyCodes | KeyCodes[keyof KeyCodes]
 
-// type KeyboardEvents = "keydown" | "keyup" | "keypress"
+export interface Key {
+  down: (this: Curry, keys: KeyboardKeys, callback?: EventCallback) => void
+  up: (this: Curry, keys: KeyboardKeys, callback?: EventCallback) => void
+  press: (this: Curry, keys: KeyboardKeys, callback?: EventCallback) => void
+}
 
-// type KeyboardKeys = keyof KeyCodes | KeyCodes[keyof KeyCodes]
+export const _key: Key = {
+  down(this, keys, callback) {
+    if (callback) handle.call(this, "keydown", keys, callback)
+  },
+  up(keys, callback) {
+    if (callback) handle.call(this, "keyup", keys, callback)
+  },
+  press(keys, callback) {
+    if (callback) handle.call(this, "keypress", keys, callback)
+  }
+}
 
-// export interface Key {
-//   down: (this: Curry, keys: KeyboardKeys, callback?: EventCallback) => void
-//   up: (this: Curry, keys: KeyboardKeys, callback?: EventCallback) => void
-//   press: (this: Curry, keys: KeyboardKeys, callback?: EventCallback) => void
-// }
 
-// export const _key: Key = {
-//   down(keys, callback) {
-//     if (callback) handle.call(this, "keydown", keys, callback)
-//   },
-//   up(keys, callback) {
-//     if (callback) handle.call(this, "keyup", keys, callback)
-//   },
-//   press(keys, callback) {
-//     if (callback) handle.call(this, "keypress", keys, callback)
-//   }
-// }
+class History {
+  this.items = []
 
-// function handle(
-//   this: Curry,
-//   type: KeyboardEvents,
-//   keys: KeyboardKeys,
-//   callback: EventCallback
-// ) {
-//   // console.log(this)
+  
+}
 
-//   if (isArray(keys)) {
-//     // keys = keys.map((key) => key.toLowerCase())
-//   }
+function handle(
+  this: Curry,
+  type: KeyboardEvents,
+  keys: KeyboardKeys,
+  callback: EventCallback
+) {
+  const history: string[] = []
 
-//   // const pressed: KeyboardKeys[] = []
+  function setHistory(value: string) {
+    history.push(value)
+  
+    if (history.length > 10) {
+      history.shift()
+    }
+  }
 
-//   _on.call(this, type, (event: KeyboardEventInit) => {
-//     console.log(event)
-//     callback()
+  this.nodes.forEach((node) => {
+    node.addEventListener(type, (event: any) => {
+      // I dont fucking know ok
+      event = event as KeyboardEvent
 
-//     // const key: keyof KeyboardKeys = event.code?.toLowerCase()
-//     // pressed.push(key)
-//     // const keyCode = event.which
-//   })
+      console.log(event.key)
 
-//   // this.nodes.forEach((node: Node) =>{
-//   //   node.addEventListener(type, (e) => {
-
-//   //   }
-//   // })
-
-//   // $(this.nodes).on(type, function (event : KeyboardEvent) {
-//   //   // TODO: support for keyCodes, not just key
-
-//   //   pressed.push(event.keyCode)
-//   //   console.log(event)
-//   // })
-// }
+      // if ()
+    })
+  })
+}
