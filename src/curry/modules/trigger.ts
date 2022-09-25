@@ -13,7 +13,9 @@ export type Trigger = (this: Curry, eventName: string, payload?: any) => Curry
 export const _trigger: Trigger = function (this, eventName, payload = {}) {
   this.queue(() => {
     this.nodes.map((node) => {
-      const event = new CustomEvent(eventName, { detail: payload })
+      const event = new CustomEvent<typeof payload>(eventName, {
+        detail: payload
+      })
       node.dispatchEvent(event)
     })
   })

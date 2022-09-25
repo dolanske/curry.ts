@@ -42,7 +42,8 @@ import { _swap, Swap, _staticSwap, StaticSwap } from "./modules/swap"
 import { _nthChild, NthChild } from "./modules/nthChild"
 import { _add, Add, _prepend, _append, AddShorthand } from "./modules/add"
 import { _addChild, _prependChild, _appendChild } from "./modules/addChild"
-import { _key, Key } from "./modules/_key"
+import { Key } from "./modules/_key"
+import { _trigger, Trigger } from "./modules/trigger"
 // import { keyCodes, KeyCodes } from "./keycodes"
 
 export interface Curry {
@@ -63,6 +64,7 @@ export interface Curry {
   toggle: Visibility
   nthChild: NthChild
   replace: Replace
+  trigger: Trigger
   show: Visibility
   hide: Visibility
   setAttr: SetAttr
@@ -137,6 +139,7 @@ export class Curry implements Curry {
   setAttr = _setAttr.bind(this)
   getAttr = _getAttr.bind(this)
   replace = _replace.bind(this)
+  trigger = _trigger.bind(this)
   filter = _filter.bind(this)
   append = _append.bind(this)
   toggle = _toggle.bind(this)
@@ -160,11 +163,7 @@ export class Curry implements Curry {
   get = _get.bind(this) as Get
   css = _css.bind(this)
   nth = _nth.bind(this)
-  key = {
-    down: _key.down.bind(this),
-    up: _key.up.bind(this),
-    press: _key.press.bind(this)
-  }
+  key = new Key(this)
   is = _is.bind(this)
   on = _on.bind(this)
 

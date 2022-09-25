@@ -1,64 +1,69 @@
 // functions related to keypress events
 
-import { Curry } from ".."
-import { EventCallback } from "../types"
-import { KeyCodes } from "../keycodes"
+import { $, Curry } from ".."
+import { KeyboardeventCallback } from "../types"
 import { _on } from "./on"
-import { isArray } from "../util"
+import { delay, isArray, toEl } from "../util"
+import { KeyboardEventKey } from "../keycodes"
 
 type KeyboardEvents = "keydown" | "keyup" | "keypress"
+type Keys = KeyboardEventKey | KeyboardEventKey[]
 
-type KeyboardKeys = keyof KeyCodes | KeyCodes[keyof KeyCodes]
+export class Key {
+  curryInstance: Curry
 
-export interface Key {
-  down: (this: Curry, keys: KeyboardKeys, callback?: EventCallback) => void
-  up: (this: Curry, keys: KeyboardKeys, callback?: EventCallback) => void
-  press: (this: Curry, keys: KeyboardKeys, callback?: EventCallback) => void
-}
+  constructor(curry: Curry) {
+    this.curryInstance = curry
+  }
 
-export const _key: Key = {
-  down(this, keys, callback) {
-    if (callback) handle.call(this, "keydown", keys, callback)
-  },
-  up(keys, callback) {
-    if (callback) handle.call(this, "keyup", keys, callback)
-  },
-  press(keys, callback) {
-    if (callback) handle.call(this, "keypress", keys, callback)
+  down(keys: Keys, callback: KeyboardeventCallback) {
+    handle.call(this.curryInstance, "keydown", keys, callback)
+  }
+
+  up(keys: Keys, callback: KeyboardeventCallback) {
+    handle.call(this.curryInstance, "keyup", keys, callback)
+  }
+
+  press(keys: Keys, callback: KeyboardeventCallback) {
+    handle.call(this.curryInstance, "keypress", keys, callback)
   }
 }
 
-
 class History {
-  this.items = []
+  items: KeyboardEventKey[] = []
 
-  
+  add(item: KeyboardEventKey) {
+    this.items.push(item)
+
+    if (this.items.length > 10) {
+      this.items.shift()
+    }
+  }
+
+  pressing(keys: KeyboardEventKey[]) {
+    return keys.every(
+      (key, index) => this.items.at(keys.length - index + 1 * -1) == key
+    )
+  }
 }
 
 function handle(
   this: Curry,
   type: KeyboardEvents,
-  keys: KeyboardKeys,
-  callback: EventCallback
+  keys: Keys,
+  callback: KeyboardeventCallback
 ) {
-  const history: string[] = []
-
-  function setHistory(value: string) {
-    history.push(value)
-  
-    if (history.length > 10) {
-      history.shift()
-    }
-  }
+  const history = new History()
+  const formatKeys: KeyboardEventKey[] = Array.isArray(keys) ? keys : [keys]
 
   this.nodes.forEach((node) => {
-    node.addEventListener(type, (event: any) => {
-      // I dont fucking know ok
-      event = event as KeyboardEvent
+    $(node).on(type, (event: any) => {
+      event = event as KeyboardEvent // I dont fucking know ok
+      history.add(event.code)
 
-      console.log(event.key)
-
-      // if ()
+      if (history.pressing(formatKeys)) {
+        callback.apply(toEl(node), [event, this])
+      }
     })
   })
 }

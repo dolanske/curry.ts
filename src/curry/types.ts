@@ -9,9 +9,19 @@ export type GenericCallback = (
   }
 ) => void
 
+interface CustomEventProperty extends Event {
+  detail?: any
+}
+
 export type EventCallback = (
   this: Element,
-  event: Event,
+  event: CustomEventProperty,
+  instance: Curry
+) => void
+
+export type KeyboardeventCallback = (
+  this: Element,
+  event: KeyboardEvent,
   instance: Curry
 ) => void
 
@@ -37,9 +47,3 @@ export type PrevNextCallback = (
 ) => void
 
 export type ValueOf<T> = T[keyof T]
-
-// export type VNode = {
-//   tag: string
-//   props: DynamicObject
-//   children: VNode[] | string | string[]
-// }
