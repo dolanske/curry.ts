@@ -3,7 +3,7 @@
 import { $, Curry } from ".."
 import { KeyboardeventCallback } from "../types"
 import { _on } from "./on"
-import { delay, isArray, toEl } from "../util"
+import { toEl } from "../util"
 import { KeyboardEventKey } from "../keycodes"
 
 type KeyboardEvents = "keydown" | "keyup" | "keypress"
