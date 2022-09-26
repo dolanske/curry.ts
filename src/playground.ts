@@ -1,3 +1,5 @@
 import { $ } from "./curry"
 
-$("input").key.down("a", () => {})
+$("input").key.down(["Control", "c"], () => {
+  console.log("CORRECT")
+})
