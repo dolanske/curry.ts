@@ -44,7 +44,6 @@ import { _add, Add, _prepend, _append, AddShorthand } from "./modules/add"
 import { _addChild, _prependChild, _appendChild } from "./modules/addChild"
 import { Key } from "./modules/key"
 import { _trigger, Trigger } from "./modules/trigger"
-// import { keyCodes, KeyCodes } from "./keycodes"
 
 export interface Curry {
   nodes: Node[]
@@ -115,7 +114,7 @@ export class Curry implements Curry {
 
       if (selector instanceof Node) return [selector]
 
-      if (selector instanceof Curry) return this.nodes
+      if (selector instanceof Curry) return selector.nodes
 
       return selector
     })()
