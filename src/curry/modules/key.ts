@@ -26,9 +26,9 @@ export class Key {
    * @param keys Key or an array of keys (use capital letters for functional keys)
    * @param callback  Executed when the key(s) is/are pressed in the exact order
    */
-
+  /* c8 ignore next 3 */
   down(keys: Keys, callback: KeyboardeventCallback) {
-    handle.call(this.curryInstance, "keydown", keys, callback)
+    handleKeyPress.call(this.curryInstance, "keydown", keys, callback)
   }
 
   /**
@@ -38,8 +38,9 @@ export class Key {
    * @param callback  Executed when the key(s) is/are pressed in the exact order
    */
 
+  /* c8 ignore next 3 */
   up(keys: Keys, callback: KeyboardeventCallback) {
-    handle.call(this.curryInstance, "keyup", keys, callback)
+    handleKeyPress.call(this.curryInstance, "keyup", keys, callback)
   }
 
   /**
@@ -49,12 +50,13 @@ export class Key {
    * @param callback  Executed when the key(s) is/are pressed in the exact order
    */
 
+  /* c8 ignore next 3 */
   press(keys: Keys, callback: KeyboardeventCallback) {
-    handle.call(this.curryInstance, "keypress", keys, callback)
+    handleKeyPress.call(this.curryInstance, "keypress", keys, callback)
   }
 }
 
-class History {
+export class History {
   registry: KeyboardEventKey[] = []
   max = 0
 
@@ -88,7 +90,7 @@ class History {
   }
 }
 
-function handle(
+export function handleKeyPress(
   this: Curry,
   type: KeyboardEvents,
   keys: Keys,

@@ -42,7 +42,7 @@ import { _swap, Swap, _staticSwap, StaticSwap } from "./modules/swap"
 import { _nthChild, NthChild } from "./modules/nthChild"
 import { _add, Add, _prepend, _append, AddShorthand } from "./modules/add"
 import { _addChild, _prependChild, _appendChild } from "./modules/addChild"
-import { Key } from "./modules/_key"
+import { Key } from "./modules/key"
 import { _trigger, Trigger } from "./modules/trigger"
 // import { keyCodes, KeyCodes } from "./keycodes"
 
