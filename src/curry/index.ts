@@ -44,6 +44,7 @@ import { _add, Add, _prepend, _append, AddShorthand } from "./modules/add"
 import { _addChild, _prependChild, _appendChild } from "./modules/addChild"
 import { Key } from "./modules/key"
 import { _trigger, Trigger } from "./modules/trigger"
+import { _animate, Animate } from "./modules/animate"
 
 export interface Curry {
   nodes: Node[]
@@ -62,6 +63,7 @@ export interface Curry {
   teleport: Teleport
   toggle: Visibility
   nthChild: NthChild
+  animate: Animate
   replace: Replace
   trigger: Trigger
   show: Visibility
@@ -139,6 +141,7 @@ export class Curry implements Curry {
   getAttr = _getAttr.bind(this)
   replace = _replace.bind(this)
   trigger = _trigger.bind(this)
+  animate = _animate.bind(this)
   filter = _filter.bind(this)
   append = _append.bind(this)
   toggle = _toggle.bind(this)
