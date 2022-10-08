@@ -1,6 +1,6 @@
-import { Curry } from ".."
-import { IteratorCallback } from "../types"
-import { toEl } from "../util"
+import type { Curry } from '..'
+import type { IteratorCallback } from '../types'
+import { toEl } from '../util'
 
 export type Even = (this: Curry, callback?: IteratorCallback) => Curry
 
@@ -14,8 +14,8 @@ export const _even: Even = function (this, callback) {
           {
             instance: this,
             self: toEl(node),
-            index
-          }
+            index,
+          },
         ])
       })
     }

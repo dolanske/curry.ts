@@ -1,6 +1,6 @@
-import { Curry } from ".."
-import { toEl } from "../util"
-import { _is } from "./is"
+import type { Curry } from '..'
+import { toEl } from '../util'
+import { _is } from './is'
 
 export type ClassManipulation = (
   this: Curry,
@@ -10,7 +10,7 @@ export type ClassManipulation = (
 export type ClassCheck = (
   this: Curry,
   className: string | string[],
-  applyTo?: "some" | "every" | "none"
+  applyTo?: 'some' | 'every' | 'none'
 ) => boolean
 
 /**
@@ -24,7 +24,7 @@ export const _addClass: ClassManipulation = function (this, className) {
   this.queue(() => {
     this.nodes.forEach((node: Node) => {
       const el = toEl(node)
-      className = typeof className === "string" ? [className] : className
+      className = typeof className === 'string' ? [className] : className
       el.classList.add(...className)
     })
   })
@@ -42,7 +42,7 @@ export const _delClass: ClassManipulation = function (this, className) {
   this.queue(() => {
     this.nodes.forEach((node: Node) => {
       const el = toEl(node)
-      className = typeof className === "string" ? [className] : className
+      className = typeof className === 'string' ? [className] : className
       el.classList.remove(...className)
     })
   })
@@ -60,7 +60,7 @@ export const _tglClass: ClassManipulation = function (this, className) {
   this.queue(() => {
     this.nodes.forEach((node: Node) => {
       const el = toEl(node)
-      className = typeof className === "string" ? [className] : className
+      className = typeof className === 'string' ? [className] : className
 
       className.map((cls: string) => {
         el.classList.toggle(cls)
@@ -81,11 +81,11 @@ export const _tglClass: ClassManipulation = function (this, className) {
 export const _hasClass: ClassCheck = function (
   this,
   className,
-  applyTo = "every"
+  applyTo = 'every',
 ) {
   const results: boolean[] = []
-  const modelled: string[] =
-    typeof className === "string" ? [className] : className
+  const modelled: string[]
+    = typeof className === 'string' ? [className] : className
 
   this.nodes.forEach((node: Node) => {
     const el = toEl(node)
@@ -93,14 +93,14 @@ export const _hasClass: ClassCheck = function (
   })
 
   switch (applyTo) {
-    case "some": {
-      return results.some((r) => r)
+    case 'some': {
+      return results.some(r => r)
     }
-    case "every": {
-      return results.every((r) => r)
+    case 'every': {
+      return results.every(r => r)
     }
-    case "none": {
-      return !results.some((r) => r)
+    case 'none': {
+      return !results.some(r => r)
     }
   }
 }

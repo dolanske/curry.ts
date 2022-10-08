@@ -1,5 +1,6 @@
-import { $, Curry } from ".."
-import { toEl } from "../util"
+import type { Curry } from '..'
+import { $ } from '..'
+import { toEl } from '../util'
 
 export type Children = (this: Curry, selector?: string) => Curry
 
@@ -22,11 +23,11 @@ export const _children: Children = function (this, selector) {
           node.childNodes.forEach((_child) => {
             const child = toEl(_child)
 
-            if ($(child).is(selector)) {
+            if ($(child).is(selector))
               children.push(child)
-            }
           })
-        } else {
+        }
+        else {
           children.push(...Array.from(node.children))
         }
       }

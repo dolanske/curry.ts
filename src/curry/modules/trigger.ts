@@ -1,4 +1,4 @@
-import { Curry } from ".."
+import type { Curry } from '..'
 
 export type Trigger = (this: Curry, eventName: string, payload?: any) => Curry
 
@@ -14,7 +14,7 @@ export const _trigger: Trigger = function (this, eventName, payload = {}) {
   this.queue(() => {
     this.nodes.map((node) => {
       const event = new CustomEvent<typeof payload>(eventName, {
-        detail: payload
+        detail: payload,
       })
       node.dispatchEvent(event)
     })

@@ -1,6 +1,6 @@
-import { Curry } from ".."
-import { toEl } from "../util"
-import { EventCallback } from "../types"
+import type { Curry } from '..'
+import { toEl } from '../util'
+import type { EventCallback } from '../types'
 
 export type On = (
   this: Curry,
@@ -25,8 +25,8 @@ export const _on: On = function (this, eventName, callback, options) {
     this.nodes.forEach((node: Node) => {
       node.addEventListener(
         eventName,
-        (event) => callback.apply(toEl(node), [event, this]),
-        options
+        event => callback.apply(toEl(node), [event, this]),
+        options,
       )
     })
   })

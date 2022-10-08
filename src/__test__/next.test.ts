@@ -2,18 +2,18 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from "vitest"
-import { $ } from "../curry/index"
+import { expect, test } from 'vitest'
+import { $ } from '../curry/index'
 
-test("Selects the next node $.next()", async () => {
+test('Selects the next node $.next()', async () => {
   // Prepare some DOM elements
-  const div = document.createElement("div")
-  const first = document.createElement("span")
-  const second = document.createElement("span")
-  const third = document.createElement("span")
-  first.id = "first"
-  second.id = "second"
-  third.id = "third"
+  const div = document.createElement('div')
+  const first = document.createElement('span')
+  const second = document.createElement('span')
+  const third = document.createElement('span')
+  first.id = 'first'
+  second.id = 'second'
+  third.id = 'third'
   div.appendChild(first)
   div.appendChild(second)
   div.appendChild(third)

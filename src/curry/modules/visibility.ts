@@ -1,5 +1,6 @@
-import { $, Curry } from ".."
-import { toEl } from "../util"
+import type { Curry } from '..'
+import { $ } from '..'
+import { toEl } from '../util'
 
 export type Visibility = (this: Curry) => Curry
 
@@ -8,9 +9,8 @@ export const _show: Visibility = function () {
     for (const _node of this.nodes) {
       const node = toEl<HTMLElement>(_node)
 
-      if (node && node.style) {
-        node.style.removeProperty("display")
-      }
+      if (node && node.style)
+        node.style.removeProperty('display')
     }
   })
 
@@ -22,9 +22,8 @@ export const _hide: Visibility = function () {
     for (const _node of this.nodes) {
       const node = toEl<HTMLElement>(_node)
 
-      if (node && node.style) {
-        node.style.display = "none"
-      }
+      if (node && node.style)
+        node.style.display = 'none'
     }
   })
 
@@ -36,11 +35,10 @@ export const _toggle: Visibility = function () {
     for (const _node of this.nodes) {
       const node = toEl<HTMLElement>(_node)
 
-      if (node.style.display === "none") {
+      if (node.style.display === 'none')
         $(node).show()
-      } else {
+      else
         $(node).hide()
-      }
     }
   })
 

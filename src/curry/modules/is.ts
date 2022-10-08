@@ -1,10 +1,10 @@
-import { Curry } from ".."
-import { isArray, toEl } from "../util"
+import type { Curry } from '..'
+import { isArray, toEl } from '../util'
 
 export type Is = (
   this: Curry,
   condition: string | string[],
-  applyTo?: "some" | "every" | "none"
+  applyTo?: 'some' | 'every' | 'none'
 ) => boolean
 
 /**
@@ -25,36 +25,35 @@ export type Is = (
 // $.is(["#id", ".class"], "some")
 // NOTE: this means at least one of the conditions applies ot the FIRST element in the selected list
 
-//$.are(["#id", ".class"])
+// $.are(["#id", ".class"])
 // NOTE: returns true if every matched element matches the condition
 
 // $.none(["#id", ".class"])
 // Returns true if none of the matched elements match the condition
 
-export const _is: Is = function (condition, applyTo = "some") {
-  let results: boolean[] = []
+export const _is: Is = function (condition, applyTo = 'some') {
+  const results: boolean[] = []
 
   this.nodes.forEach((_node: Node) => {
     const el = toEl(_node)
 
-    if (isArray(condition)) {
+    if (isArray(condition))
       results.push(condition.every((c: string) => el.matches(c)))
-    } else if (el.matches && el.matches(condition)) {
+    else if (el.matches && el.matches(condition))
       results.push(true)
-    } else {
+    else
       results.push(false)
-    }
   })
 
   switch (applyTo) {
-    case "some": {
-      return results.some((r) => r)
+    case 'some': {
+      return results.some(r => r)
     }
-    case "every": {
-      return results.every((r) => r)
+    case 'every': {
+      return results.every(r => r)
     }
-    case "none": {
-      return !results.some((r) => r)
+    case 'none': {
+      return !results.some(r => r)
     }
   }
 }

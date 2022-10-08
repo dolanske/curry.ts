@@ -1,9 +1,9 @@
-import { Curry } from ".."
+import type { Curry } from '..'
 
 export type Text = (
   this: Curry,
   text: string | number,
-  location?: "prepend" | "append"
+  location?: 'prepend' | 'append'
 ) => Curry
 
 /**
@@ -19,11 +19,11 @@ export const _text: Text = function (this, text, location) {
     this.nodes.forEach((node: Node) => {
       if (text) {
         switch (location) {
-          case "prepend": {
+          case 'prepend': {
             node.textContent = String(text) + node.textContent
             break
           }
-          case "append": {
+          case 'append': {
             node.textContent = node.textContent + String(text)
             break
           }

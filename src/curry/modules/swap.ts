@@ -1,7 +1,8 @@
 // Swaps positions of two matched elements
 
-import { $, Curry } from ".."
-import { toEl } from "../util"
+import type { Curry } from '..'
+import { $ } from '..'
+import { toEl } from '../util'
 
 export type Swap = (
   this: Curry,
@@ -22,15 +23,17 @@ export type StaticSwap = (
 ) => void
 
 export const _staticSwap: StaticSwap = function (target, el) {
-  if (typeof target === "string") {
+  if (typeof target === 'string') {
     const _target = document.querySelector(target)
-    if (!_target) return
+    if (!_target)
+      return
     target = _target
   }
 
-  if (typeof el === "string") {
+  if (typeof el === 'string') {
     const _el = document.querySelector(el)
-    if (!_el) return
+    if (!_el)
+      return
     el = _el
   }
 

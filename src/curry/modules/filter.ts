@@ -1,11 +1,12 @@
-import { $, Curry } from ".."
-import { toEl, isArray } from "../util"
-import { IteratorCallback } from "../types"
+import type { Curry } from '..'
+import { $ } from '..'
+import { isArray, toEl } from '../util'
+import type { IteratorCallback } from '../types'
 
 export type Filter = (
   this: Curry,
   condition: string | string[] | IteratorCallback<boolean>,
-  applyTo?: "some" | "every" | "none"
+  applyTo?: 'some' | 'every' | 'none'
 ) => Curry
 
 /**
@@ -25,27 +26,34 @@ export const _filter: Filter = function (this, condition, applyTo) {
 
       if (isArray(condition)) {
         switch (applyTo) {
-          case "every": {
-            if (condition.every((c) => node.matches(c))) matches.push(node)
+          case 'every': {
+            if (condition.every(c => node.matches(c)))
+              matches.push(node)
             break
           }
-          case "none": {
-            if (!condition.some((c) => node.matches(c))) matches.push(node)
+          case 'none': {
+            if (!condition.some(c => node.matches(c)))
+              matches.push(node)
             break
           }
           default:
-          case "some": {
-            if (condition.some((c) => node.matches(c))) matches.push(node)
+          case 'some': {
+            if (condition.some(c => node.matches(c)))
+              matches.push(node)
           }
         }
-      } else if (typeof condition === "string") {
-        if ($(node).is(condition)) matches.push(node)
-      } else {
+      }
+      else if (typeof condition === 'string') {
+        if ($(node).is(condition))
+          matches.push(node)
+      }
+      else {
         const result = condition.apply(node, [
-          { instance: this, self: node, index }
+          { instance: this, self: node, index },
         ])
 
-        if (result) matches.push(node)
+        if (result)
+          matches.push(node)
       }
     })
 

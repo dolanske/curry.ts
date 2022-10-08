@@ -1,5 +1,6 @@
-import { $ } from "./curry"
+import { $, Curry } from './curry'
 
-$("#btn").click(() => {
-  $("#rect").animate([{ transform: "translateX(200px)" }])
+$('#btn').click(() => {
+  // $('#wrap').fullscreen()
+  Curry.fullscreen('#wrap')
 })

@@ -1,9 +1,12 @@
-import { $, Curry } from ".."
-import type { Properties } from "csstype"
-import { isArray, toEl } from "../util"
+import type { Properties } from 'csstype'
+import type { Curry } from '..'
+import { $ } from '..'
+import { isArray, toEl } from '../util'
 
 // TODO: Animator as a method which exposes all the WebAnimations API methods (destructure the entire animation class?)
 // TODO: Add tests
+
+// TODO: fix default option override if any option is used
 
 interface Options extends KeyframeAnimationOptions {
   // Callback to execute on animation completion
@@ -20,10 +23,10 @@ export type Animate = (
 ) => Curry
 
 const defaults: Options = {
-  easing: "linear",
+  easing: 'linear',
   duration: 300,
   iterations: 1,
-  keepStyle: false
+  keepStyle: false,
 }
 
 export const _animate: Animate = function (this, animator, options = defaults) {
@@ -56,14 +59,12 @@ export const _animate: Animate = function (this, animator, options = defaults) {
           }
         })
         .catch((e: ErrorEvent) => {
-          if (onError) {
+          if (onError)
             onError.call(animation, e)
-          }
         })
         .finally(() => {
-          if (onFinish) {
+          if (onFinish)
             onFinish(animation)
-          }
         })
     })
   })

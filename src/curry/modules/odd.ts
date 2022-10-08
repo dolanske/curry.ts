@@ -1,6 +1,6 @@
-import { Curry } from ".."
-import { IteratorCallback } from "../types"
-import { toEl } from "../util"
+import type { Curry } from '..'
+import type { IteratorCallback } from '../types'
+import { toEl } from '../util'
 
 export type Odd = (this: Curry, callback?: IteratorCallback) => Curry
 
@@ -21,8 +21,8 @@ export const _odd: Odd = function (this, callback) {
           {
             instance: this,
             self: toEl(node),
-            index
-          }
+            index,
+          },
         ])
       })
     }

@@ -1,5 +1,6 @@
-import { $, Curry } from ".."
-import { toEl } from "../util"
+import type { Curry } from '..'
+import { $ } from '..'
+import { toEl } from '../util'
 
 export type Del = (this: Curry, selector?: string | string[]) => void
 
@@ -14,9 +15,8 @@ export const _del: Del = function (this, selector) {
     this.nodes.forEach((node) => {
       const el = toEl(node)
 
-      if (selector && !$(el).is(selector)) {
+      if (selector && !$(el).is(selector))
         return
-      }
 
       el.remove()
     })

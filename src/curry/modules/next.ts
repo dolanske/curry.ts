@@ -1,6 +1,6 @@
-import { Curry } from ".."
-import { selectNTHSibling } from "../util"
-import { PrevNextCallback } from "../types"
+import type { Curry } from '..'
+import { selectNTHSibling } from '../util'
+import type { PrevNextCallback } from '../types'
 
 export type Next = (
   this: Curry,
@@ -17,5 +17,5 @@ export type Next = (
  */
 
 export const _next: Next = function (this, index, callback) {
-  return selectNTHSibling.apply(this, ["next", index, callback])
+  return selectNTHSibling.apply(this, ['next', index, callback])
 }

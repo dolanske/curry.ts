@@ -2,12 +2,12 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from "vitest"
-import { $, Curry } from "../curry/index"
-import { delay } from "../curry/util"
+import { expect, test } from 'vitest'
+import { $, Curry } from '../curry/index'
+import { delay } from '../curry/util'
 
-test("Click event listener with callback", async () => {
-  const btn = document.createElement("button")
+test('Click event listener with callback', async () => {
+  const btn = document.createElement('button')
   document.body.appendChild(btn)
 
   $(btn).click(function (event, instance) {

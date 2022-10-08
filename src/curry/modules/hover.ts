@@ -1,15 +1,16 @@
-import { $, Curry } from ".."
-import { EventCallback } from "../types"
-import { isFunction, toEl } from "../util"
+import type { Curry } from '..'
+import { $ } from '..'
+import type { EventCallback } from '../types'
+import { isFunction, toEl } from '../util'
 
 export type Hover = (
   this: Curry,
   states:
-    | {
-        enter: EventCallback
-        leave: EventCallback
-      }
-    | EventCallback,
+  | {
+    enter: EventCallback
+    leave: EventCallback
+  }
+  | EventCallback,
   options?: EventListenerOptions
 ) => Curry
 
@@ -29,17 +30,18 @@ export const _hover: Hover = function (this, states, options) {
       const node = toEl(_node)
 
       $(node).on(
-        "mouseenter",
-        (event) => enter.apply(node, [event, this]),
-        options
+        'mouseenter',
+        event => enter.apply(node, [event, this]),
+        options,
       )
       $(node).on(
-        "mouseleave",
-        (event) => leave.apply(node, [event, this]),
-        options
+        'mouseleave',
+        event => leave.apply(node, [event, this]),
+        options,
       )
     }
-  } else {
+  }
+  else {
     // Callback
     const cloned: Element[] = []
 
@@ -49,22 +51,21 @@ export const _hover: Hover = function (this, states, options) {
 
       // Apply styles like normal
       $(node).on(
-        "mouseenter",
-        (event) => states.apply(node, [event, this]),
-        options
+        'mouseenter',
+        event => states.apply(node, [event, this]),
+        options,
       )
 
       // Reset node
-      $(node).on("mouseleave", () => {
+      $(node).on('mouseleave', () => {
         const clone = cloned[index]
-        node.removeAttribute("style")
-        node.removeAttribute("class")
+        node.removeAttribute('style')
+        node.removeAttribute('class')
         node.innerHTML = clone.innerHTML
         // node.classList = clone.classList
 
-        for (const cls in clone.classList) {
+        for (const cls in clone.classList)
           node.classList.add(cls)
-        }
 
         const keepAttrs = []
         // Remove all attributes, save the ones from the clone
@@ -76,7 +77,8 @@ export const _hover: Hover = function (this, states, options) {
 
           node.removeAttribute(attr)
 
-          if ($(clone).getAttr(attr)) keepAttrs.push(attr)
+          if ($(clone).getAttr(attr))
+            keepAttrs.push(attr)
         }
 
         // Iterated over saved ones

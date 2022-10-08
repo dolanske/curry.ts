@@ -1,2 +1,1 @@
-import { Curry } from "./curry"
-export { Curry }
+export { Curry } from './curry'

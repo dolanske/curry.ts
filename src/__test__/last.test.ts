@@ -2,15 +2,15 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from "vitest"
-import { $, Curry } from "../curry/index"
+import { expect, test } from 'vitest'
+import { $, Curry } from '../curry/index'
 
-test("Return the last matched element using $.last()", async () => {
-  const div = document.createElement("div")
-  const span1 = document.createElement("span")
-  const span2 = document.createElement("span")
-  span1.id = "first"
-  span2.id = "second"
+test('Return the last matched element using $.last()', async () => {
+  const div = document.createElement('div')
+  const span1 = document.createElement('span')
+  const span2 = document.createElement('span')
+  span1.id = 'first'
+  span2.id = 'second'
   div.appendChild(span1)
   div.appendChild(span2)
 
@@ -18,12 +18,12 @@ test("Return the last matched element using $.last()", async () => {
   expect(shouldBeLast).toStrictEqual(span2)
 })
 
-test("Apply correct callback parameters to $.last()", () => {
-  const div = document.createElement("div")
-  const span1 = document.createElement("span")
-  const span2 = document.createElement("span")
-  span1.id = "first"
-  span2.id = "second"
+test('Apply correct callback parameters to $.last()', () => {
+  const div = document.createElement('div')
+  const span1 = document.createElement('span')
+  const span2 = document.createElement('span')
+  span1.id = 'first'
+  span2.id = 'second'
   div.appendChild(span1)
   div.appendChild(span2)
 

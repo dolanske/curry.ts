@@ -2,25 +2,25 @@
  * @vitest-environment jsdom
  */
 
-import { describe, expect, test, vi } from "vitest"
-import { $ } from "../curry/index"
-import { delay } from "../curry/util"
+import { describe, expect, test, vi } from 'vitest'
+import { $ } from '../curry/index'
+import { delay } from '../curry/util'
 
-describe("Synthetic events", () => {
-  test("Simple event", async () => {
+describe('Synthetic events', () => {
+  test('Simple event', async () => {
     const spied = vi.fn(() => {})
 
-    $(document).on("test", () => spied())
-    $(document).trigger("test")
+    $(document).on('test', () => spied())
+    $(document).trigger('test')
     await delay(10)
     expect(spied).toHaveBeenCalled()
   })
 
-  test("Using payload", async () => {
-    $(document).on("test", (event) => {
-      expect(event.detail).toBe("Hello World")
+  test('Using payload', async () => {
+    $(document).on('test', (event) => {
+      expect(event.detail).toBe('Hello World')
     })
 
-    $(document).trigger("test", "Hello World")
+    $(document).trigger('test', 'Hello World')
   })
 })

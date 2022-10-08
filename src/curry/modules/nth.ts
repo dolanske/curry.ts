@@ -1,6 +1,6 @@
-import { Curry } from ".."
-import { IteratorCallback } from "../types"
-import { toEl } from "../util"
+import type { Curry } from '..'
+import type { IteratorCallback } from '../types'
+import { toEl } from '../util'
 
 export type Nth = (
   this: Curry,
@@ -19,16 +19,16 @@ export type Nth = (
 
 export const _nth: Nth = function (this, index, callback) {
   this.queue(() => {
-    let newNodes: Element[] = []
+    const newNodes: Element[] = []
 
     // Convert to array if it's not
-    if (typeof index === "number") index = [index]
+    if (typeof index === 'number')
+      index = [index]
 
     // for (const node of this.nodes) {
     for (let i = 1; i <= this.nodes.length; i++) {
-      if (index.includes(i)) {
+      if (index.includes(i))
         newNodes.push(toEl(this.nodes[i - 1]))
-      }
     }
 
     this.nodes = newNodes
@@ -39,8 +39,8 @@ export const _nth: Nth = function (this, index, callback) {
           {
             instance: this,
             self: toEl(node),
-            index: Array.isArray(index) ? index[i] : index
-          }
+            index: Array.isArray(index) ? index[i] : index,
+          },
         ])
       })
     }

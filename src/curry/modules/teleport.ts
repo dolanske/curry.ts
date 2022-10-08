@@ -1,4 +1,4 @@
-import { Curry } from ".."
+import type { Curry } from '..'
 
 export type Teleport = (this: Curry, destination: Element | string) => Curry
 
@@ -11,8 +11,8 @@ export type Teleport = (this: Curry, destination: Element | string) => Curry
 
 export const _teleport: Teleport = function (this, destination) {
   this.queue(() => {
-    const teleportTo =
-      typeof destination === "string"
+    const teleportTo
+      = typeof destination === 'string'
         ? document.querySelector(destination)
         : destination
 

@@ -1,4 +1,5 @@
-import { $, Curry } from ".."
+import type { Curry } from '..'
+import { $ } from '..'
 
 export type Fade = (this: Curry, to: number, duration: number) => void
 

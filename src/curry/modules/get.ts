@@ -1,5 +1,5 @@
-import { Curry } from ".."
-import { toEl } from "../util"
+import type { Curry } from '..'
+import { toEl } from '../util'
 
 export type Get = <T = Element[] | Element | undefined>(
   this: Curry,
@@ -15,16 +15,17 @@ export type Get = <T = Element[] | Element | undefined>(
 
 export const _get: Get = function (this, key) {
   return this.queue(() => {
-    if (this.nodes.length === 0) return undefined
+    if (this.nodes.length === 0)
+      return undefined
 
-    if (!key) return this.nodes.length === 1 ? this.nodes[0] : this.nodes
+    if (!key)
+      return this.nodes.length === 1 ? this.nodes[0] : this.nodes
 
     const values: any[] = []
 
     this.nodes.forEach((node: Node) => {
-      if (node) {
+      if (node)
         values.push(Reflect.get(toEl<Element>(node), key))
-      }
     })
 
     return values.length === 1 ? values[0] : values

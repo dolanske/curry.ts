@@ -1,5 +1,5 @@
-import { selectNTHSibling } from "../util"
-import { Next } from "./next"
+import { selectNTHSibling } from '../util'
+import type { Next } from './next'
 
 /**
  *
@@ -10,5 +10,5 @@ import { Next } from "./next"
  */
 
 export const _prev: Next = function (this, index, callback) {
-  return selectNTHSibling.apply(this, ["prev", index, callback])
+  return selectNTHSibling.apply(this, ['prev', index, callback])
 }

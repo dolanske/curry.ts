@@ -1,12 +1,13 @@
 // functions related to keypress events
 
-import { $, Curry } from ".."
-import { KeyboardeventCallback } from "../types"
-import { _on } from "./on"
-import { toEl } from "../util"
-import { KeyboardEventKey } from "../keycodes"
+import type { Curry } from '..'
+import { $ } from '..'
+import type { KeyboardeventCallback } from '../types'
+import { toEl } from '../util'
+import type { KeyboardEventKey } from '../keycodes'
+import { _on } from './on'
 
-type KeyboardEvents = "keydown" | "keyup" | "keypress"
+type KeyboardEvents = 'keydown' | 'keyup' | 'keypress'
 type Keys = KeyboardEventKey | KeyboardEventKey[]
 
 /**
@@ -28,7 +29,7 @@ export class Key {
    */
   /* c8 ignore next 3 */
   down(keys: Keys, callback: KeyboardeventCallback) {
-    handleKeyPress.call(this.curryInstance, "keydown", keys, callback)
+    handleKeyPress.call(this.curryInstance, 'keydown', keys, callback)
   }
 
   /**
@@ -40,7 +41,7 @@ export class Key {
 
   /* c8 ignore next 3 */
   up(keys: Keys, callback: KeyboardeventCallback) {
-    handleKeyPress.call(this.curryInstance, "keyup", keys, callback)
+    handleKeyPress.call(this.curryInstance, 'keyup', keys, callback)
   }
 
   /**
@@ -52,7 +53,7 @@ export class Key {
 
   /* c8 ignore next 3 */
   press(keys: Keys, callback: KeyboardeventCallback) {
-    handleKeyPress.call(this.curryInstance, "keypress", keys, callback)
+    handleKeyPress.call(this.curryInstance, 'keypress', keys, callback)
   }
 }
 
@@ -60,7 +61,7 @@ export class History {
   registry: KeyboardEventKey[] = []
   max = 0
 
-  constructor(max: number = 10) {
+  constructor(max = 10) {
     this.max = max
   }
 
@@ -71,9 +72,8 @@ export class History {
     // Truncate registry to the amount of keys we are checking for
     // That way we don't end up with a very long array of useless
     // key data
-    if (this.registry.length > this.max) {
+    if (this.registry.length > this.max)
       this.registry.shift()
-    }
   }
 
   pressing(keys: KeyboardEventKey[]) {
@@ -85,7 +85,7 @@ export class History {
     // ["b", "Shift", "A", "d"] = does not match
 
     return keys.every(
-      (key, index) => this.registry.at(index - keys.length) === key
+      (key, index) => this.registry.at(index - keys.length) === key,
     )
   }
 }
@@ -94,7 +94,7 @@ export function handleKeyPress(
   this: Curry,
   type: KeyboardEvents,
   keys: Keys,
-  callback: KeyboardeventCallback
+  callback: KeyboardeventCallback,
 ) {
   const formatKeys: KeyboardEventKey[] = Array.isArray(keys) ? keys : [keys]
   const history = new History(formatKeys.length)
@@ -105,9 +105,8 @@ export function handleKeyPress(
       event = event as KeyboardEvent
       history.add(event.key)
 
-      if (history.pressing(formatKeys)) {
+      if (history.pressing(formatKeys))
         callback.apply(toEl(node), [event, this])
-      }
     })
   })
 }

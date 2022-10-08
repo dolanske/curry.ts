@@ -1,5 +1,6 @@
-import { $, Curry } from ".."
-import { toEl } from "../util"
+import type { Curry } from '..'
+import { $ } from '..'
+import { toEl } from '../util'
 
 export type Parent = (this: Curry, selector?: string) => Curry
 
@@ -21,10 +22,10 @@ export const _parent: Parent = function (this, selector) {
         if (selector) {
           const child = toEl(node.parentNode)
 
-          if ($(child).is(selector)) {
+          if ($(child).is(selector))
             parents.add(child)
-          }
-        } else {
+        }
+        else {
           parents.add(toEl(node.parentNode))
         }
       }

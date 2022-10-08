@@ -1,7 +1,7 @@
-import { Curry } from ".."
-import { toEl, isObject, isArray } from "../util"
+import type { Curry } from '..'
+import { isArray, isObject, toEl } from '../util'
 
-export type Attr = {
+export interface Attr {
   [key: string]: string | number
 }
 
@@ -22,10 +22,11 @@ export const _getAttr: GetAttr = function (this, key) {
 
   if (isArray(key)) {
     const results = key
-      .map((k) => node.getAttribute(k))
-      .filter((item) => item) as string[]
+      .map(k => node.getAttribute(k))
+      .filter(item => item) as string[]
     return results.length > 0 ? results : null
-  } else {
+  }
+  else {
     return node.getAttribute(key)
   }
 }
@@ -46,16 +47,18 @@ export const _setAttr: SetAttr = function (this, key, value) {
   this.nodes.forEach((_node) => {
     const node = toEl(_node)
 
-    if (typeof key === "string" && value) {
+    if (typeof key === 'string' && value) {
       node.setAttribute(key, String(value))
-    } else if (isArray(key)) {
+    }
+    else if (isArray(key)) {
       key.map((attr) => {
         const key = Object.keys(attr)[0]
         const value = attr[key]
 
         node.setAttribute(key, String(value))
       })
-    } else if (isObject(key)) {
+    }
+    else if (isObject(key)) {
       const k = Object.keys(key)[0]
       const v = key[k]
 

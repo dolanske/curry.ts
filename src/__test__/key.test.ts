@@ -2,22 +2,22 @@
  * @vitest-environment jsdom
  */
 
-import { $, Curry } from "../curry"
-import { describe, expect, test } from "vitest"
-import { Key, History, handleKeyPress } from "../curry/modules/key"
-import { KeyboardEventKey } from "../curry/keycodes"
-import { delay } from "../curry/util"
+import { describe, expect, test } from 'vitest'
+import { $, Curry } from '../curry'
+import { History, Key, handleKeyPress } from '../curry/modules/key'
+import type { KeyboardEventKey } from '../curry/keycodes'
+import { delay } from '../curry/util'
 
 const key = new Key($(document))
 
-describe("Keyboard events handling", () => {
-  test("History utility class", async () => {
-    const keys: KeyboardEventKey[] = ["Control", "c"]
+describe('Keyboard events handling', () => {
+  test('History utility class', async () => {
+    const keys: KeyboardEventKey[] = ['Control', 'c']
     const history = new History(keys.length)
 
-    history.add("Backspace")
-    history.add("Control")
-    history.add("c")
+    history.add('Backspace')
+    history.add('Control')
+    history.add('c')
 
     expect(history.max).toBe(2)
     expect(history.registry).toStrictEqual(keys)
@@ -25,43 +25,43 @@ describe("Keyboard events handling", () => {
     const match = history.pressing(keys)
     expect(match).toBeTruthy()
 
-    history.add("Escape")
+    history.add('Escape')
 
-    const match2 = history.pressing(["Control", "c"])
+    const match2 = history.pressing(['Control', 'c'])
     expect(match2).toBeFalsy()
   })
 
-  test("Key class", () => {
+  test('Key class', () => {
     expect(key.curryInstance).toBeInstanceOf(Curry)
   })
 
-  test("Key press handling", async () => {
+  test('Key press handling', async () => {
     handleKeyPress.call(
       key.curryInstance,
-      "keydown",
-      "a",
+      'keydown',
+      'a',
       function (event, instance) {
         expect(this).toBeInstanceOf(Node)
-        expect(event.key).toBe("a")
+        expect(event.key).toBe('a')
         expect(instance).toBeInstanceOf(Curry)
-      }
+      },
     )
 
     handleKeyPress.call(
       key.curryInstance,
-      "keypress",
-      ["Control", "a"],
+      'keypress',
+      ['Control', 'a'],
       function (event, instance) {
         expect(this).toBeInstanceOf(Node)
-        expect(event.key).toBe("a")
+        expect(event.key).toBe('a')
         expect(instance).toBeInstanceOf(Curry)
-      }
+      },
     )
 
     await delay(5)
 
     // Simulate click
-    document.dispatchEvent(new KeyboardEvent("keydown", { key: "a" }))
-    document.dispatchEvent(new KeyboardEvent("keypress", { key: "a" }))
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'a' }))
+    document.dispatchEvent(new KeyboardEvent('keypress', { key: 'a' }))
   })
 })

@@ -1,6 +1,7 @@
-import { $, Curry } from ".."
-import { EventCallback } from "../types"
-import { toEl } from "../util"
+import type { Curry } from '..'
+import { $ } from '..'
+import type { EventCallback } from '../types'
+import { toEl } from '../util'
 
 export type Click = (this: Curry, callback: EventCallback) => Curry
 
@@ -16,7 +17,7 @@ export const _click: Click = function (this, callback) {
   const that = this
 
   this.nodes.forEach((node: Node) => {
-    $(node).on("click", function (event) {
+    $(node).on('click', (event) => {
       callback.apply(toEl<Element>(node), [event, that])
     })
   })

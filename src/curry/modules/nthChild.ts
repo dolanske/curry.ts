@@ -1,5 +1,6 @@
-import { Curry, $ } from ".."
-import { GenericCallback } from "../types"
+import type { Curry } from '..'
+import { $ } from '..'
+import type { GenericCallback } from '../types'
 
 export type NthChild = (
   this: Curry,
@@ -27,18 +28,18 @@ export const _nthChild: NthChild = function (this, index, callback) {
                     {
                       self: oneEl,
                       instance: this,
-                      index: Array.isArray(index) ? index[i] : index
-                    }
-                  ])
+                      index: Array.isArray(index) ? index[i] : index,
+                    },
+                  ]),
                 )
               }
             }
-          })
+          }),
         ).then(() => {
           this.nodes = collected
           resolve(true)
         })
-      })
+      }),
   )
 
   return this

@@ -1,5 +1,5 @@
-import { Curry } from ".."
-import { toEl } from "../util"
+import type { Curry } from '..'
+import { toEl } from '../util'
 
 export type AsyncEach = (
   this: Curry,
@@ -25,7 +25,7 @@ export const _asyncEach: AsyncEach = function (this, callback) {
   this.queue(
     () =>
       new Promise(async () => {
-        let index: number = 0
+        let index = 0
         for (const node of this.nodes) {
           await new Promise((resolve) => {
             return callback.apply(toEl(node), [
@@ -33,14 +33,14 @@ export const _asyncEach: AsyncEach = function (this, callback) {
               {
                 self: toEl(node),
                 index,
-                instance: this
-              }
+                instance: this,
+              },
             ])
           })
 
           index++
         }
-      })
+      }),
   )
 
   return this

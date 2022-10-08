@@ -1,6 +1,6 @@
-import { Curry } from ".."
-import { GenericCallback } from "../types"
-import { toEl } from "../util"
+import type { Curry } from '..'
+import type { GenericCallback } from '../types'
+import { toEl } from '../util'
 
 export type First = (this: Curry, callback?: GenericCallback) => Curry
 
@@ -20,8 +20,8 @@ export const _first: First = function (this, callback) {
       callback.apply(toEl(this.nodes[0]), [
         {
           self: toEl(this.nodes[0]),
-          instance: this
-        }
+          instance: this,
+        },
       ])
     }
   })

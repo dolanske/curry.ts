@@ -1,26 +1,27 @@
-import { Curry } from "."
-import { PrevNextCallback } from "./types"
+import type { PrevNextCallback } from './types'
+import type { Curry } from '.'
 
 export function isArray(value: any): value is any[] {
   return Array.isArray(value)
 }
 
 export function toEl<T = Element>(node: Node): T {
-  //@ts-ignore
+  // @ts-expect-error
   return node as T
 }
 
 export function isObject(value: any): value is object {
-  let type = typeof value
-  return value != null && (type == "object" || type == "function")
+  const type = typeof value
+  return value != null && (type == 'object' || type == 'function')
 }
 
 export function isFunction(value: any): value is Function {
-  return value && {}.toString.call(value) === "[object Function]"
+  return value && {}.toString.call(value) === '[object Function]'
 }
 
 function getSiblingIndex(el: Element) {
-  if (!el) return 0
+  if (!el)
+    return 0
 
   let i = 0
   let cloned: Element | null = el
@@ -34,18 +35,17 @@ function getSiblingIndex(el: Element) {
 
 export function selectNTHSibling(
   this: Curry,
-  selectType: "prev" | "next",
+  selectType: 'prev' | 'next',
   index?: number | PrevNextCallback,
-  callback?: PrevNextCallback
+  callback?: PrevNextCallback,
 ): Curry {
   this.queue(() => {
-    const siblingPlace =
-      selectType === "next" ? "nextElementSibling" : "previousElementSibling"
+    const siblingPlace
+      = selectType === 'next' ? 'nextElementSibling' : 'previousElementSibling'
 
     // If callback has been provided but index hasn't
-    if (typeof index !== "number") {
+    if (typeof index !== 'number')
       callback = index
-    }
 
     const matches: Element[] = []
 
@@ -62,17 +62,17 @@ export function selectNTHSibling(
           if (callback) {
             callback.apply(sibling, [
               // prettier-ignore
-              { self: sibling, prev: node, index: getSiblingIndex(sibling), instance: this }
+              { self: sibling, prev: node, index: getSiblingIndex(sibling), instance: this },
             ])
           }
         }
-      } else {
+      }
+      else {
         let el: Element | null = node
         // Loop over next children and find element at index
         for (let i = 0; i < index; i++) {
-          if (el) {
+          if (el)
             el = el[siblingPlace]
-          }
         }
 
         if (el) {
@@ -81,7 +81,7 @@ export function selectNTHSibling(
           if (callback) {
             callback.apply(el, [
               // prettier-ignore
-              { self: el, prev: node, index: getSiblingIndex(node), instance: this }
+              { self: el, prev: node, index: getSiblingIndex(node), instance: this },
             ])
           }
         }
@@ -95,11 +95,11 @@ export function selectNTHSibling(
 }
 
 export function createElement(el: string): Element {
-  const fragment = document.createElement("div")
-  fragment.insertAdjacentHTML("beforeend", el)
+  const fragment = document.createElement('div')
+  fragment.insertAdjacentHTML('beforeend', el)
   return fragment.children[0]
 }
 
-export function delay(ms: number = 1): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms))
+export function delay(ms = 1): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms))
 }
