@@ -1,6 +1,5 @@
 import { $, Curry } from './curry'
 
-$('#btn').click(() => {
-  // $('#wrap').fullscreen()
-  Curry.fullscreen('#wrap')
+$('#btn').click(function() {
+  $(this).next().fadeToggle()
 })

@@ -79,6 +79,8 @@ import type { Animate } from './modules/animate'
 import { _animate } from './modules/animate'
 import { _fullscreen, _staticFullscreen } from './modules/_fullscreen'
 import type { Fullscreen, StaticFullscreen } from './modules/_fullscreen'
+import { _fadeIn, _fadeOut, _fadeToggle } from './modules/_fade'
+import type {Fade, FadeToggle} from "./modules/_fade"
 
 export interface Curry {
   nodes: Node[]
@@ -90,6 +92,7 @@ export interface Curry {
   prependChild: AddShorthand
   appendChild: AddShorthand
   fullscreen: Fullscreen
+  fadeToggle: FadeToggle
   prepend: AddShorthand
   prened: AddShorthand
   hasClass: ClassCheck
@@ -108,6 +111,8 @@ export interface Curry {
   addChild: Add
   parent: Parent
   filter: Filter
+  fadeOut: Fade,
+  fadeIn: Fade,
   click: Click
   first: First
   hover: Hover
@@ -164,6 +169,7 @@ export class Curry implements Curry {
   fullscreen: Fullscreen = _fullscreen.bind(this)
   prependChild = _prependChild.bind(this)
   appendChild = _appendChild.bind(this)
+  fadeToggle = _fadeToggle.bind(this)
   asyncEach = _asyncEach.bind(this)
   addClass = _addClass.bind(this)
   delClass = _delClass.bind(this)
@@ -179,7 +185,9 @@ export class Curry implements Curry {
   replace = _replace.bind(this)
   trigger = _trigger.bind(this)
   animate = _animate.bind(this)
+  fadeOut = _fadeOut.bind(this)
   filter = _filter.bind(this)
+  fadeIn = _fadeIn.bind(this)
   append = _append.bind(this)
   toggle = _toggle.bind(this)
   parent = _parent.bind(this)
