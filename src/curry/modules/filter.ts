@@ -36,8 +36,8 @@ export const _filter: Filter = function (this, condition, applyTo) {
               matches.push(node)
             break
           }
-          default:
-          case 'some': {
+          case 'some':
+          default: {
             if (condition.some(c => node.matches(c)))
               matches.push(node)
           }

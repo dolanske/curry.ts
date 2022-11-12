@@ -99,7 +99,7 @@ export function handleKeyPress(
   const formatKeys: KeyboardEventKey[] = Array.isArray(keys) ? keys : [keys]
   const history = new History(formatKeys.length)
 
-  this.nodes.forEach((node) => {
+  for (const node of this.nodes) {
     $(node).on(type, (event: any) => {
       // We know the event will always be a keyboard event
       event = event as KeyboardEvent
@@ -108,5 +108,5 @@ export function handleKeyPress(
       if (history.pressing(formatKeys))
         callback.apply(toEl(node), [event, this])
     })
-  })
+  }
 }

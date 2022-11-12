@@ -27,7 +27,7 @@ const defaults: Options = {
 }
 
 export const _animate: Animate = function (this, animator, options = defaults) {
-  this.queue(() => {
+  this.queue(async () => {
     // const animationPromises: Promise<any>[] = []
     const { onFinish, keepStyle } = Object.assign(defaults, options)
 
@@ -41,7 +41,7 @@ export const _animate: Animate = function (this, animator, options = defaults) {
 
     const keyframes = animator as Keyframe[]
 
-    this.nodes.forEach((node) => {
+    for (const node of this.nodes) {
       const el = toEl(node)
 
       if (!el.animate)
@@ -49,7 +49,7 @@ export const _animate: Animate = function (this, animator, options = defaults) {
 
       const animation = el.animate(keyframes, options)
 
-      animation.finished
+      await animation.finished
         .then(() => {
           // Once animation finishes
           // If we want to keep the last ke
@@ -61,7 +61,7 @@ export const _animate: Animate = function (this, animator, options = defaults) {
           if (onFinish)
             onFinish(animation)
         })
-    })
+    }
     // return Promise.allSettled(animationPromises)
   })
 

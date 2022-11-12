@@ -34,7 +34,7 @@ export type Is = (
 export const _is: Is = function (condition, applyTo = 'some') {
   const results: boolean[] = []
 
-  this.nodes.forEach((_node: Node) => {
+  for (const _node of this.nodes) {
     const el = toEl(_node)
 
     if (isArray(condition))
@@ -43,7 +43,7 @@ export const _is: Is = function (condition, applyTo = 'some') {
       results.push(true)
     else
       results.push(false)
-  })
+  }
 
   switch (applyTo) {
     case 'some': {

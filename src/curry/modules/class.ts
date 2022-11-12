@@ -21,11 +21,11 @@ export type ClassCheck = (
 
 export const _addClass: ClassManipulation = function (this, className) {
   this.queue(() => {
-    this.nodes.forEach((node: Node) => {
+    for (const node of this.nodes) {
       const el = toEl(node)
       className = typeof className === 'string' ? [className] : className
       el.classList.add(...className)
-    })
+    }
   })
 
   return this
@@ -39,11 +39,11 @@ export const _addClass: ClassManipulation = function (this, className) {
  */
 export const _delClass: ClassManipulation = function (this, className) {
   this.queue(() => {
-    this.nodes.forEach((node: Node) => {
+    for (const node of this.nodes) {
       const el = toEl(node)
       className = typeof className === 'string' ? [className] : className
       el.classList.remove(...className)
-    })
+    }
   })
 
   return this
@@ -57,13 +57,13 @@ export const _delClass: ClassManipulation = function (this, className) {
  */
 export const _tglClass: ClassManipulation = function (this, className) {
   this.queue(() => {
-    this.nodes.forEach((node: Node) => {
+    for (const node of this.nodes) {
       const el = toEl(node)
       className = typeof className === 'string' ? [className] : className
 
       for (const cls of className)
         el.classList.toggle(cls)
-    })
+    }
   })
 
   return this
@@ -85,10 +85,10 @@ export const _hasClass: ClassCheck = function (
   const modelled: string[]
     = typeof className === 'string' ? [className] : className
 
-  this.nodes.forEach((node: Node) => {
+  for (const node of this.nodes) {
     const el = toEl(node)
     results.push(modelled.some((cls: string) => el.classList.contains(cls)))
-  })
+  }
 
   switch (applyTo) {
     case 'some': {

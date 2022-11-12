@@ -23,10 +23,10 @@ export const _get: Get = function (this, key) {
 
     const values: any[] = []
 
-    this.nodes.forEach((node: Node) => {
+    for (const node of this.nodes) {
       if (node)
         values.push(Reflect.get(toEl<Element>(node), key))
-    })
+    }
 
     return values.length === 1 ? values[0] : values
   })

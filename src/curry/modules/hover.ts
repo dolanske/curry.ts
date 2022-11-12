@@ -82,9 +82,8 @@ export const _hover: Hover = function (this, states, options) {
         }
 
         // Iterated over saved ones
-        keepAttrs.map((attr) => {
+        for (const attr of keepAttrs)
           $(node).setAttr(attr, $(clone).getAttr(attr))
-        })
       })
     })
   }

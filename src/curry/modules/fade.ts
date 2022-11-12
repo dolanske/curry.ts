@@ -12,9 +12,8 @@ export const _fadeIn: Fade = function (this, options) {
   }, options)
 
   this.queue(() => {
-    this.nodes.forEach((node) => {
+    for (const node of this.nodes)
       $(node).animate([{ opacity: to }], { duration, keepStyle: true })
-    })
   })
 
   return this
@@ -27,9 +26,8 @@ export const _fadeOut: Fade = function (this, options) {
   }, options)
 
   this.queue(() => {
-    this.nodes.forEach((node) => {
+    for (const node of this.nodes)
       $(node).animate([{ opacity: to }], { duration, keepStyle: true })
-    })
   })
 
   return this
@@ -48,7 +46,7 @@ export type FadeToggle = (
 
 export const _fadeToggle: FadeToggle = function (this, options = {}) {
   this.queue(() => {
-    this.nodes.forEach((_node: Node) => {
+    for (const _node of this.nodes) {
       // If current node has inline style called opacity at value
       const node = toEl<HTMLElement>(_node)
       const opacity = parseFloat(node.style.opacity)
@@ -72,7 +70,7 @@ export const _fadeToggle: FadeToggle = function (this, options = {}) {
         $(node).fadeOut({ duration, to: off })
 
       // We are fading in
-    })
+    }
   })
 
   return this

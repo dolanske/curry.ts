@@ -16,11 +16,11 @@ export const _click: Click = function (this, callback) {
   // Save this in case a scope changes within a function
   // const that = this
 
-  this.nodes.forEach((node: Node) => {
+  for (const node of this.nodes) {
     $(node).on('click', (event) => {
       callback.apply(toEl<Element>(node), [event, this])
     })
-  })
+  }
 
   return this
 }
