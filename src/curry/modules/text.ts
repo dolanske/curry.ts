@@ -16,7 +16,7 @@ export type Text = (
 
 export const _text: Text = function (this, text, location) {
   this.queue(() => {
-    this.nodes.forEach((node: Node) => {
+    for (const node of this.nodes) {
       if (text) {
         switch (location) {
           case 'prepend': {
@@ -32,7 +32,7 @@ export const _text: Text = function (this, text, location) {
           }
         }
       }
-    })
+    }
   })
 
   return this

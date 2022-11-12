@@ -1,6 +1,6 @@
 import type { Properties, PropertiesHyphen } from 'csstype'
 import type { Curry } from '..'
-import { toEl } from '../util'
+import { isNil, toEl } from '../util'
 import type { ValueOf } from '../types'
 
 interface CSSStyle extends Properties, PropertiesHyphen {}
@@ -21,13 +21,13 @@ export type CSS = (
 
 export const _css: CSS = function (this, key, value) {
   this.queue(() => {
-    this.nodes.forEach((node: Node) => {
+    for (const node of this.nodes) {
       const el = toEl<HTMLElement>(node)
-      if (!value)
+      if (isNil(value))
         Object.assign(el.style, key)
       else if (typeof key === 'string')
         el.style.setProperty(key, String(value))
-    })
+    }
   })
 
   return this

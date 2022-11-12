@@ -22,13 +22,13 @@ export type On = (
 
 export const _on: On = function (this, eventName, callback, options) {
   this.queue(() => {
-    this.nodes.forEach((node: Node) => {
+    for (const node of this.nodes) {
       node.addEventListener(
         eventName,
         event => callback.apply(toEl(node), [event, this]),
         options,
       )
-    })
+    }
   })
 
   return this

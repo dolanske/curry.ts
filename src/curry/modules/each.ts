@@ -12,14 +12,12 @@ export type Each = (this: Curry, callback: IteratorCallback) => Curry
  */
 export const _each: Each = function (this, callback) {
   this.queue(() => {
-    const that = this
-
     this.nodes.forEach((node, index) => {
       callback.apply(toEl(node), [
         {
           index,
           self: toEl(node),
-          instance: that,
+          instance: this,
         },
       ])
     })

@@ -14,11 +14,11 @@ export type Click = (this: Curry, callback: EventCallback) => Curry
 
 export const _click: Click = function (this, callback) {
   // Save this in case a scope changes within a function
-  const that = this
+  // const that = this
 
   this.nodes.forEach((node: Node) => {
     $(node).on('click', (event) => {
-      callback.apply(toEl<Element>(node), [event, that])
+      callback.apply(toEl<Element>(node), [event, this])
     })
   })
 

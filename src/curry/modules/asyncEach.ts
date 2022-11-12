@@ -24,6 +24,7 @@ export type AsyncEach = (
 export const _asyncEach: AsyncEach = function (this, callback) {
   this.queue(
     () =>
+      // eslint-disable-next-line no-async-promise-executor
       new Promise(async () => {
         let index = 0
         for (const node of this.nodes) {

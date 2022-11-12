@@ -1,6 +1,5 @@
 import type { Curry } from '..'
 import { toEl } from '../util'
-import { _is } from './is'
 
 export type ClassManipulation = (
   this: Curry,
@@ -62,9 +61,8 @@ export const _tglClass: ClassManipulation = function (this, className) {
       const el = toEl(node)
       className = typeof className === 'string' ? [className] : className
 
-      className.map((cls: string) => {
+      for (const cls of className)
         el.classList.toggle(cls)
-      })
     })
   })
 

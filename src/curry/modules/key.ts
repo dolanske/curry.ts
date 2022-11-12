@@ -5,7 +5,7 @@ import { $ } from '..'
 import type { KeyboardeventCallback } from '../types'
 import { toEl } from '../util'
 import type { KeyboardEventKey } from '../keycodes'
-import { _on } from './on'
+// import { _on } from './on'
 
 type KeyboardEvents = 'keydown' | 'keyup' | 'keypress'
 type Keys = KeyboardEventKey | KeyboardEventKey[]

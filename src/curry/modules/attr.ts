@@ -44,19 +44,19 @@ export type SetAttr = (
  * @param value Value to set the attribute to
  */
 export const _setAttr: SetAttr = function (this, key, value) {
-  this.nodes.forEach((_node) => {
+  for (const _node of this.nodes) {
     const node = toEl(_node)
 
     if (typeof key === 'string' && value) {
       node.setAttribute(key, String(value))
     }
     else if (isArray(key)) {
-      key.map((attr) => {
+      for (const attr of key) {
         const key = Object.keys(attr)[0]
         const value = attr[key]
 
         node.setAttribute(key, String(value))
-      })
+      }
     }
     else if (isObject(key)) {
       const k = Object.keys(key)[0]
@@ -64,5 +64,5 @@ export const _setAttr: SetAttr = function (this, key, value) {
 
       node.setAttribute(k, String(v))
     }
-  })
+  }
 }

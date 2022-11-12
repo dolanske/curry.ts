@@ -2,14 +2,14 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
-import { $ } from '../curry/index'
+import { describe, expect, test } from 'vitest'
+import { $, Curry } from '../curry/index'
 import { delay } from '../curry/util'
 
 // TODO: find out how to simulate document.querySelector
 // FIXME: NOT 100 COVERAGE!!!!!!!
 
-test.skip('Swap two elements', async () => {
+function prepare() {
   const wrap1 = document.createElement('div')
   wrap1.id = 'wrap1'
   const wrap2 = document.createElement('div')
@@ -22,21 +22,40 @@ test.skip('Swap two elements', async () => {
   wrap1.appendChild(span1)
   wrap2.appendChild(span2)
 
-  $(document).swap(span1, span2)
+  return {
+    wrap1,
+    wrap2,
+    span1,
+    span2,
+  }
+}
 
-  await delay(10)
+describe('Swap two elements', () => {
+  test('HTML elements as params', async () => {
+    const { wrap1, wrap2, span1, span2 } = prepare()
 
-  expect(wrap1.children[0]).toStrictEqual(span2)
-  expect(wrap2.children[0]).toStrictEqual(span1)
+    $(document).swap(span1, span2)
+    await delay(5)
+    expect(wrap1.firstChild).toStrictEqual(span2)
+    expect(wrap2.firstChild).toStrictEqual(span1)
+  })
 
-  // All the following calls shoudl do nothing
+  // FIXME: figure out
+  test.skip('Selectors as params', async () => {
+    const { wrap1, wrap2, span1, span2 } = prepare()
 
-  $(document).swap(span2, '#first')
-  // $(document).swap("#first", span2)
-  // $(document).swap("#first", "#second")
+    $(document).swap('#first', span2)
+    await delay(5)
+    expect(wrap1.firstChild).toStrictEqual(span2)
+    expect(wrap2.firstChild).toStrictEqual(span1)
 
-  await delay(10)
+    Curry.swap(span2, '#first')
+    await delay(5)
+    expect(wrap1.firstChild).toStrictEqual(span2)
+    expect(wrap2.firstChild).toStrictEqual(span1)
 
-  expect(wrap1.children[0]).toStrictEqual(span1)
-  // expect(wrap2.children[0]).toStrictEqual(span2)
+    // $(document).swap("#first", span2)
+    // $(document).swap("#first", "#second")
+  })
 })
+

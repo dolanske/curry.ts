@@ -6,17 +6,20 @@ export function isArray(value: any): value is any[] {
 }
 
 export function toEl<T = Element>(node: Node): T {
-  // @ts-expect-error
   return node as T
 }
 
 export function isObject(value: any): value is object {
   const type = typeof value
-  return value != null && (type == 'object' || type == 'function')
+  return value != null && (type === 'object' || type === 'function')
 }
 
 export function isFunction(value: any): value is Function {
   return value && {}.toString.call(value) === '[object Function]'
+}
+
+export function isNil(value: any) {
+  return value === null || value === undefined
 }
 
 function getSiblingIndex(el: Element) {
@@ -26,9 +29,9 @@ function getSiblingIndex(el: Element) {
   let i = 0
   let cloned: Element | null = el
   // While it has previous siblings, add +1 to the index
-  while ((cloned = cloned.previousElementSibling) != null) {
+  // eslint-disable-next-line no-cond-assign
+  while ((cloned = cloned.previousElementSibling) != null)
     i++
-  }
 
   return i
 }

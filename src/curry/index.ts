@@ -79,8 +79,10 @@ import type { Animate } from './modules/animate'
 import { _animate } from './modules/animate'
 import { _fullscreen, _staticFullscreen } from './modules/_fullscreen'
 import type { Fullscreen, StaticFullscreen } from './modules/_fullscreen'
-import { _fadeIn, _fadeOut, _fadeToggle } from './modules/_fade'
-import type {Fade, FadeToggle} from "./modules/_fade"
+import { _fadeIn, _fadeOut, _fadeToggle } from './modules/fade'
+import type { Fade, FadeToggle } from './modules/fade'
+import type { Run } from './modules/run'
+import { _run } from './modules/run'
 
 export interface Curry {
   nodes: Node[]
@@ -111,8 +113,8 @@ export interface Curry {
   addChild: Add
   parent: Parent
   filter: Filter
-  fadeOut: Fade,
-  fadeIn: Fade,
+  fadeOut: Fade
+  fadeIn: Fade
   click: Click
   first: First
   hover: Hover
@@ -124,6 +126,7 @@ export interface Curry {
   last: Last
   each: Each
   text: Text
+  run: Run
   add: Add
   odd: Odd
   css: CSS
@@ -138,6 +141,7 @@ export interface Curry {
 type Selector = string | Node | Node[] | HTMLCollection | Curry
 
 export function $(selector: Selector) {
+  // TODO: return a promise to when chain had no more methods in queue
   const instance = new Curry(selector)
   return instance
 }
@@ -210,6 +214,7 @@ export class Curry implements Curry {
   get = _get.bind(this) as Get
   css = _css.bind(this)
   nth = _nth.bind(this)
+  run = _run.bind(this)
   key = new Key(this)
   is = _is.bind(this)
   on = _on.bind(this)

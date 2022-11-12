@@ -3,9 +3,6 @@ import type { Curry } from '..'
 import { $ } from '..'
 import { isArray, toEl } from '../util'
 
-// TODO: Animator as a method which exposes all the WebAnimations API methods (destructure the entire animation class?)
-// TODO: Add tests
-
 // TODO: fix default option override if any option is used
 
 interface Options extends KeyframeAnimationOptions {
@@ -31,7 +28,8 @@ const defaults: Options = {
 
 export const _animate: Animate = function (this, animator, options = defaults) {
   this.queue(() => {
-    const { onFinish, keepStyle, onError } = options
+    // const animationPromises: Promise<any>[] = []
+    const { onFinish, keepStyle } = Object.assign(defaults, options)
 
     // We use Properties type first to type check correct CSS bindings
     // Then type-cast it as a Keyframe array so the animation method accepts it
@@ -45,7 +43,9 @@ export const _animate: Animate = function (this, animator, options = defaults) {
 
     this.nodes.forEach((node) => {
       const el = toEl(node)
-      console.log(keyframes)
+
+      if (!el.animate)
+        return
 
       const animation = el.animate(keyframes, options)
 
@@ -57,16 +57,12 @@ export const _animate: Animate = function (this, animator, options = defaults) {
             const lastFrame = keyframes.at(-1) as Properties
             $(node).css(lastFrame)
           }
-        })
-        .catch((e: ErrorEvent) => {
-          if (onError)
-            onError.call(animation, e)
-        })
-        .finally(() => {
+
           if (onFinish)
             onFinish(animation)
         })
     })
+    // return Promise.allSettled(animationPromises)
   })
 
   return this

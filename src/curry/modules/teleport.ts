@@ -17,9 +17,8 @@ export const _teleport: Teleport = function (this, destination) {
         : destination
 
     if (teleportTo) {
-      this.nodes.forEach((node) => {
+      for (const node of this.nodes)
         teleportTo.appendChild(node)
-      })
     }
   })
 

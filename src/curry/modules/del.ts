@@ -12,13 +12,13 @@ export type Del = (this: Curry, selector?: string | string[]) => void
 
 export const _del: Del = function (this, selector) {
   this.queue(() => {
-    this.nodes.forEach((node) => {
+    for (const node of this.nodes) {
       const el = toEl(node)
 
       if (selector && !$(el).is(selector))
         return
 
       el.remove()
-    })
+    }
   })
 }
