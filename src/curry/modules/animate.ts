@@ -8,7 +8,7 @@ import { isArray, toEl } from '../util'
 interface Options extends KeyframeAnimationOptions {
   // Callback to execute on animation completion
   onFinish?: (animation: Animation) => void
-  onError?: (this: Animation, e: ErrorEvent) => void
+  // onError?: (this: Animation, e: ErrorEvent) => void
   // Wether to return object back to its defaults to apply the styling of the last keyframe
   keepStyle?: boolean
 }
@@ -26,6 +26,14 @@ const defaults: Options = {
   keepStyle: false,
 }
 
+/**
+ *
+ * @param this Curry instance
+ * @param animator A keyframe or an array of keyframes
+ * @param options Animation options
+ * @returns Curry instance for chaining
+ */
+
 export const _animate: Animate = function (this, animator, options = defaults) {
   this.queue(async () => {
     // const animationPromises: Promise<any>[] = []
@@ -35,9 +43,11 @@ export const _animate: Animate = function (this, animator, options = defaults) {
     // Then type-cast it as a Keyframe array so the animation method accepts it
     animator = isArray(animator) ? animator : ([animator] as Properties[])
 
-    // if (!keepStyle) {
-    //   animator.push({})
-    // }
+    // NOTE
+    // This is a workaround for animation ignoring the first frame when we unput an array of keyframes.
+    // TODO: test if its required for multiple keyframes
+    if (animator.length > 1)
+      animator.unshift({})
 
     const keyframes = animator as Keyframe[]
 
@@ -62,7 +72,8 @@ export const _animate: Animate = function (this, animator, options = defaults) {
             onFinish(animation)
         })
     }
-    // return Promise.allSettled(animationPromises)
+
+    return Promise.resolve()
   })
 
   return this

@@ -4,7 +4,14 @@ import { toEl } from '../util'
 
 export type Fade = (this: Curry, options?: { duration?: number; to?: number }) => Curry
 
-// fade in
+/**
+ * Fades element into full view or the selected `to` value >0
+ *
+ * @param this Curry instance
+ * @param options Fade options
+ * @returns Curry instance for chaining
+ */
+
 export const _fadeIn: Fade = function (this, options) {
   const { duration, to } = Object.assign({
     duration: 300,
@@ -18,6 +25,14 @@ export const _fadeIn: Fade = function (this, options) {
 
   return this
 }
+
+/**
+ * Fades element out of view or the selected `to` value <1
+ *
+ * @param this Curry instance
+ * @param options Fade opitons
+ * @returns Curry instance for chaining
+ */
 
 export const _fadeOut: Fade = function (this, options) {
   const { duration, to } = Object.assign({
@@ -33,8 +48,6 @@ export const _fadeOut: Fade = function (this, options) {
   return this
 }
 
-// fade toggle
-
 export type FadeToggle = (
   this: Curry,
   options?: number | {
@@ -43,6 +56,14 @@ export type FadeToggle = (
     on?: number
   },
 ) => Curry
+
+/**
+ * Toggle between fade states or provided `on` and `off` states
+ *
+ * @param this Curry instance
+ * @param options Fade opitons
+ * @returns Curry instance for chaining
+ */
 
 export const _fadeToggle: FadeToggle = function (this, options = {}) {
   this.queue(() => {
@@ -66,10 +87,8 @@ export const _fadeToggle: FadeToggle = function (this, options = {}) {
       if (opacity === 0 || opacity < on) // Fade out
         $(node).fadeIn({ duration, to: on })
 
-      else // Fade in
+      else
         $(node).fadeOut({ duration, to: off })
-
-      // We are fading in
     }
   })
 
