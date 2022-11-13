@@ -16,6 +16,9 @@ export type Run = (
  */
 
 export const _run: Run = function (this, fn) {
+  if (!fn)
+    return this
+
   this.queue(() => fn.call(this))
   return this
 }
