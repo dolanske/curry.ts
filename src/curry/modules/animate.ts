@@ -3,8 +3,6 @@ import type { Curry } from '..'
 import { $ } from '..'
 import { isArray, toEl } from '../util'
 
-// TODO: fix default option override if any option is used
-
 interface Options extends KeyframeAnimationOptions {
   // Callback to execute on animation completion
   onFinish?: (animation: Animation) => void

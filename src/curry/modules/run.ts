@@ -1,8 +1,5 @@
-// Can be a function called within an async chain or at the end of the chain
-
 import type { Curry } from '..'
 
-// TODO: Add documentaiton
 // TODO: add tests for function calling times and delays
 
 export type Run = (
@@ -10,10 +7,15 @@ export type Run = (
   fn: (this: Curry) => Promise<void> | void
 ) => Curry
 
-export const _run: Run = function (this, fn) {
-  this.queue(() => {
-    return fn.call(this)
-  })
+/**
+ * Execute a method within the queue. If method returns a promise, the chain waits for it to resolve.
+ *
+ * @param this Curry Instance
+ * @param fn Method to execute
+ * @returns Curry instance for chaining
+ */
 
+export const _run: Run = function (this, fn) {
+  this.queue(() => fn.call(this))
   return this
 }
