@@ -6,7 +6,11 @@ export type On = (
   this: Curry,
   eventName: string,
   callback: EventCallback,
-  options?: EventListenerOptions
+  options?: {
+    passive?: boolean
+    once?: boolean
+    capture?: boolean
+  },
 ) => Curry
 
 /**
@@ -18,15 +22,13 @@ export type On = (
  * @returns Curry instance for optional chaining
  */
 
-// TODO: Add custom events
-
 export const _on: On = function (this, eventName, callback, options) {
   this.queue(() => {
     for (const node of this.nodes) {
       node.addEventListener(
         eventName,
         event => callback.apply(toEl(node), [event, this]),
-        options,
+        options as unknown as EventListenerOptions,
       )
     }
   })

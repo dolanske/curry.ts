@@ -16,5 +16,6 @@ import { delay } from './curry/util'
 // SECTION: Test chaining async runs
 
 $('#btn').click(function () {
+  // eslint-disable-next-line no-console
   $(this).run(() => delay(1000)).run(() => console.log('done'))
 })

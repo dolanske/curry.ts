@@ -2,7 +2,7 @@ import type { PrevNextCallback } from './types'
 import type { Curry } from '.'
 
 export function isArray(value: any): value is any[] {
-  return Array.isArray(value)
+  return Array.isArray(value ?? [])
 }
 
 export function toEl<T = Element>(node: Node): T {
@@ -43,8 +43,7 @@ export function selectNTHSibling(
   callback?: PrevNextCallback,
 ): Curry {
   this.queue(() => {
-    const siblingPlace
-      = selectType === 'next' ? 'nextElementSibling' : 'previousElementSibling'
+    const siblingPlace = selectType === 'next' ? 'nextElementSibling' : 'previousElementSibling'
 
     // If callback has been provided but index hasn't
     if (typeof index !== 'number')
@@ -63,10 +62,12 @@ export function selectNTHSibling(
           matches.push(sibling)
 
           if (callback) {
-            callback.apply(sibling, [
-              // prettier-ignore
-              { self: sibling, prev: node, index: getSiblingIndex(sibling), instance: this },
-            ])
+            callback.apply(sibling, [{
+              self: sibling,
+              prev: node,
+              index: getSiblingIndex(sibling),
+              instance: this,
+            }])
           }
         }
       }
@@ -82,10 +83,12 @@ export function selectNTHSibling(
           matches.push(el)
 
           if (callback) {
-            callback.apply(el, [
-              // prettier-ignore
-              { self: el, prev: node, index: getSiblingIndex(node), instance: this },
-            ])
+            callback.apply(el, [{
+              self: el,
+              prev: node,
+              index: getSiblingIndex(node),
+              instance: this,
+            }])
           }
         }
       }

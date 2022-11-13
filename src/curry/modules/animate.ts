@@ -6,6 +6,7 @@ import { isArray, toEl } from '../util'
 interface Options extends KeyframeAnimationOptions {
   // Callback to execute on animation completion
   onFinish?: (animation: Animation) => void
+  // TODO: how to detect if an error happens during an animation
   // onError?: (this: Animation, e: ErrorEvent) => void
   // Wether to return object back to its defaults to apply the styling of the last keyframe
   keepStyle?: boolean
@@ -32,18 +33,19 @@ const defaults: Options = {
  * @returns Curry instance for chaining
  */
 
-export const _animate: Animate = function (this, animator, options = defaults) {
+export const _animate: Animate = function (this, animator, options = {}) {
   this.queue(async () => {
-    // const animationPromises: Promise<any>[] = []
+    if (!animator)
+      return
+
     const { onFinish, keepStyle } = Object.assign(defaults, options)
 
     // We use Properties type first to type check correct CSS bindings
     // Then type-cast it as a Keyframe array so the animation method accepts it
     animator = isArray(animator) ? animator : ([animator] as Properties[])
 
-    // NOTE
-    // This is a workaround for animation ignoring the first frame when we unput an array of keyframes.
-    // TODO: test if its required for multiple keyframes
+    // NOTE: This is a workaround for animation ignoring the first frame when we unput an array of keyframes.
+    // TODO: Test if its required for multiple keyframes
     if (animator.length > 1)
       animator.unshift({})
 

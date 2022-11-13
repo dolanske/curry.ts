@@ -25,6 +25,7 @@ export const _staticReplace: StaticReplace = function (target, el) {
     const _target = document.querySelector(target)
     if (!_target)
       return
+
     target = _target
   }
 
@@ -36,6 +37,7 @@ export const _staticReplace: StaticReplace = function (target, el) {
       const _el = document.querySelector(el)
       if (!_el)
         return
+
       el = _el
     }
   }
