@@ -14,16 +14,8 @@ import type { Del } from './modules/del'
 import { _del } from './modules/del'
 import type { CSS } from './modules/css'
 import { _css } from './modules/css'
-import type {
-  ClassCheck,
-  ClassManipulation,
-} from './modules/class'
-import {
-  _addClass,
-  _delClass,
-  _hasClass,
-  _tglClass,
-} from './modules/class'
+import type { ClassCheck, ClassManipulation } from './modules/class'
+import { _addClass, _delClass, _hasClass, _tglClass } from './modules/class'
 import type { Each } from './modules/each'
 import { _each } from './modules/each'
 import type { AsyncEach } from './modules/asyncEach'
@@ -57,14 +49,8 @@ import type { Parent } from './modules/parent'
 import { _parent } from './modules/parent'
 import type { Wait } from './modules/wait'
 import { _wait } from './modules/wait'
-import type {
-  Replace,
-  StaticReplace,
-} from './modules/replace'
-import {
-  _replace,
-  _staticReplace,
-} from './modules/replace'
+import type { Replace, StaticReplace } from './modules/replace'
+import { _replace, _staticReplace } from './modules/replace'
 import type { StaticSwap, Swap } from './modules/swap'
 import { _staticSwap, _swap } from './modules/swap'
 import type { NthChild } from './modules/nthChild'
@@ -83,9 +69,13 @@ import { _fadeIn, _fadeOut, _fadeToggle } from './modules/fade'
 import type { Fade, FadeToggle } from './modules/fade'
 import type { Run } from './modules/run'
 import { _run } from './modules/run'
+import { queryDom } from './util'
+import type { Find } from './modules/find'
+import { _find } from './modules/find'
 
 export interface Curry {
   nodes: Node[]
+  doc?: Document
   taskQueue: Promise<any>
 
   addClass: ClassManipulation
@@ -118,6 +108,7 @@ export interface Curry {
   click: Click
   first: First
   hover: Hover
+  find: Find
   wait: Wait
   swap: Swap
   even: Even
@@ -138,34 +129,20 @@ export interface Curry {
   on: On
 }
 
-type Selector = string | Node | Node[] | HTMLCollection | Curry
+// TODO: every method using document.querySelector should be able to substitude a different dom selector
+// from the `this.doc` variable. Meaning we can scope down DOM searching
 
-export function $(selector: Selector) {
-  // TODO: return a promise to when chain had no more methods in queue
-  const instance = new Curry(selector)
+export type Selector = string | Node | Node[] | HTMLCollection | Curry
+
+export function $(selector: Selector, doc?: Document) {
+  const instance = new Curry(selector, doc)
   return instance
 }
 
 export class Curry implements Curry {
-  constructor(selector: Selector) {
-    this.nodes = (() => {
-      if (typeof selector === 'string') {
-        const nodes = document.querySelectorAll(selector)
-        return Array.from(nodes)
-      }
-
-      if (selector instanceof HTMLCollection)
-        return Array.from(selector)
-
-      if (selector instanceof Node)
-        return [selector]
-
-      if (selector instanceof Curry)
-        return selector.nodes
-
-      return selector
-    })()
-
+  constructor(selector: Selector, doc?: Document) {
+    this.doc = doc
+    this.nodes = queryDom(selector, doc)
     this.taskQueue = Promise.resolve()
   }
 
@@ -208,6 +185,7 @@ export class Curry implements Curry {
   even = _even.bind(this)
   next = _next.bind(this)
   prev = _prev.bind(this)
+  find = _find.bind(this)
   add = _add.bind(this)
   del = _del.bind(this)
   odd = _odd.bind(this)

@@ -1,5 +1,6 @@
 import type { PrevNextCallback } from './types'
-import type { Curry } from '.'
+import type { Selector } from '.'
+import { Curry } from '.'
 
 export function isArray(value: any): value is any[] {
   return Array.isArray(value ?? [])
@@ -108,4 +109,27 @@ export function createElement(el: string): Element {
 
 export function delay(ms = 1): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+export function queryDom(selector: Selector, doc?: Document): Node[] {
+  if (typeof selector === 'string') {
+    let nodes
+    if (doc)
+      nodes = doc.querySelectorAll(selector)
+    else
+      nodes = document.querySelectorAll(selector)
+
+    return Array.from(nodes)
+  }
+
+  if (selector instanceof HTMLCollection)
+    return Array.from(selector)
+
+  if (selector instanceof Node)
+    return [selector]
+
+  if (selector instanceof Curry)
+    return selector.nodes
+
+  return selector
 }

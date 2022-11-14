@@ -5,24 +5,27 @@ import { createElement } from '../util'
 export type Replace = (
   this: Curry,
   target: string | Element | Node,
-  el?: string | Element | Node
+  el?: string | Element | Node,
+  doc?: Document
 ) => Curry
 
 export type StaticReplace = (
   target: string | Element | Node,
-  el: string | Element | Node
+  el: string | Element | Node,
+  doc?: Document
 ) => void
 
 /**
  *
  * @param target Target element to replace
  * @param el Element we replace with
+ * @param doc A substitude document to query elements from
  * @returns Curry instance
  */
 
-export const _staticReplace: StaticReplace = function (target, el) {
+export const _staticReplace: StaticReplace = function (target, el, doc) {
   if (typeof target === 'string') {
-    const _target = document.querySelector(target)
+    const _target = (doc ?? document).querySelector(target)
     if (!_target)
       return
 
@@ -34,7 +37,7 @@ export const _staticReplace: StaticReplace = function (target, el) {
       el = createElement(el)
     }
     else {
-      const _el = document.querySelector(el)
+      const _el = (doc ?? document).querySelector(el)
       if (!_el)
         return
 
@@ -51,10 +54,10 @@ export const _staticReplace: StaticReplace = function (target, el) {
  * @param this Curry instance
  * @param target Target element to replace
  * @param el Element we replace with
- * @returns Curry instance
+ * @returns Curry instance for chaining
  */
 
-export const _replace: Replace = function (this, target, el) {
-  this.queue(() => _staticReplace(target, el ?? this.nodes[0]))
+export const _replace: Replace = function (this, target, el, doc) {
+  this.queue(() => _staticReplace(target, el ?? this.nodes[0], doc))
   return this
 }
