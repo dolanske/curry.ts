@@ -3,13 +3,10 @@
  */
 
 import { describe, expect, test } from 'vitest'
-import { $, Curry } from '../curry/index'
+import { $ } from '../curry/index'
 import { delay } from '../curry/util'
 
-// TODO: find out how to simulate document.querySelector
-// FIXME: NOT 100 COVERAGE!!!!!!!
-
-function prepare() {
+function prepareDom() {
   const wrap1 = document.createElement('div')
   wrap1.id = 'wrap1'
   const wrap2 = document.createElement('div')
@@ -32,7 +29,7 @@ function prepare() {
 
 describe('Swap two elements', () => {
   test('HTML elements as params', async () => {
-    const { wrap1, wrap2, span1, span2 } = prepare()
+    const { wrap1, wrap2, span1, span2 } = prepareDom()
 
     $(document).swap(span1, span2)
     await delay(5)
@@ -40,22 +37,32 @@ describe('Swap two elements', () => {
     expect(wrap2.firstChild).toStrictEqual(span1)
   })
 
-  // FIXME: figure out
-  test.skip('Selectors as params', async () => {
-    const { wrap1, wrap2, span1, span2 } = prepare()
+  test('First selector as string', async () => {
+    const { wrap1, wrap2, span1, span2 } = prepareDom()
 
-    $(document).swap('#first', span2)
-    await delay(5)
+    document.body.replaceChildren()
+    document.body.appendChild(wrap1)
+    document.body.appendChild(wrap2)
+
+    await $(document, document).swap('#first', span2).get()
+    await $(document, document).swap('#nonexistent', span2).get()
+
     expect(wrap1.firstChild).toStrictEqual(span2)
     expect(wrap2.firstChild).toStrictEqual(span1)
+  })
 
-    Curry.swap(span2, '#first')
-    await delay(5)
+  test('Second selector as string', async () => {
+    const { wrap1, wrap2, span1, span2 } = prepareDom()
+
+    document.body.replaceChildren()
+    document.body.appendChild(wrap1)
+    document.body.appendChild(wrap2)
+
+    await $(document, document).swap(span1, '#second').get()
+    await $(document, document).swap(span1, '#noneexistent').get()
+
     expect(wrap1.firstChild).toStrictEqual(span2)
     expect(wrap2.firstChild).toStrictEqual(span1)
-
-    // $(document).swap("#first", span2)
-    // $(document).swap("#first", "#second")
   })
 })
 

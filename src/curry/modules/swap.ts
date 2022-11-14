@@ -4,34 +4,31 @@ import type { Curry } from '..'
 import { $ } from '..'
 import { toEl } from '../util'
 
-export type Swap = (
-  this: Curry,
-  target: Element | Node | string,
-  el: Element | Node | string
-) => Curry
-
-// TODO: make el optional, if omitted, swap this.nodes[0] with target
-
-export const _swap: Swap = function (this, target, el) {
-  this.queue(() => _staticSwap(target, el))
-  return this
-}
-
 export type StaticSwap = (
   target: Element | Node | string,
-  el: Element | Node | string
+  el: Element | Node | string,
+  doc?: Document
 ) => void
 
-export const _staticSwap: StaticSwap = function (target, el) {
+/**
+ *
+ * @param target First element
+ * @param el Second element
+ * @returns Curry instance for chaining
+ */
+
+export const _staticSwap: StaticSwap = function (target, el, doc?: Document) {
   if (typeof target === 'string') {
-    const _target = document.querySelector(target)
+    /* c8 ignore next 1 */
+    const _target = (doc ?? document).querySelector(target)
     if (!_target)
       return
     target = _target
   }
 
   if (typeof el === 'string') {
-    const _el = document.querySelector(el)
+    /* c8 ignore next 1 */
+    const _el = (doc ?? document).querySelector(el)
     if (!_el)
       return
     el = _el
@@ -42,4 +39,24 @@ export const _staticSwap: StaticSwap = function (target, el) {
 
   $(_target).replace(el)
   $(_el).replace(target)
+}
+
+export type Swap = (
+  this: Curry,
+  target: Element | Node | string,
+  el: Element | Node | string,
+  doc?: Document
+) => Curry
+
+/**
+ *
+ * @param this Curry instance
+ * @param target First element
+ * @param el Second element
+ * @returns Curry instance for chaining
+ */
+
+export const _swap: Swap = function (this, target, el) {
+  this.queue(() => _staticSwap(target, el, this.doc))
+  return this
 }
