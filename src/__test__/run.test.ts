@@ -24,4 +24,9 @@ test('Test sync $.run', async () => {
   await $(span).run(fn).run(fn).run(fn).get()
 
   expect(fn).toHaveBeenCalledTimes(3)
+
+  // @ts-expect-error Covering an error cause when no input fn is provided
+  await $(span).run().get()
+
+  expect(fn).toHaveBeenCalledTimes(3)
 })

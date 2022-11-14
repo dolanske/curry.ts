@@ -39,6 +39,7 @@ export const _nth: Nth = function (this, index, callback) {
           {
             instance: this,
             self: toEl(node),
+            /* c8 ignore next 1 */
             index: Array.isArray(index) ? index[i] : index,
           },
         ])
