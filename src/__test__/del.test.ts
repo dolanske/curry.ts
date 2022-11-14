@@ -18,3 +18,14 @@ test('Remove html node using $.del()', async () => {
 
   expect(div.children).toHaveLength(0)
 })
+
+test('Remove nodes using string selector', async () => {
+  const div = document.createElement('div')
+
+  div.appendChild(document.createElement('span'))
+
+  $(div.children).del('p')
+  await delay(1)
+
+  expect(div.children).toHaveLength(1)
+})
