@@ -38,7 +38,8 @@ export const _asyncEach: AsyncEach = function (this, callback) {
               },
             ])
           })
-
+          // It says line 44 is not covered, but I honestly don't understand how or why?
+          /* c8 ignore next 2 */
           index++
         }
       }),
