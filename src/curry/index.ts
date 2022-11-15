@@ -70,8 +70,8 @@ import type { Fade, FadeToggle } from './modules/fade'
 import type { Run } from './modules/run'
 import { _run } from './modules/run'
 import { queryDom } from './util'
-import type { Find } from './modules/find'
-import { _find } from './modules/find'
+import type { Query } from './modules/query'
+import { _query } from './modules/query'
 
 export interface Curry {
   nodes: Node[]
@@ -108,7 +108,7 @@ export interface Curry {
   click: Click
   first: First
   hover: Hover
-  find: Find
+  find: Query
   wait: Wait
   swap: Swap
   even: Even
@@ -185,7 +185,7 @@ export class Curry implements Curry {
   even = _even.bind(this)
   next = _next.bind(this)
   prev = _prev.bind(this)
-  find = _find.bind(this)
+  query = _query.bind(this)
   add = _add.bind(this)
   del = _del.bind(this)
   odd = _odd.bind(this)

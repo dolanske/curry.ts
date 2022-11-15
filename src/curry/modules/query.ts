@@ -1,7 +1,7 @@
 import type { Curry, Selector } from '..'
 import { queryDom } from '../util'
 
-export type Find = (
+export type Query = (
   this: Curry,
   selector: Selector
 ) => Curry
@@ -15,9 +15,12 @@ export type Find = (
  * @returns Curry instance for chaining
  */
 
-export const _find: Find = function (this, selector) {
+export const _query: Query = function (this, selector) {
   this.queue(() => {
-    this.nodes = queryDom(selector)
+    if (!selector)
+      return
+
+    this.nodes = queryDom(selector, this.doc)
   })
 
   return this
