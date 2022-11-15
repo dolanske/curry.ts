@@ -3,7 +3,10 @@ import type { Selector } from '.'
 import { Curry } from '.'
 
 export function isArray(value: any): value is any[] {
-  return Array.isArray(value ?? [])
+  if (!value)
+    return false
+
+  return Array.isArray(value)
 }
 
 export function toEl<T = Element>(node: Node): T {
@@ -12,19 +15,19 @@ export function toEl<T = Element>(node: Node): T {
 
 export function isObject(value: any): value is object {
   const type = typeof value
-  return value != null && (type === 'object' || type === 'function')
+  return value != null && (type === 'object')
 }
 
 export function isFunction(value: any): value is Function {
   return value && {}.toString.call(value) === '[object Function]'
 }
 
-export function isNil(value: any) {
+export function isNil(value?: any) {
   return value === null || value === undefined
 }
 
-function getSiblingIndex(el: Element) {
-  if (!el)
+export function getSiblingIndex(el: Element) {
+  if (!el || !el.previousElementSibling)
     return 0
 
   let i = 0
