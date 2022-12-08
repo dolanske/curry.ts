@@ -73,62 +73,6 @@ import { queryDom } from './util'
 import type { Query } from './modules/query'
 import { _query } from './modules/query'
 
-export interface Curry {
-  nodes: Node[]
-  doc?: Document
-  taskQueue: Promise<any>
-
-  addClass: ClassManipulation
-  delClass: ClassManipulation
-  tglClass: ClassManipulation
-  prependChild: AddShorthand
-  appendChild: AddShorthand
-  fullscreen: Fullscreen
-  fadeToggle: FadeToggle
-  prepend: AddShorthand
-  prened: AddShorthand
-  hasClass: ClassCheck
-  asyncEach: AsyncEach
-  children: Children
-  teleport: Teleport
-  toggle: Visibility
-  nthChild: NthChild
-  animate: Animate
-  replace: Replace
-  trigger: Trigger
-  show: Visibility
-  hide: Visibility
-  setAttr: SetAttr
-  getAttr: GetAttr
-  addChild: Add
-  parent: Parent
-  filter: Filter
-  fadeOut: Fade
-  fadeIn: Fade
-  click: Click
-  first: First
-  hover: Hover
-  find: Query
-  wait: Wait
-  swap: Swap
-  even: Even
-  next: Next
-  prev: Next
-  last: Last
-  each: Each
-  text: Text
-  run: Run
-  add: Add
-  odd: Odd
-  css: CSS
-  del: Del
-  get: Get
-  nth: Nth
-  key: Key
-  is: Is
-  on: On
-}
-
 // TODO: every method using document.querySelector should be able to substitude a different dom selector
 // from the `this.doc` variable. Meaning we can scope down DOM searching
 
@@ -139,7 +83,11 @@ export function $(selector: Selector, doc?: Document) {
   return instance
 }
 
-export class Curry implements Curry {
+export class Curry {
+  doc?: Document
+  nodes: Node[]
+  taskQueue: Promise<any>
+
   constructor(selector: Selector, doc?: Document) {
     this.doc = doc
     this.nodes = queryDom(selector, doc)
@@ -148,54 +96,54 @@ export class Curry implements Curry {
 
   /* ----------  Chaining API  ---------- */
   fullscreen: Fullscreen = _fullscreen.bind(this)
-  prependChild = _prependChild.bind(this)
-  appendChild = _appendChild.bind(this)
-  fadeToggle = _fadeToggle.bind(this)
-  asyncEach = _asyncEach.bind(this)
-  addClass = _addClass.bind(this)
-  delClass = _delClass.bind(this)
-  tglClass = _tglClass.bind(this)
-  children = _children.bind(this)
-  hasClass = _hasClass.bind(this)
-  teleport = _teleport.bind(this)
-  nthChild = _nthChild.bind(this)
-  addChild = _addChild.bind(this)
-  prepend = _prepend.bind(this)
-  setAttr = _setAttr.bind(this)
-  getAttr = _getAttr.bind(this)
-  replace = _replace.bind(this)
-  trigger = _trigger.bind(this)
-  animate = _animate.bind(this)
-  fadeOut = _fadeOut.bind(this)
-  filter = _filter.bind(this)
-  fadeIn = _fadeIn.bind(this)
-  append = _append.bind(this)
-  toggle = _toggle.bind(this)
-  parent = _parent.bind(this)
-  click = _click.bind(this)
-  first = _first.bind(this)
-  hover = _hover.bind(this)
-  wait = _wait.bind(this)
-  swap = _swap.bind(this)
-  show = _show.bind(this)
-  hide = _hide.bind(this)
-  text = _text.bind(this)
-  each = _each.bind(this)
-  last = _last.bind(this)
-  even = _even.bind(this)
-  next = _next.bind(this)
-  prev = _prev.bind(this)
-  query = _query.bind(this)
-  add = _add.bind(this)
-  del = _del.bind(this)
-  odd = _odd.bind(this)
-  get = _get.bind(this) as Get
-  css = _css.bind(this)
-  nth = _nth.bind(this)
-  run = _run.bind(this)
-  key = new Key(this)
-  is = _is.bind(this)
-  on = _on.bind(this)
+  prependChild: AddShorthand = _prependChild.bind(this)
+  appendChild: AddShorthand = _appendChild.bind(this)
+  fadeToggle: FadeToggle = _fadeToggle.bind(this)
+  asyncEach: AsyncEach = _asyncEach.bind(this)
+  addClass: ClassManipulation = _addClass.bind(this)
+  delClass: ClassManipulation = _delClass.bind(this)
+  tglClass: ClassManipulation = _tglClass.bind(this)
+  children: Children = _children.bind(this)
+  hasClass: ClassCheck = _hasClass.bind(this)
+  teleport: Teleport = _teleport.bind(this)
+  nthChild: NthChild = _nthChild.bind(this)
+  addChild: Add = _addChild.bind(this)
+  prepend: AddShorthand = _prepend.bind(this)
+  setAttr: SetAttr = _setAttr.bind(this)
+  getAttr: GetAttr = _getAttr.bind(this)
+  replace: Replace = _replace.bind(this)
+  trigger: Trigger = _trigger.bind(this)
+  animate: Animate = _animate.bind(this)
+  fadeOut: Fade = _fadeOut.bind(this)
+  filter: Filter = _filter.bind(this)
+  fadeIn: Fade = _fadeIn.bind(this)
+  append: AddShorthand = _append.bind(this)
+  toggle: Visibility = _toggle.bind(this)
+  parent: Parent = _parent.bind(this)
+  click: Click = _click.bind(this)
+  first: First = _first.bind(this)
+  hover: Hover = _hover.bind(this)
+  wait: Wait = _wait.bind(this)
+  swap: Swap = _swap.bind(this)
+  show: Visibility = _show.bind(this)
+  hide: Visibility = _hide.bind(this)
+  query: Query = _query.bind(this)
+  text: Text = _text.bind(this)
+  each: Each = _each.bind(this)
+  last: Last = _last.bind(this)
+  even: Even = _even.bind(this)
+  next: Next = _next.bind(this)
+  prev: Next = _prev.bind(this)
+  add: Add = _add.bind(this)
+  del: Del = _del.bind(this)
+  odd: Odd = _odd.bind(this)
+  get: Get = _get.bind(this) as Get
+  css: CSS = _css.bind(this)
+  nth: Nth = _nth.bind(this)
+  run: Run = _run.bind(this)
+  key: Key = new Key(this)
+  is: Is = _is.bind(this)
+  on: On = _on.bind(this)
 
   /**
    * Functions which return Curry instance can be queued to be asyncronously executed.
@@ -215,10 +163,26 @@ export class Curry implements Curry {
     return _text.bind(instance)(text)
   }
 
+  // Expose prototype so that users can extend curry with their own functions
   get length() {
     return this.nodes.length
   }
-}
 
-// TODO: Implement actual reactive global state
-// export const $state: DynamicObject = {}
+  /**
+   *  Experimental extension API
+   */
+
+  static $fn(name: string, fn: (this: Curry) => void) {
+    Object.defineProperty(
+      Curry.prototype,
+      name,
+      {
+        value(this: Curry) {
+          fn.apply(this)
+
+          return this
+        },
+      },
+    )
+  }
+}
