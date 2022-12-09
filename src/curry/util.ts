@@ -111,9 +111,6 @@ export function createElement(el: string): Element {
 }
 
 export function delay(ms = 1): Promise<void> {
-  if (!ms)
-    ms = 0
-
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 

@@ -32,3 +32,5 @@ $('button').getNodesTextContent()
 //   // eslint-disable-next-line no-console
 //   $(this).run(() => delay(1000)).run(() => console.log('done'))
 // })
+
+// SECTION: Test fullscreen

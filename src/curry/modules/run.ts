@@ -1,7 +1,5 @@
 import type { Curry } from '..'
 
-// TODO: add tests for function calling times and delays
-
 export type Run = (
   this: Curry,
   fn: (this: Curry) => Promise<void> | void
