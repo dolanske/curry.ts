@@ -1,7 +1,9 @@
 {
-  "name": "curryts",
+  "name": "curry",
   "version": "0.0.0",
   "private": true,
+  "author": "dolanske",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
