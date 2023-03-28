@@ -1,9 +1,32 @@
 {
-  "name": "curry",
-  "version": "0.0.0",
-  "private": true,
+  "name": "@dolanske/curry",
+  "version": "1.0.0",
+  "description": "Fully typed, simple and powerful DOM manipulation library.",
   "author": "dolanske",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dolanske/curry.ts.git"
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "dom-manipulation",
+    "jQuery",
+    "dom",
+    "jquery-clone"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/curry.mjs"
+    }
+  },
+  "main": "./dist/curry.mjs",
+  "module": "./dist/curry.mjs",
+  "types": "./dist/src/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -22,7 +45,8 @@
     "c8": "^7.12.0",
     "eslint": "^8.25.0",
     "typescript": "^4.8.3",
-    "vite": "^3.1.3",
+    "vite": "^4.2.1",
+    "vite-plugin-dts": "^2.1.0",
     "vitest": "^0.23.4"
   }
 }
