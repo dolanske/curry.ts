@@ -751,5 +751,6 @@ let d = b;
 /* ----------  Static API  ---------- */
 r(d, "fullscreen", E), r(d, "replace", w), r(d, "swap", S);
 export {
+  u as $,
   d as Curry
 };

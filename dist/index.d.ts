@@ -1,1 +1,1 @@
-export { Curry } from './curry';
+export { Curry, $, } from './curry';
