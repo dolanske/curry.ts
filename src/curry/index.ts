@@ -70,6 +70,7 @@ import { _run } from './modules/run'
 import { queryDom } from './util'
 import type { Query } from './modules/query'
 import { _query } from './modules/query'
+import { type Slide, _slide } from './modules/_slide'
 
 // TODO: every method using document.querySelector should be able to substitude a different dom selector
 // from the `this.doc` variable. Meaning we can scope down DOM searching
@@ -142,6 +143,8 @@ export class Curry {
   key: Key = new Key(this)
   is: Is = _is.bind(this)
   on: On = _on.bind(this)
+
+  slide: Slide = _slide.bind(this)
 
   /**
    * Functions which return Curry instance can be queued to be asyncronously executed.

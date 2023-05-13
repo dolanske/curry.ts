@@ -12,17 +12,24 @@ import { toEl } from '../util'
 
 type SlideType = 'Up' | 'Down' | 'Left' | 'Right'
 interface SlideOptions {
-  easing: string
-  duration: number
+  easing?: string
+  duration?: number
   // Override works in a way that the Open or Close state gets applied to all
   // selected elements based on the first element. Instead of toggling it
   override?: boolean
 }
-type Slide = (this: Curry, type: SlideType, options: SlideOptions) => Curry
+export type Slide = (this: Curry, type: SlideType, options?: SlideOptions) => Curry
 
-// Slide down
-export const slide: Slide = function (this, type, { easing, duration, override }) {
+// Generic slide method containing all types
+export const _slide: Slide = function (this, type, options) {
   this.queue(async () => {
+    // Set defaults
+    const {
+      easing = 'linear',
+      duration = 0.3,
+      override = false,
+    } = options ?? {}
+
     for (const _node of this.nodes) {
       const node = toEl<HTMLElement>(_node)
       const isOff = override
