@@ -70,7 +70,8 @@ import { _run } from './modules/run'
 import { queryDom } from './util'
 import type { Query } from './modules/query'
 import { _query } from './modules/query'
-import { type Slide, _slide } from './modules/_slide'
+import { _slideDown, _slideToggle, _slideUp } from './modules/_slide'
+import type { Slide, SlideToggle } from './modules/_slide'
 
 // TODO: every method using document.querySelector should be able to substitude a different dom selector
 // from the `this.doc` variable. Meaning we can scope down DOM searching
@@ -144,7 +145,9 @@ export class Curry {
   is: Is = _is.bind(this)
   on: On = _on.bind(this)
 
-  slide: Slide = _slide.bind(this)
+  slideUp: Slide = _slideUp.bind(this)
+  slideDown: Slide = _slideDown.bind(this)
+  slideToggle: SlideToggle = _slideToggle.bind(this)
 
   /**
    * Functions which return Curry instance can be queued to be asyncronously executed.
@@ -164,11 +167,11 @@ export class Curry {
     return _text.bind(instance)(text)
   }
 
-  // Expose prototype so that users can extend curry with their own functions
   get length() {
     return this.nodes.length
   }
 
+  // Expose prototype so that users can extend curry with their own functions
   /**
    *  Experimental extension API
    */
@@ -180,7 +183,6 @@ export class Curry {
       {
         value(this: Curry) {
           fn.apply(this)
-
           return this
         },
       },

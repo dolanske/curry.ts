@@ -42,6 +42,7 @@ export const _animate: Animate = function (this, animator, options = {}) {
 
     // We use Properties type first to type check correct CSS bindings
     // Then type-cast it as a Keyframe array so the animation method accepts it
+    // Convert to array in case only 1 keyframe is provided
     animator = isArray(animator) ? animator : ([animator] as Properties[])
 
     // NOTE: This is a workaround for animation ignoring the first frame when we unput an array of keyframes.
@@ -59,18 +60,23 @@ export const _animate: Animate = function (this, animator, options = {}) {
 
       const animation = el.animate(keyframes, options)
 
-      await animation.finished
-        .then(() => {
-          // Once animation finishes
-          // If we want to keep the last ke
-          if (keepStyle) {
-            const lastFrame = keyframes.at(-1) as Properties
-            $(node).css(lastFrame)
-          }
+      animation.onfinish = () => {
+        // Once animation finishes
+        // If we want to keep the last ke
+        if (keepStyle) {
+          const lastFrame = keyframes.at(-1) as Properties
+          $(node).css(lastFrame)
+        }
 
-          if (onFinish)
-            onFinish(animation)
-        })
+        if (onFinish)
+          onFinish(animation)
+      }
+
+      animation.oncancel = err => console.log('[$.animate] Animation cancelled \n', err)
+      animation.onremove = err => console.log('[$.animate] Animation removed \n', err)
+
+      // Wait until animation completes
+      await animation.finished
     }
 
     return Promise.resolve()

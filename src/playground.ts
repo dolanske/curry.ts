@@ -1,5 +1,5 @@
 import { $ } from './curry'
 
-$('button').click((_, instance) => {
-  instance.next().slide('Up')
+$('button').click(function () {
+  $(this).next().slideToggle(500)
 })

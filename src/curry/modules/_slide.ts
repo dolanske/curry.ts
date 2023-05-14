@@ -1,17 +1,8 @@
 import type { Curry } from '..'
 import { $ } from '..'
-import { toEl } from '../util'
+import { formatPrefixAttr, isObject, toEl } from '../util'
 
-// Slide option works two ways
-// The base and the endState
-// Meaning UpOpen starts up and slides down to open
-// Then UpClose
-
-// The state is determind if the element we are performing slide
-// on has a style property display:false;
-
-type SlideType = 'Up' | 'Down' | 'Left' | 'Right'
-interface SlideOptions {
+export interface SlideToggleOptions {
   easing?: string
   // In milliseconds
   duration?: number
@@ -19,100 +10,127 @@ interface SlideOptions {
   // selected elements based on the first element. Instead of toggling it
   override?: boolean
 }
-export type Slide = (this: Curry, type: SlideType, options?: SlideOptions) => Curry
 
-// Generic slide method containing all types
-export const _slide: Slide = function (this, type, options) {
+export type Slide = (this: Curry, duration?: number, easing?: string) => Curry
+
+export const _slideUp: Slide = function (this, duration = 300, easing = 'linear') {
   this.queue(async () => {
-    // Set defaults
-    const {
-      easing = 'linear',
-      duration = 300,
-      override = false,
-    } = options ?? {}
+    const executions: Promise<any>[] = []
 
     for (const _node of this.nodes) {
-      const node = toEl<HTMLElement>(_node)
+      const node = toEl(_node)
+      // Save elements original height so we can perform a smooth animation
+      // to it when/if user wants to use slideDown/slideToggle afterwards
+      const originalHeight = node.scrollHeight
+
+      executions.push(
+        $(node)
+          .setAttr(formatPrefixAttr('original-height'), originalHeight)
+          .css('overflow', 'hidden')
+          .animate({ height: '0px' }, {
+            easing,
+            duration,
+            keepStyle: true,
+          })
+          .css('display', 'none')
+          // Empty get is used to return a promise of the entire chain
+          .get(),
+      )
+    }
+
+    return Promise.allSettled(executions)
+  })
+
+  return this
+}
+
+export const _slideDown: Slide = function (this, duration = 300, easing = 'linear') {
+  this.queue(async () => {
+    // Store animation promises
+    const executions: Promise<any>[] = []
+
+    for (const _node of this.nodes) {
+      const node = toEl(_node)
+      // Remove display property as it's not needed anymore
+      node.style.removeProperty('display')
+      // Check if element contains an original height attr()
+      const attrHeight = $(node).getAttr(formatPrefixAttr('original-height'))
+      // Get the elements inner content height
+      const height = `${attrHeight ?? node.scrollHeight}px`
+
+      executions.push(
+        $(node)
+          // Animate to the inner content's height
+          // This will display the animated component in its natural dimensions
+          .animate({ height }, { easing, duration })
+          .run(() => {
+            node.style.removeProperty('overflow')
+            node.style.removeProperty('height')
+          })
+          .setAttr(formatPrefixAttr('original-height'), null)
+          .get(),
+      )
+    }
+
+    return Promise.allSettled(executions)
+  })
+
+  return this
+}
+
+export type SlideToggle = (this: Curry, duration?: number | SlideToggleOptions, easing?: string) => Curry
+
+export const _slideToggle: SlideToggle = function (this, _duration, _easing) {
+  this.queue(() => {
+    const {
+      duration = 300,
+      easing = _easing ?? 'linear',
+      override = false,
+    } = isObject(_duration) ? _duration : {}
+
+    // Check wether element is currently slid up (hidden) or down (visible)
+
+    for (const _node of this.nodes) {
+      const node = toEl(_node)
+
+      // If is-off is true, it means this action should return the element back
+      // to its original state
+
+      // The current element is hidden (most likely slideUp() was called)
+      // Override means that if that we treat all selected elements as the first node
       const isOff = override
         ? toEl<HTMLElement>(this.nodes[0]).style.display === 'none'
         : node.style.display === 'none'
 
-      // If isOff is true, it means this action should return the element back
-      // to its original state
-      if (isOff) {
-        // First remove the display property
-        node.style.removeProperty('display')
-        // Animate back to normal scale
-        await $(node).animate({ transform: 'scale(1,1)' }, {
-          onFinish() {
-            // Remove transform origin which is used by the animation
-            node.style.removeProperty('transform-origin')
-          },
-        }).get()
-      }
-      else {
-        switch (type) {
-          case 'Up': {
-            // If it is not off, we want to get into the ON state
-            $(node).css('transform-origin', 'center top')
-            $(node).animate({ transform: 'scale(1,0)' }, {
-              easing,
-              duration,
-              keepStyle: true,
-              onFinish() {
-                $(node).css({ display: 'none' })
-              },
-            })
-            break
-          }
-        }
-      }
+      if (isOff)
+        $(node).slideDown(duration, easing)
+      else
+        $(node).slideUp(duration, easing)
     }
   })
 
   return this
 }
 
-export function slideUp(this: Curry, duration = 300, easing = 'linear'): Slide {
-  this.queue(async () => {
-    for (const _node of this.nodes) {
-      const inst = $(toEl<HTMLElement>(_node))
-      inst.css('overflow', 'hidden')
-      inst.animate({
-        height: 0,
-      }, {
-        easing,
-        duration,
-        onFinish() {
-          inst.css('display', 'none')
-        },
-      })
-    }
-  })
+// REVIEW
 
-  return this
-}
+// SLide currently supports sliding up (hiding element) and down (showing element)
+// This animation is always performed in the same fashion. Essentially the element is wrapped up to its upper
+// edge. Now in most cases this is what users want.
 
-export function slideDown() {
+// But what if the same animation could be used for the remaining 3 edges? `SlideLeftUp` would mean the element
+// is rolled to its left edge. And `SlideLeftDown` would unroll it again.
 
-}
+// Syntax for methods of this amount of complexity would require a bit more verbose syntax.
+// Most likely the library could provide all the specific ones such as `SlideLeftDown`, `SlideLeftUp` and `SlideLeftToggle` and so on
+// But all of them should just perform a simple call of another function. The main `slide`
 
-export function slideToggle() {
+// Bellow are the proposed syntax ideas
 
-}
-// Slide up
-
-// Slide toggle
-
-// SlideLeftUp
-
-// SlideLeftDown
-
-// SlideLeftToggle
-
-// Slides
-// _slide('Up', {})
-// _slide({from: 'Up', to: 'Up'}, {})
-// _slide('Up', 'Down')
-// _slide('Up', 'Down', {})
+// Proposed slide
+// _slide('Up', { ...options })
+// _slide({from: 'Up', to: 'Up'}, { ...options })
+// _slide({from: 'Up', to: 'Up', ...options})         // #1 my favorite
+// _slide('Up', 'Down')                               // #2.1 Also possible
+// _slide('Up', 'Down', { ...options })               // #2.2 Also possible
 // _slide('<from>', '<To>')

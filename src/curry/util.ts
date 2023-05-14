@@ -1,4 +1,5 @@
 import type { PrevNextCallback } from './types'
+import { CURRY_ATTR_PREFIX } from './config'
 import type { Selector } from '.'
 import { Curry } from '.'
 
@@ -9,7 +10,7 @@ export function isArray(value: any): value is any[] {
   return Array.isArray(value)
 }
 
-export function toEl<T = Element>(node: Node): T {
+export function toEl<T = HTMLElement>(node: Node): T {
   return node as T
 }
 
@@ -50,8 +51,10 @@ export function selectNTHSibling(
     const siblingPlace = selectType === 'next' ? 'nextElementSibling' : 'previousElementSibling'
 
     // If callback has been provided but index hasn't
-    if (typeof index !== 'number')
+    if (typeof index !== 'number') {
       callback = index
+      index = undefined
+    }
 
     const matches: Element[] = []
 
@@ -136,3 +139,5 @@ export function queryDom(selector: Selector, doc?: Document): Node[] {
 
   return selector
 }
+
+export const formatPrefixAttr = (str: string) => CURRY_ATTR_PREFIX + str

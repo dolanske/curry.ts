@@ -1,5 +1,5 @@
 import type { Curry } from '..'
-import { isArray, isObject, toEl } from '../util'
+import { isArray, isNil, isObject, toEl } from '../util'
 
 export interface Attr {
   [key: string]: string | number
@@ -11,7 +11,8 @@ export type GetAttr = (
 ) => string | string[] | null
 
 /**
- * Returns one or more attribute values of the first matched element. To check each matched element, first iterate over them with $.each()
+ * Returns one or more attribute values of the first matched element. To
+ * check each matched element, first iterate over them with $.each()
  *
  * @param this Curry instance
  * @param key Attribute key or array of attribute keys to check for
@@ -35,7 +36,14 @@ export type SetAttr = (
   this: Curry,
   key: Attr | Attr[] | string,
   value?: any
-) => void
+) => Curry
+
+function _set(node: HTMLElement, key: string, val: any) {
+  if (isNil(val))
+    node.removeAttribute(key)
+  else
+    node.setAttribute(key, String(val))
+}
 
 /**
  *
@@ -43,26 +51,28 @@ export type SetAttr = (
  * @param key An attribute key, an object of attributes or an array of attributes
  * @param value Value to set the attribute to
  */
+
 export const _setAttr: SetAttr = function (this, key, value) {
-  for (const _node of this.nodes) {
-    const node = toEl(_node)
-
-    if (typeof key === 'string' && value) {
-      node.setAttribute(key, String(value))
-    }
-    else if (isArray(key)) {
-      for (const attr of key) {
-        const key = Object.keys(attr)[0]
-        const value = attr[key]
-
-        node.setAttribute(key, String(value))
+  this.queue(() => {
+    for (const _node of this.nodes) {
+      const node = toEl(_node)
+      if (typeof key === 'string') {
+        _set(node, key, value)
+      }
+      else if (isArray(key)) {
+        for (const attr of key) {
+          const key = Object.keys(attr)[0]
+          const value = attr[key]
+          _set(node, key, value)
+        }
+      }
+      else if (isObject(key)) {
+        const k = Object.keys(key)[0]
+        const v = key[k]
+        _set(node, k, v)
       }
     }
-    else if (isObject(key)) {
-      const k = Object.keys(key)[0]
-      const v = key[k]
+  })
 
-      node.setAttribute(k, String(v))
-    }
-  }
+  return this
 }
