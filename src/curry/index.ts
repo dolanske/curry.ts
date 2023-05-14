@@ -13,7 +13,7 @@ import { _del } from './modules/del'
 import type { CSS } from './modules/css'
 import { _css } from './modules/css'
 import type { ClassCheck, ClassManipulation } from './modules/class'
-import { _addClass, _delClass, _hasClass, _tglClass } from './modules/class'
+import { _addClass, _delClass, _hasClass, _toggleClass } from './modules/class'
 import type { Each } from './modules/each'
 import { _each } from './modules/each'
 import type { AsyncEach } from './modules/asyncEach'
@@ -96,12 +96,12 @@ export class Curry {
   /* ----------  Chaining API  ---------- */
   fullscreen: Fullscreen = _fullscreen.bind(this)
   prependChild: AddShorthand = _prependChild.bind(this)
+  toggleClass: ClassManipulation = _toggleClass.bind(this)
   appendChild: AddShorthand = _appendChild.bind(this)
   fadeToggle: FadeToggle = _fadeToggle.bind(this)
   asyncEach: AsyncEach = _asyncEach.bind(this)
   addClass: ClassManipulation = _addClass.bind(this)
   delClass: ClassManipulation = _delClass.bind(this)
-  tglClass: ClassManipulation = _tglClass.bind(this)
   children: Children = _children.bind(this)
   hasClass: ClassCheck = _hasClass.bind(this)
   teleport: Teleport = _teleport.bind(this)

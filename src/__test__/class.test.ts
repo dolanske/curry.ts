@@ -35,15 +35,15 @@ test('Removing a class with $.delClass()', async () => {
   expect(Array.from(div.classList)).toStrictEqual([])
 })
 
-test('Toggle class with $.tglClass()', async () => {
+test('Toggle class with $.toggleClass()', async () => {
   const div = document.createElement('div')
 
-  $(div).tglClass('test1')
+  $(div).toggleClass('test1')
   await delay(10)
 
   expect(Array.from(div.classList)).toStrictEqual(['test1'])
 
-  $(div).tglClass(['test1', 'test2'])
+  $(div).toggleClass(['test1', 'test2'])
   await delay(10)
 
   expect(Array.from(div.classList)).toStrictEqual(['test2'])

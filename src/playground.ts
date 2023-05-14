@@ -1,5 +1,5 @@
 import { $ } from './curry'
 
-$('button').click((event, instance) => {
-  instance.slide('Down')
+$('button').click((_, instance) => {
+  instance.next().slide('Up')
 })

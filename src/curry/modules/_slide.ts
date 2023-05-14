@@ -13,6 +13,7 @@ import { toEl } from '../util'
 type SlideType = 'Up' | 'Down' | 'Left' | 'Right'
 interface SlideOptions {
   easing?: string
+  // In milliseconds
   duration?: number
   // Override works in a way that the Open or Close state gets applied to all
   // selected elements based on the first element. Instead of toggling it
@@ -26,20 +27,33 @@ export const _slide: Slide = function (this, type, options) {
     // Set defaults
     const {
       easing = 'linear',
-      duration = 0.3,
+      duration = 300,
       override = false,
     } = options ?? {}
 
     for (const _node of this.nodes) {
       const node = toEl<HTMLElement>(_node)
       const isOff = override
-        ? toEl<HTMLElement>(this.nodes[0]).style.display === 'node'
+        ? toEl<HTMLElement>(this.nodes[0]).style.display === 'none'
         : node.style.display === 'none'
 
-      switch (type) {
-        case 'Up': {
-          // If it is not off, we want to get into the ON state
-          if (!isOff) {
+      // If isOff is true, it means this action should return the element back
+      // to its original state
+      if (isOff) {
+        // First remove the display property
+        node.style.removeProperty('display')
+        // Animate back to normal scale
+        await $(node).animate({ transform: 'scale(1,1)' }, {
+          onFinish() {
+            // Remove transform origin which is used by the animation
+            node.style.removeProperty('transform-origin')
+          },
+        }).get()
+      }
+      else {
+        switch (type) {
+          case 'Up': {
+            // If it is not off, we want to get into the ON state
             $(node).css('transform-origin', 'center top')
             $(node).animate({ transform: 'scale(1,0)' }, {
               easing,
@@ -49,15 +63,9 @@ export const _slide: Slide = function (this, type, options) {
                 $(node).css({ display: 'none' })
               },
             })
+            break
           }
         }
-
-        // default: {
-        //   // We just completed the Close animation back to the default
-        //   if (!isOff)
-        //     $(node).animate({ transform: 'scale(1,1)' })
-        //   $(node).css('transform-origin', 'inherit')
-        // }
       }
     }
   })
@@ -65,6 +73,33 @@ export const _slide: Slide = function (this, type, options) {
   return this
 }
 
+export function slideUp(this: Curry, duration = 300, easing = 'linear'): Slide {
+  this.queue(async () => {
+    for (const _node of this.nodes) {
+      const inst = $(toEl<HTMLElement>(_node))
+      inst.css('overflow', 'hidden')
+      inst.animate({
+        height: 0,
+      }, {
+        easing,
+        duration,
+        onFinish() {
+          inst.css('display', 'none')
+        },
+      })
+    }
+  })
+
+  return this
+}
+
+export function slideDown() {
+
+}
+
+export function slideToggle() {
+
+}
 // Slide up
 
 // Slide toggle
@@ -75,4 +110,9 @@ export const _slide: Slide = function (this, type, options) {
 
 // SlideLeftToggle
 
-// All of the above can have "reverse" boolean which will reverse the side of the animation
+// Slides
+// _slide('Up', {})
+// _slide({from: 'Up', to: 'Up'}, {})
+// _slide('Up', 'Down')
+// _slide('Up', 'Down', {})
+// _slide('<from>', '<To>')
