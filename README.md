@@ -16,8 +16,11 @@ Any feedback, issues, ideas, PRs or feature requests are utmost welcome. I am ab
 
 ## TODO
 
-- [] $.siblings()
+- [] $.siblings(prev, next)
+- [] $.prevSiblings()
+- [] $.nextSiblings()
 - [] documentation
+- []
 
 ## API
 
