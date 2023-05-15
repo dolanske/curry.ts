@@ -17,7 +17,7 @@ export type Get = <T = Element[] | Element | undefined>(
  *
  */
 
-export function _get(this: Curry): Promise<HTMLElement | HTMLElement[]>
+export function _get(this: Curry): Promise<Element | Element[]>
 export function _get(this: Curry, key?: string): Promise<any> {
   return this.queue(() => {
     if (this.nodes.length === 0)
@@ -36,23 +36,3 @@ export function _get(this: Curry, key?: string): Promise<any> {
     return values.length === 1 ? values[0] : values
   })
 }
-
-// const _get: Get = function (this, key) {
-//   return this.queue(() => {
-//     if (this.nodes.length === 0)
-//       return undefined
-
-//     if (!key) {
-//       return this.nodes.length === 1 ? this.nodes[0] : this.nodes
-//     }
-
-//     const values: any[] = []
-
-//     for (const node of this.nodes) {
-//       if (node)
-//         values.push(Reflect.get(toEl<Element>(node), key))
-//     }
-
-//     return values.length === 1 ? values[0] : values
-//   })
-// }

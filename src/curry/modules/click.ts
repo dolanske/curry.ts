@@ -15,7 +15,7 @@ export type Click = (this: Curry, callback: EventCallback) => Curry
 export const _click: Click = function (this, callback) {
   for (const node of this.nodes) {
     $(node).on('click', (event) => {
-      callback.apply(toEl<Element>(node), [event, this])
+      callback.apply(toEl<HTMLElement>(node), [event, this])
     })
   }
 
