@@ -4,6 +4,7 @@
 
 import { expect, test } from 'vitest'
 import { $ } from '../curry'
+import { delay } from '../curry/util'
 
 // #1 Add test for animation completing
 // #2 Trigger onFinish
@@ -18,8 +19,17 @@ test('Basic animation options', async () => {
       expect(document.body.style.height).toBe('500px')
     },
   })
+})
 
-  // await delay(DELAY)
-  // const end = Date.now()
-  // expect(end - start).toBeGreaterThanOrEqual(DELAY)
+test('Cancel animation mid execution', () => {
+  $(document.body).animate({ height: 0 }, {
+    duration: 1000,
+    async onStart(animation) {
+      await delay(50)
+      animation.finish()
+    },
+    onCancel(animation) {
+      expect(animation.playState).toBe('finished')
+    },
+  })
 })
