@@ -3,6 +3,8 @@
     "@antfu"
   ],
   "rules": {
-    "no-console": "off"
+    "no-console": "off",
+    "no-invalid-this": "off",
+    "@typescript-eslint/no-invalid-this": "off"
   }
 }

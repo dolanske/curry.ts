@@ -36,7 +36,7 @@ const defaults: Options = {
 export const _animate: Animate = function (this, animator, options = {}) {
   this.queue(async () => {
     if (!animator)
-      return
+      return Promise.resolve()
 
     const { onFinish, keepStyle } = Object.assign(defaults, options)
 
@@ -51,12 +51,13 @@ export const _animate: Animate = function (this, animator, options = {}) {
       animator.unshift({})
 
     const keyframes = animator as Keyframe[]
+    const promises: Promise<any>[] = []
 
     for (const node of this.nodes) {
       const el = toEl(node)
 
       if (!el.animate)
-        return
+        return Promise.resolve()
 
       const animation = el.animate(keyframes, options)
 
@@ -76,10 +77,10 @@ export const _animate: Animate = function (this, animator, options = {}) {
       animation.onremove = err => console.log('[$.animate] Animation removed \n', err)
 
       // Wait until animation completes
-      await animation.finished
+      promises.push(animation.finished)
     }
 
-    return Promise.resolve()
+    return Promise.allSettled(promises)
   })
 
   return this

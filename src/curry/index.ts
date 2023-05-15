@@ -77,6 +77,7 @@ import type { Slide, SlideToggle } from './modules/_slide'
 // from the `this.doc` variable. Meaning we can scope down DOM searching
 
 export type Selector = string | Node | Node[] | HTMLCollection | Curry
+type CurryChainCompletion = boolean
 
 export function $(selector: Selector, doc?: Document) {
   const instance = new Curry(selector, doc)
@@ -87,11 +88,13 @@ export class Curry {
   doc?: Document
   nodes: Node[]
   taskQueue: Promise<any>
+  taskRegistry: Promise<any>[]
 
   constructor(selector: Selector, doc?: Document) {
     this.doc = doc
     this.nodes = queryDom(selector, doc)
     this.taskQueue = Promise.resolve()
+    this.taskRegistry = []
   }
 
   /* ----------  Chaining API  ---------- */
@@ -169,6 +172,14 @@ export class Curry {
 
   get length() {
     return this.nodes.length
+  }
+
+  get await(): Promise<CurryChainCompletion> {
+    return new Promise<CurryChainCompletion>((resolve) => {
+      return this.queue(() => {
+        resolve(true)
+      })
+    })
   }
 
   // Expose prototype so that users can extend curry with their own functions

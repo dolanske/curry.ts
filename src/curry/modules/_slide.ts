@@ -34,11 +34,11 @@ export const _slideUp: Slide = function (this, duration = 300, easing = 'linear'
           })
           .css('display', 'none')
           // Empty get is used to return a promise of the entire chain
-          .get(),
+          .await,
       )
     }
 
-    return Promise.allSettled(executions)
+    return await Promise.allSettled(executions)
   })
 
   return this
@@ -68,11 +68,11 @@ export const _slideDown: Slide = function (this, duration = 300, easing = 'linea
             node.style.removeProperty('height')
           })
           .setAttr(formatPrefixAttr('original-height'), null)
-          .get(),
+          .await,
       )
     }
 
-    return Promise.allSettled(executions)
+    return await Promise.allSettled(executions)
   })
 
   return this
@@ -81,7 +81,7 @@ export const _slideDown: Slide = function (this, duration = 300, easing = 'linea
 export type SlideToggle = (this: Curry, duration?: number | SlideToggleOptions, easing?: string) => Curry
 
 export const _slideToggle: SlideToggle = function (this, _duration, _easing) {
-  this.queue(() => {
+  this.queue(async () => {
     const {
       duration = 300,
       easing = _easing ?? 'linear',
@@ -89,24 +89,25 @@ export const _slideToggle: SlideToggle = function (this, _duration, _easing) {
     } = isObject(_duration) ? _duration : {}
 
     // Check wether element is currently slid up (hidden) or down (visible)
+    const executions: Promise<any>[] = []
 
     for (const _node of this.nodes) {
       const node = toEl(_node)
-
       // If is-off is true, it means this action should return the element back
-      // to its original state
-
-      // The current element is hidden (most likely slideUp() was called)
-      // Override means that if that we treat all selected elements as the first node
-      const isOff = override
+      // to its original state. If the current element is hidden (most likely
+      // slideUp() was called) Override means that if that we treat all selected
+      // elements as the first node
+      const isHidden = override
         ? toEl<HTMLElement>(this.nodes[0]).style.display === 'none'
         : node.style.display === 'none'
 
-      if (isOff)
-        $(node).slideDown(duration, easing)
+      if (isHidden)
+        executions.push($(node).slideDown(duration, easing).await)
       else
-        $(node).slideUp(duration, easing)
+        executions.push($(node).slideUp(duration, easing).await)
     }
+
+    return Promise.allSettled(executions)
   })
 
   return this
