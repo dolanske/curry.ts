@@ -21,7 +21,7 @@ export declare const _delClass: ClassManipulation;
  * @param className A string or array of strings to toggle the class attribute
  * @returns Curry instance for optional chaining
  */
-export declare const _tglClass: ClassManipulation;
+export declare const _toggleClass: ClassManipulation;
 /**
  *
  * @param this Curry instance

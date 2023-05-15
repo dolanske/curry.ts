@@ -13,7 +13,7 @@ import { _del } from './modules/del'
 import type { CSS } from './modules/css'
 import { _css } from './modules/css'
 import type { ClassCheck, ClassManipulation } from './modules/class'
-import { _addClass, _delClass, _hasClass, _tglClass } from './modules/class'
+import { _addClass, _delClass, _hasClass, _toggleClass } from './modules/class'
 import type { Each } from './modules/each'
 import { _each } from './modules/each'
 import type { AsyncEach } from './modules/asyncEach'
@@ -70,11 +70,14 @@ import { _run } from './modules/run'
 import { queryDom } from './util'
 import type { Query } from './modules/query'
 import { _query } from './modules/query'
+import { _slideDown, _slideToggle, _slideUp } from './modules/slide'
+import type { Slide, SlideToggle } from './modules/slide'
 
 // TODO: every method using document.querySelector should be able to substitude a different dom selector
 // from the `this.doc` variable. Meaning we can scope down DOM searching
 
 export type Selector = string | Node | Node[] | HTMLCollection | Curry
+type CurryChainCompletion = boolean
 
 export function $(selector: Selector, doc?: Document) {
   const instance = new Curry(selector, doc)
@@ -95,12 +98,12 @@ export class Curry {
   /* ----------  Chaining API  ---------- */
   fullscreen: Fullscreen = _fullscreen.bind(this)
   prependChild: AddShorthand = _prependChild.bind(this)
+  toggleClass: ClassManipulation = _toggleClass.bind(this)
   appendChild: AddShorthand = _appendChild.bind(this)
   fadeToggle: FadeToggle = _fadeToggle.bind(this)
   asyncEach: AsyncEach = _asyncEach.bind(this)
   addClass: ClassManipulation = _addClass.bind(this)
   delClass: ClassManipulation = _delClass.bind(this)
-  tglClass: ClassManipulation = _tglClass.bind(this)
   children: Children = _children.bind(this)
   hasClass: ClassCheck = _hasClass.bind(this)
   teleport: Teleport = _teleport.bind(this)
@@ -143,6 +146,10 @@ export class Curry {
   is: Is = _is.bind(this)
   on: On = _on.bind(this)
 
+  slideUp: Slide = _slideUp.bind(this)
+  slideDown: Slide = _slideDown.bind(this)
+  slideToggle: SlideToggle = _slideToggle.bind(this)
+
   /**
    * Functions which return Curry instance can be queued to be asyncronously executed.
    */
@@ -161,11 +168,19 @@ export class Curry {
     return _text.bind(instance)(text)
   }
 
-  // Expose prototype so that users can extend curry with their own functions
   get length() {
     return this.nodes.length
   }
 
+  get await(): Promise<CurryChainCompletion> {
+    return new Promise<CurryChainCompletion>((resolve) => {
+      return this.queue(() => {
+        resolve(true)
+      })
+    })
+  }
+
+  // Expose prototype so that users can extend curry with their own functions
   /**
    *  Experimental extension API
    */
@@ -177,7 +192,6 @@ export class Curry {
       {
         value(this: Curry) {
           fn.apply(this)
-
           return this
         },
       },

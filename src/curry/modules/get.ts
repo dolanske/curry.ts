@@ -17,7 +17,8 @@ export type Get = <T = Element[] | Element | undefined>(
  *
  */
 
-export const _get: Get = function (this, key) {
+export function _get(this: Curry): Promise<Element | Element[]>
+export function _get(this: Curry, key?: string): Promise<any> {
   return this.queue(() => {
     if (this.nodes.length === 0)
       return undefined

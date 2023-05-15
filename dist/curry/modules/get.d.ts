@@ -10,4 +10,4 @@ export type Get = <T = Element[] | Element | undefined>(this: Curry, key?: strin
  * @returns Selected nodes or an array of values matched by the key
  *
  */
-export declare const _get: Get;
+export declare function _get(this: Curry): Promise<Element | Element[]>;

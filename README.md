@@ -1,11 +1,46 @@
-# Yeah you read that right
+# J C U R R Y (curry.ts)
 
-We've all heard after the success of jCurry.js, that there will never be a successor. Something, that will beat its simplicity, DX and API. What if I told you, and you may want to sit down for this one, that there is something that could potentially beat jCurry.js?
+The successor to the most known word in the javascript universe. Every person who came within 5km radius of an IDE has heard of that word. Some shiver, some get excited, some faint when they hear it. What if I told you that you don't need a 40k behemoth of a javascript object? That you actually just need a little curry in your life instead?
 
-## jCurry.ts
+## Installation
 
-- 100% test coverage (I've never written a test in my life)
-- Fully written in typescript
-- In-DOM support (what? I think the idea was to run jCurry methods using HTML Attributes such as j-on:click="method", which does not make sense given it would mostly be used for events and we already have progressive web apps for that)
-- All functions from jCurry and much more! (see you in 3 years)
+Because I have literally 0.1 braincells, idk how to set up npm. You directly install this repo and it will clone the `/dist` folder into your node_module.
 
+ `npm install github:dolanske/v-valid`
+
+Or you can just copy and paste the `curry.mjs` file wherever in your project and simply import the `import { $ } from "curry"` instead.
+
+## Feedback / Ideas
+
+Any feedback, issues, ideas, PRs or feature requests are utmost welcome. I am absolutely open to any form of collaboration. Always looking to learn from others!
+
+## TODO
+
+- [] $.siblings(prev, next)
+- [] $.prevSiblings()
+- [] $.nextSiblings()
+- [] documentation
+
+## API
+
+.. here ..
+
+### Selectors
+
+### Events
+
+### Styles
+
+### Animations
+
+### Iterators
+
+### Manipulators
+
+### Meta
+
+- wait
+- run
+- $
+
+### Static API

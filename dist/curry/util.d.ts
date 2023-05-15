@@ -2,7 +2,7 @@ import type { PrevNextCallback } from './types';
 import type { Selector } from '.';
 import { Curry } from '.';
 export declare function isArray(value: any): value is any[];
-export declare function toEl<T = Element>(node: Node): T;
+export declare function toEl<T = HTMLElement>(node: Node): T;
 export declare function isObject(value: any): value is object;
 export declare function isFunction(value: any): value is Function;
 export declare function isNil(value?: any): boolean;
@@ -11,3 +11,4 @@ export declare function selectNTHSibling(this: Curry, selectType: 'prev' | 'next
 export declare function createElement(el: string): Element;
 export declare function delay(ms?: number): Promise<void>;
 export declare function queryDom(selector: Selector, doc?: Document): Node[];
+export declare const formatPrefixAttr: (str: string) => string;

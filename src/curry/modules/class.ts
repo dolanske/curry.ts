@@ -55,7 +55,7 @@ export const _delClass: ClassManipulation = function (this, className) {
  * @param className A string or array of strings to toggle the class attribute
  * @returns Curry instance for optional chaining
  */
-export const _tglClass: ClassManipulation = function (this, className) {
+export const _toggleClass: ClassManipulation = function (this, className) {
   this.queue(() => {
     for (const node of this.nodes) {
       const el = toEl(node)

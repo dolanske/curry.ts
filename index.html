@@ -11,19 +11,31 @@
         color: rgb(234, 234, 234);
       }
 
-      #rect {
-        display: block;
+      button {
+        margin-bottom: 10px;
+      }
+      
+      .rect {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 100px;
         height: 50px;
         background-color: red;
+      }
+
+      .rect:nth-child(2) {
+        background-color: green;
+
       }
     </style>
   </head>
   <body>
     <div id="app">
       <button id="btn">Animate</button>
-      <div id="wrap">
-        bello?
+      <div>
+        <div class="rect"></div>
+        <div class="rect"></div>
       </div>
     </div>
     <script type="module" src="/src/playground.ts"></script>

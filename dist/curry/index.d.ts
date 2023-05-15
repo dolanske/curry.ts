@@ -33,7 +33,9 @@ import type { Fullscreen, StaticFullscreen } from './modules/fullscreen';
 import type { Fade, FadeToggle } from './modules/fade';
 import type { Run } from './modules/run';
 import type { Query } from './modules/query';
+import type { Slide, SlideToggle } from './modules/slide';
 export type Selector = string | Node | Node[] | HTMLCollection | Curry;
+type CurryChainCompletion = boolean;
 export declare function $(selector: Selector, doc?: Document): Curry;
 export declare class Curry {
     doc?: Document;
@@ -42,12 +44,12 @@ export declare class Curry {
     constructor(selector: Selector, doc?: Document);
     fullscreen: Fullscreen;
     prependChild: AddShorthand;
+    toggleClass: ClassManipulation;
     appendChild: AddShorthand;
     fadeToggle: FadeToggle;
     asyncEach: AsyncEach;
     addClass: ClassManipulation;
     delClass: ClassManipulation;
-    tglClass: ClassManipulation;
     children: Children;
     hasClass: ClassCheck;
     teleport: Teleport;
@@ -89,6 +91,9 @@ export declare class Curry {
     key: Key;
     is: Is;
     on: On;
+    slideUp: Slide;
+    slideDown: Slide;
+    slideToggle: SlideToggle;
     /**
      * Functions which return Curry instance can be queued to be asyncronously executed.
      */
@@ -98,8 +103,10 @@ export declare class Curry {
     static swap: StaticSwap;
     static text(el: Selector, text: string | number): Curry;
     get length(): number;
+    get await(): Promise<CurryChainCompletion>;
     /**
      *  Experimental extension API
      */
     static $fn(name: string, fn: (this: Curry) => void): void;
 }
+export {};

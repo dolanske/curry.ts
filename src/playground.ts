@@ -1,36 +1,22 @@
-import { $, Curry } from './curry'
+import { $ } from './curry'
+import { delay } from './curry/util'
 
-declare module './curry' {
-  interface Curry {
-    getNodesTextContent(this: Curry): void
-  }
-}
+$('button').click(async () => {
+  $(document.body).animate({ height: 0 }, {
+    duration: 1000,
+    async onStart(animation) {
+      // expect(animation.playState).toBe('running')
+      console.log(animation.playState)
 
-Curry.$fn('getNodesTextContent', function () {
-  for (const node of this.nodes)
-    node.textContent += ' LOL'
+      await delay(50)
+
+      animation.cancel()
+    },
+    onCancel(animation, err) {
+      // expect(animation.playState).toBe('finished')
+      console.log(animation.playState)
+
+      console.log(err)
+    },
+  })
 })
-
-// Note: this code works. I just don't know how to make typescript happy :(
-$('button').getNodesTextContent()
-
-// SECTION: Test animation
-
-// $('#btn').click(function () {
-//   const start = performance.now()
-//   $(this).next().animate([{ opacity: 0, color: 'white' }, { opacity: 1, color: 'red' }], {
-//     duration: 300 * 4,
-//     keepStyle: true,
-//   }).run(() => {
-//     console.log(performance.now() - start)
-//   })
-// })
-
-// SECTION: Test chaining async runs
-
-// $('#btn').click(function () {
-//   // eslint-disable-next-line no-console
-//   $(this).run(() => delay(1000)).run(() => console.log('done'))
-// })
-
-// SECTION: Test fullscreen

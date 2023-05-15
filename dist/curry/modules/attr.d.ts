@@ -4,14 +4,15 @@ export interface Attr {
 }
 export type GetAttr = (this: Curry, key: string | string[]) => string | string[] | null;
 /**
- * Returns one or more attribute values of the first matched element. To check each matched element, first iterate over them with $.each()
+ * Returns one or more attribute values of the first matched element. To
+ * check each matched element, first iterate over them with $.each()
  *
  * @param this Curry instance
  * @param key Attribute key or array of attribute keys to check for
  * @returns Value or array of values from the matched attribute keys
  */
 export declare const _getAttr: GetAttr;
-export type SetAttr = (this: Curry, key: Attr | Attr[] | string, value?: any) => void;
+export type SetAttr = (this: Curry, key: Attr | Attr[] | string, value?: any) => Curry;
 /**
  *
  * @param this Curry instance

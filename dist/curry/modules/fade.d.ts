@@ -1,7 +1,9 @@
+import type { DataType } from 'csstype';
 import type { Curry } from '..';
 export type Fade = (this: Curry, options?: {
     duration?: number;
     to?: number;
+    easing?: DataType.EasingFunction;
 }) => Curry;
 /**
  * Fades element into full view or the selected `to` value >0
@@ -23,6 +25,7 @@ export type FadeToggle = (this: Curry, options?: number | {
     duration?: number;
     off?: number;
     on?: number;
+    easing?: DataType.EasingFunction;
 }) => Curry;
 /**
  * Toggle between fade states or provided `on` and `off` states
