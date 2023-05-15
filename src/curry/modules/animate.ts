@@ -61,19 +61,21 @@ export const _animate: Animate = function (this, animator, options = {}) {
 
       const animation = el.animate(keyframes, options)
 
+      // Animation started event
       if (onStart)
         onStart(animation)
 
       animation.onfinish = () => {
+        // Animation completed event
+        if (onFinish)
+          onFinish(animation)
+
         // Once animation finishes
         // If we want to keep the last ke
         if (keepStyle) {
           const lastFrame = keyframes.at(-1) as Properties
           $(node).css(lastFrame)
         }
-
-        if (onFinish)
-          onFinish(animation)
       }
 
       // Animation is manually cancelled

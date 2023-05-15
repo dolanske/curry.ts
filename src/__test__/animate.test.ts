@@ -15,7 +15,8 @@ test('Basic animation options', async () => {
     duration: 10,
     easing: 'ease-in-out',
     keepStyle: true,
-    onFinish() {
+    onFinish(animation) {
+      expect(animation).toBeInstanceOf(Animation)
       expect(document.body.style.height).toBe('500px')
     },
   })
@@ -27,10 +28,28 @@ test('Cancel animation mid execution', () => {
     async onStart(animation) {
       expect(animation.playState).toBe('running')
       await delay(50)
-      animation.finish()
+      animation.cancel()
     },
-    onCancel(animation) {
-      expect(animation.playState).toBe('finished')
+    onCancel(animation, err) {
+      expect(animation.playState).toBe('cancel')
+      console.log(err)
+    },
+  })
+})
+
+test('Animate multiple elements', () => {
+  for (let i = 0; i < 3; i++)
+    document.body.appendChild(document.createElement('div'))
+
+  $(document).children().animate({
+    height: '500px',
+  }, {
+    duration: 1,
+    keepStyle: true,
+    onFinish() {
+      $(document).children().each(({ self }) => {
+        expect(self.style.height).toBe('500px')
+      })
     },
   })
 })

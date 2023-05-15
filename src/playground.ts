@@ -1,11 +1,22 @@
 import { $ } from './curry'
-
-// $('.rect').first().slideUp()
+import { delay } from './curry/util'
 
 $('button').click(async () => {
-  // await $(this).next().children().first().slideUp(5).await
+  $(document.body).animate({ height: 0 }, {
+    duration: 1000,
+    async onStart(animation) {
+      // expect(animation.playState).toBe('running')
+      console.log(animation.playState)
 
-  // $(this).next().children().slideToggle({
-  //   override: true,
-  // })
+      await delay(50)
+
+      animation.cancel()
+    },
+    onCancel(animation, err) {
+      // expect(animation.playState).toBe('finished')
+      console.log(animation.playState)
+
+      console.log(err)
+    },
+  })
 })

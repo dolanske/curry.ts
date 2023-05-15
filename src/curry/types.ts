@@ -1,9 +1,9 @@
 import type { Curry } from '.'
 
 export type GenericCallback = (
-  this: Element,
+  this: HTMLElement,
   options: {
-    self: Element
+    self: HTMLElement
     instance: Curry
     index?: number
   }
@@ -14,21 +14,21 @@ interface CustomEventProperty extends Event {
 }
 
 export type EventCallback = (
-  this: Element,
+  this: HTMLElement,
   event: CustomEventProperty,
   instance: Curry
 ) => void
 
 export type KeyboardeventCallback = (
-  this: Element,
+  this: HTMLElement,
   event: KeyboardEvent,
   instance: Curry
 ) => void
 
 export type IteratorCallback<T = void> = (
-  this: Element,
+  this: HTMLElement,
   options: {
-    self: Element
+    self: HTMLElement
     instance: Curry
     index: number
   }
@@ -37,10 +37,10 @@ export type IteratorCallback<T = void> = (
 export interface DynamicObject { [key: string | number]: any }
 
 export type PrevNextCallback = (
-  this: Element,
+  this: HTMLElement,
   options: {
-    self?: Element | null
-    prev?: Element | null
+    self?: HTMLElement | null
+    prev?: HTMLElement | null
     instance: Curry
     index?: number
   }
