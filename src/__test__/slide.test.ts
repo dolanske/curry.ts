@@ -37,6 +37,18 @@ describe('$.slide() methods', () => {
     expect((document.body.children[0] as HTMLDivElement).style.getPropertyValue('overflow')).toBe('')
   })
 
+  test('slideDown without being previously slid up', async () => {
+    const el = document.createElement('div')
+
+    el.style.display = 'none'
+
+    $(el).slideDown(1)
+
+    await delay(10)
+
+    expect(el.style.getPropertyValue('display')).toBe('')
+  })
+
   // Literally just a copy but methods are exchanged for the toggle version
   test('slideToggle', async () => {
     const el = document.createElement('div')
