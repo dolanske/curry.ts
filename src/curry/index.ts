@@ -70,8 +70,8 @@ import { _run } from './modules/run'
 import { queryDom } from './util'
 import type { Query } from './modules/query'
 import { _query } from './modules/query'
-import { _slideDown, _slideToggle, _slideUp } from './modules/_slide'
-import type { Slide, SlideToggle } from './modules/_slide'
+import { _slideDown, _slideToggle, _slideUp } from './modules/slide'
+import type { Slide, SlideToggle } from './modules/slide'
 
 // TODO: every method using document.querySelector should be able to substitude a different dom selector
 // from the `this.doc` variable. Meaning we can scope down DOM searching
@@ -88,13 +88,11 @@ export class Curry {
   doc?: Document
   nodes: Node[]
   taskQueue: Promise<any>
-  taskRegistry: Promise<any>[]
 
   constructor(selector: Selector, doc?: Document) {
     this.doc = doc
     this.nodes = queryDom(selector, doc)
     this.taskQueue = Promise.resolve()
-    this.taskRegistry = []
   }
 
   /* ----------  Chaining API  ---------- */

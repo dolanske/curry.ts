@@ -4,6 +4,7 @@
 
 import { expect, test } from 'vitest'
 import { $ } from '../curry'
+import { delay } from '../curry/util'
 
 // #1 Add test for animation completing
 // #2 Trigger onFinish
@@ -11,14 +12,11 @@ import { $ } from '../curry'
 
 test('Animation chain stop', async () => {
   const start = Date.now()
-  const DURATION = 100
+  const DELAY = 100
 
-  $(document.body).animate({
-    height: '500px',
-  }, { duration: DURATION }).await
+  $(document.body).animate({ height: '500px' }, { duration: DELAY }).await
 
+  await delay(DELAY)
   const end = Date.now()
-  console.log(start, end)
-
-  expect(end - start).toBeGreaterThanOrEqual(DURATION)
+  expect(end - start).toBeGreaterThanOrEqual(DELAY)
 })

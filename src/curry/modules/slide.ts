@@ -38,7 +38,7 @@ export const _slideUp: Slide = function (this, duration = 300, easing = 'linear'
       )
     }
 
-    return await Promise.allSettled(executions)
+    return Promise.allSettled(executions)
   })
 
   return this
@@ -72,7 +72,7 @@ export const _slideDown: Slide = function (this, duration = 300, easing = 'linea
       )
     }
 
-    return await Promise.allSettled(executions)
+    return Promise.allSettled(executions)
   })
 
   return this
@@ -89,22 +89,25 @@ export const _slideToggle: SlideToggle = function (this, _duration, _easing) {
     } = isObject(_duration) ? _duration : {}
 
     // Check wether element is currently slid up (hidden) or down (visible)
+
     const executions: Promise<any>[] = []
 
     for (const _node of this.nodes) {
       const node = toEl(_node)
+
       // If is-off is true, it means this action should return the element back
-      // to its original state. If the current element is hidden (most likely
-      // slideUp() was called) Override means that if that we treat all selected
-      // elements as the first node
-      const isHidden = override
+      // to its original state
+
+      // The current element is hidden (most likely slideUp() was called)
+      // Override means that if that we treat all selected elements as the first node
+      const isOff = override
         ? toEl<HTMLElement>(this.nodes[0]).style.display === 'none'
         : node.style.display === 'none'
 
-      if (isHidden)
-        executions.push($(node).slideDown(duration, easing).await)
-      else
-        executions.push($(node).slideUp(duration, easing).await)
+      executions.push(isOff
+        ? $(node).slideDown(duration, easing).await
+        : $(node).slideUp(duration, easing).await,
+      )
     }
 
     return Promise.allSettled(executions)

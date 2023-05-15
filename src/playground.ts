@@ -1,8 +1,11 @@
 import { $ } from './curry'
 
-$('button').click(async function () {
-  const start = performance.now()
-  await $(this).next().animate({ height: '500px' }, { duration: 500, keepStyle: true }).await
-  const end = performance.now()
-  console.log(end - start)
+// $('.rect').first().slideUp()
+
+$('button').click(async () => {
+  // await $(this).next().children().first().slideUp(5).await
+
+  // $(this).next().children().slideToggle({
+  //   override: true,
+  // })
 })
