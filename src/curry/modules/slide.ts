@@ -1,9 +1,10 @@
+import type { DataType } from 'csstype'
 import type { Curry } from '..'
 import { $ } from '..'
 import { formatPrefixAttr, isObject, toEl } from '../util'
 
 export interface SlideToggleOptions {
-  easing?: string
+  easing?: DataType.EasingFunction
   // In milliseconds
   duration?: number
   // Override works in a way that the Open or Close state gets applied to all

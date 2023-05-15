@@ -1,8 +1,13 @@
+import type { DataType } from 'csstype'
 import type { Curry } from '..'
 import { $ } from '..'
 import { toEl } from '../util'
 
-export type Fade = (this: Curry, options?: { duration?: number; to?: number }) => Curry
+export type Fade = (this: Curry, options?: {
+  duration?: number
+  to?: number
+  easing?: DataType.EasingFunction
+}) => Curry
 
 /**
  * Fades element into full view or the selected `to` value >0
@@ -13,14 +18,15 @@ export type Fade = (this: Curry, options?: { duration?: number; to?: number }) =
  */
 
 export const _fadeIn: Fade = function (this, options) {
-  const { duration, to } = Object.assign({
+  const { duration, to, easing } = Object.assign({
     duration: 300,
     to: 1,
+    easing: 'linear',
   }, options)
 
   this.queue(() => {
     for (const node of this.nodes)
-      $(node).animate([{ opacity: to }], { duration, keepStyle: true })
+      $(node).animate([{ opacity: to }], { duration, easing, keepStyle: true })
   })
 
   return this
@@ -35,14 +41,15 @@ export const _fadeIn: Fade = function (this, options) {
  */
 
 export const _fadeOut: Fade = function (this, options) {
-  const { duration, to } = Object.assign({
+  const { duration, to, easing } = Object.assign({
     duration: 300,
     to: 0,
+    easing: 'linear',
   }, options)
 
   this.queue(() => {
     for (const node of this.nodes)
-      $(node).animate([{ opacity: to }], { duration, keepStyle: true })
+      $(node).animate([{ opacity: to }], { duration, easing, keepStyle: true })
   })
 
   return this
@@ -54,6 +61,7 @@ export type FadeToggle = (
     duration?: number
     off?: number
     on?: number
+    easing?: DataType.EasingFunction
   },
 ) => Curry
 
@@ -76,19 +84,20 @@ export const _fadeToggle: FadeToggle = function (this, options = {}) {
         duration: 300,
         off: 0,
         on: 1,
+        easing: 'linear',
       }
 
       // Serialize options
       if (typeof options === 'number')
         options = { duration: options }
 
-      const { duration, off, on } = Object.assign(defaults, options)
+      const { duration, off, on, easing } = Object.assign(defaults, options)
 
       if (opacity === 0 || opacity < on) // Fade out
-        $(node).fadeIn({ duration, to: on })
+        $(node).fadeIn({ duration, to: on, easing })
 
       else
-        $(node).fadeOut({ duration, to: off })
+        $(node).fadeOut({ duration, to: off, easing })
     }
   })
 

@@ -1,4 +1,4 @@
-import type { Properties } from 'csstype'
+import type { DataType, Properties } from 'csstype'
 import type { Curry } from '..'
 import { $ } from '..'
 import { isArray, toEl } from '../util'
@@ -10,6 +10,7 @@ interface Options extends KeyframeAnimationOptions {
   // onError?: (this: Animation, e: ErrorEvent) => void
   // Wether to return object back to its defaults to apply the styling of the last keyframe
   keepStyle?: boolean
+  easing?: DataType.EasingFunction
 }
 
 export type Animate = (
