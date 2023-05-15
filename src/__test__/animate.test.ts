@@ -25,6 +25,7 @@ test('Cancel animation mid execution', () => {
   $(document.body).animate({ height: 0 }, {
     duration: 1000,
     async onStart(animation) {
+      expect(animation.playState).toBe('running')
       await delay(50)
       animation.finish()
     },
