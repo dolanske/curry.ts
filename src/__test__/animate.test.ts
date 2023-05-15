@@ -4,7 +4,7 @@
 
 import { expect, test } from 'vitest'
 import { $ } from '../curry'
-import { delay } from '../curry/util'
+import { delay, toEl } from '../curry/util'
 
 // #1 Add test for animation completing
 // #2 Trigger onFinish
@@ -48,7 +48,7 @@ test('Animate multiple elements', () => {
     keepStyle: true,
     onFinish() {
       $(document).children().each(({ self }) => {
-        expect(self.style.height).toBe('500px')
+        expect(toEl(self).style.height).toBe('500px')
       })
     },
   })
