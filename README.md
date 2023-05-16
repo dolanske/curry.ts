@@ -40,7 +40,7 @@ $('button').click().text('Hello')
 
 ## Selectors
 
-[parent](#$.parent), [children](#$.children), [nth](#$.nth)
+[parent](#parent), [children](#children), [nth](#nth)
 
 Selectors are used to query DOM nodes which can then be manipulated within the selection chain. Each time `$()` is used, it spawns a new, independent selection of DOM nodes.
 
@@ -69,7 +69,7 @@ The primary selector which spanws a new chain
   $('#trigger').click().text('I was clicked!')
   ```
 
-### $.parent
+### parent
 
 Select element's parent node
 
@@ -82,7 +82,7 @@ Select element's parent node
   ```ts
   $('#parent').parent()
   ```
-### $.children
+### children
 
 Select element's child nodes
 
