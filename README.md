@@ -46,7 +46,7 @@ $('button').click().text('Hello')
 
 ## Selectors
 
-[parent](#parent), [children](#children), [nth](#nth), [nthChild](#nthChild)
+[parent](#parent) • [children](#children) • [nth](#nth) • [nthChild](#nthChild) • [siblings](#siblings) • [prevSiblings](#prevsiblings) • [nextSiblings](#nextSiblings)
 
 Selectors are used to query DOM nodes which can then be manipulated within the selection chain. Each time `$()` is used, it spawns a new, independent selection of DOM nodes.
 
@@ -102,7 +102,7 @@ Select element's child nodes
   $('#parent').children('span')
   ```
 
-### $.nth
+## nth
 
 Narrow down selected nodes by provided index(es)
 
@@ -114,7 +114,7 @@ Narrow down selected nodes by provided index(es)
   ```ts
   $('li').nth([2, 3]).text('I am third and fourth list item')
   ```
-### $.nthChild
+## nthChild
 
 Same as `$.nth` but on selected element's children.
 
@@ -124,7 +124,37 @@ $('ul').nthChild([3, 4])
 $('ul').children().nth([3, 4])
 ```
 
-- $.nthChild
+## siblings
+
+Select all element's siblings. Siblings are DOM nodes in the same nesting layer as the selected element.
+
+- Definition
+  ```ts
+  $.siblings(selector?: NarrowSelector)
+  ```
+- Usage
+  ```ts
+  $('a').click().addclass('active').siblings().delClass('active')
+  ```
+## prevSiblings
+
+Same as `$.siblings` except it only selects the elements rendered *before* the selected element
+
+- Definition
+  ```ts
+  $.prevSiblings(selector?: NarrowSelector)
+  ```
+
+## nextSiblings
+
+Same as `$.prevSiblings` except it selects the elements rendered *after* the selected element
+
+- Definition
+  ```ts
+  $.nextSiblings(selector?: NarrowSelector)
+  ```
+  
+
 
 - $.siblings
 - $.prevSiblings
