@@ -55,11 +55,11 @@ function P(t, e, n) {
           instance: this
         }]));
       else {
-        let u = c;
+        let h = c;
         for (let y = 0; y < e; y++)
-          u && (u = u[i]);
-        u && (s.push(u), n && n.apply(u, [{
-          self: u,
+          h && (h = h[i]);
+        h && (s.push(h), n && n.apply(h, [{
+          self: h,
           prev: c,
           index: S(c),
           instance: this
@@ -115,25 +115,36 @@ const N = function(t, e = "every") {
       return n.every((i) => i);
   }
 }, R = function(t, e, n) {
-  return this.queue(() => {
-    for (const i of this.nodes)
-      i.addEventListener(
-        t,
-        (s) => e.apply(i, [s, this]),
-        n
-      );
+  return this.queue(async () => {
+    const i = [];
+    for (const s of this.nodes)
+      i.push(new Promise((o) => {
+        s.addEventListener(
+          t,
+          (c) => {
+            o(!0), e && e.apply(s, [c, this]);
+          },
+          n
+        );
+      }));
+    return Promise.allSettled(i);
   }), this;
 }, D = function(t) {
-  for (const e of this.nodes)
-    h(e).on("click", (n) => {
-      t.apply(e, [n, this]);
-    });
-  return this;
+  return this.queue(async () => {
+    const e = [];
+    for (const n of this.nodes)
+      e.push(new Promise((i) => {
+        u(n).on("click", (s) => {
+          i(!0), t && t.apply(n, [s, this]);
+        });
+      }));
+    return Promise.allSettled(e);
+  }), this;
 }, Q = function(t) {
   this.queue(() => {
     for (const e of this.nodes) {
       const n = e;
-      if (t && !h(n).is(t))
+      if (t && !u(n).is(t))
         return;
       n.remove();
     }
@@ -145,21 +156,21 @@ const N = function(t, e = "every") {
       E(e) ? Object.assign(i.style, t) : typeof t == "string" && i.style.setProperty(t, String(e));
     }
   }), this;
-}, k = function(t) {
+}, B = function(t) {
   return this.queue(() => {
     for (const e of this.nodes) {
       const n = e;
       t = typeof t == "string" ? [t] : t, n.classList.add(...t);
     }
   }), this;
-}, B = function(t) {
+}, K = function(t) {
   return this.queue(() => {
     for (const e of this.nodes) {
       const n = e;
       t = typeof t == "string" ? [t] : t, n.classList.remove(...t);
     }
   }), this;
-}, K = function(t) {
+}, W = function(t) {
   return this.queue(() => {
     for (const e of this.nodes) {
       const n = e;
@@ -168,7 +179,7 @@ const N = function(t, e = "every") {
         n.classList.toggle(i);
     }
   }), this;
-}, W = function(t, e = "every") {
+}, k = function(t, e = "every") {
   const n = [], i = typeof t == "string" ? [t] : t;
   for (const s of this.nodes) {
     const o = s;
@@ -284,7 +295,7 @@ const N = function(t, e = "every") {
       const i = n;
       i.children && (t ? i.childNodes.forEach((s) => {
         const o = s;
-        h(o).is(t) && e.push(o);
+        u(o).is(t) && e.push(o);
       }) : e.push(...Array.from(i.children)));
     }
     this.nodes = e;
@@ -307,7 +318,7 @@ const N = function(t, e = "every") {
   return this.queue(() => {
     for (const t of this.nodes) {
       const e = t;
-      e.style.display === "none" ? h(e).show() : h(e).hide();
+      e.style.display === "none" ? u(e).show() : u(e).hide();
     }
   }), this;
 }, rt = function(t) {
@@ -338,7 +349,7 @@ const ct = function(t, e) {
       }
     }
   }), this;
-}, ht = function(t, e) {
+}, ut = function(t, e) {
   return this.queue(() => {
     const n = [];
     this.nodes.forEach((i, s) => {
@@ -358,12 +369,12 @@ const ct = function(t, e) {
             t.some((c) => o.matches(c)) && n.push(o);
         }
       else
-        typeof t == "string" ? h(o).is(t) && n.push(o) : t.apply(o, [
+        typeof t == "string" ? u(o).is(t) && n.push(o) : t.apply(o, [
           { instance: this, self: o, index: s }
         ]) && n.push(o);
     }), this.nodes = n;
   }), this;
-}, ut = function(t) {
+}, ht = function(t) {
   return this.queue(() => {
     const e = typeof t == "string" ? document.querySelector(t) : t;
     if (e)
@@ -375,33 +386,33 @@ const ct = function(t, e) {
     const n = [];
     this.nodes.forEach((i, s) => {
       const o = i;
-      n[s] = o.cloneNode(!0), h(o).on(
+      n[s] = o.cloneNode(!0), u(o).on(
         "mouseenter",
         (c) => t.apply(o, [c, this]),
         e
-      ), h(o).on("mouseleave", () => {
+      ), u(o).on("mouseleave", () => {
         const c = n[s];
         o.removeAttribute("style"), o.removeAttribute("class"), o.innerHTML = c.innerHTML;
-        for (const u in c.classList)
-          o.classList.add(u);
+        for (const h in c.classList)
+          o.classList.add(h);
         const f = [];
         for (; o.attributes.length > 0; ) {
-          const u = o.attributes[0].name;
-          o.removeAttribute(u), h(c).getAttr(u) && f.push(u);
+          const h = o.attributes[0].name;
+          o.removeAttribute(h), u(c).getAttr(h) && f.push(h);
         }
-        for (const u of f)
-          h(o).setAttr(u, h(c).getAttr(u));
+        for (const h of f)
+          u(o).setAttr(h, u(c).getAttr(h));
       });
     });
   } else {
     const { enter: n, leave: i } = t;
     for (const s of this.nodes) {
       const o = s;
-      h(o).on(
+      u(o).on(
         "mouseenter",
         (c) => n.apply(o, [c, this]),
         e
-      ), h(o).on(
+      ), u(o).on(
         "mouseleave",
         (c) => i.apply(o, [c, this]),
         e
@@ -417,7 +428,7 @@ const ct = function(t, e) {
       if (i.parentNode)
         if (t) {
           const s = i.parentNode;
-          h(s).is(t) && e.add(s);
+          u(s).is(t) && e.add(s);
         } else
           e.add(i.parentNode);
     }
@@ -459,7 +470,7 @@ const ct = function(t, e) {
     e = o;
   }
   const i = t.cloneNode(!0), s = e.cloneNode(!0);
-  h(i).replace(e), h(s).replace(t);
+  u(i).replace(e), u(s).replace(t);
 }, pt = function(t, e) {
   return this.queue(() => T(t, e, this.doc)), this;
 }, yt = function(t, e) {
@@ -468,7 +479,7 @@ const ct = function(t, e) {
       const i = [];
       Promise.all(
         this.nodes.map(async (s) => {
-          const o = await h(s).children().nth(t).get();
+          const o = await u(s).children().nth(t).get();
           o && (i.push(...o), e && o.map(
             (c, f) => e.apply(c, [
               {
@@ -497,7 +508,7 @@ const ct = function(t, e) {
   return q.call(this, t, "prepend"), this;
 }, bt = function(t) {
   return q.call(this, t, "append"), this;
-}, v = function(t, e = "append") {
+}, w = function(t, e = "append") {
   return this.queue(() => {
     a(t) || (t = [t]);
     for (const n of this.nodes) {
@@ -507,9 +518,9 @@ const ct = function(t, e) {
     }
   }), this;
 }, mt = function(t) {
-  return v.call(this, t, "prepend"), this;
+  return w.call(this, t, "prepend"), this;
 }, _t = function(t) {
-  return v.call(this, t, "append"), this;
+  return w.call(this, t, "append"), this;
 };
 class qt {
   constructor(e) {
@@ -547,7 +558,7 @@ class qt {
     b.call(this.curryInstance, "keypress", e, n);
   }
 }
-class vt {
+class wt {
   constructor(e = 10) {
     r(this, "registry", []);
     r(this, "max", 0);
@@ -564,13 +575,13 @@ class vt {
   }
 }
 function b(t, e, n) {
-  const i = Array.isArray(e) ? e : [e], s = new vt(i.length);
+  const i = Array.isArray(e) ? e : [e], s = new wt(i.length);
   for (const o of this.nodes)
-    h(o).on(t, (c) => {
+    u(o).on(t, (c) => {
       c = c, s.add(c.key), s.pressing(i) && n.apply(o, [c, this]);
     });
 }
-const wt = function(t, e = {}) {
+const vt = function(t, e = {}) {
   return this.queue(() => {
     for (const n of this.nodes) {
       const i = new CustomEvent(t, {
@@ -591,15 +602,15 @@ const wt = function(t, e = {}) {
     const { onFinish: n, keepStyle: i, onStart: s, onCancel: o } = Object.assign(At, e);
     t = a(t) ? t : [t], t.length > 1 && t.unshift({});
     const c = t, f = [];
-    for (const u of this.nodes) {
-      const y = u;
+    for (const h of this.nodes) {
+      const y = h;
       if (!y.animate)
         return Promise.resolve();
       const d = y.animate(c, e);
       s && s(d), d.onfinish = () => {
         if (n && n(d), i) {
           const p = c.at(-1);
-          h(u).css(p);
+          u(h).css(p);
         }
       }, d.oncancel = (p) => {
         o ? o(d, p) : console.log(`[$.animate] Animation cancelled 
@@ -636,7 +647,7 @@ const wt = function(t, e = {}) {
   }, t);
   return this.queue(() => {
     for (const s of this.nodes)
-      h(s).animate([{ opacity: n }], { duration: e, easing: i, keepStyle: !0 });
+      u(s).animate([{ opacity: n }], { duration: e, easing: i, keepStyle: !0 });
   }), this;
 }, Ct = function(t) {
   const { duration: e, to: n, easing: i } = Object.assign({
@@ -646,7 +657,7 @@ const wt = function(t, e = {}) {
   }, t);
   return this.queue(() => {
     for (const s of this.nodes)
-      h(s).animate([{ opacity: n }], { duration: e, easing: i, keepStyle: !0 });
+      u(s).animate([{ opacity: n }], { duration: e, easing: i, keepStyle: !0 });
   }), this;
 }, xt = function(t = {}) {
   return this.queue(() => {
@@ -658,12 +669,12 @@ const wt = function(t, e = {}) {
         easing: "linear"
       };
       typeof t == "number" && (t = { duration: t });
-      const { duration: o, off: c, on: f, easing: u } = Object.assign(s, t);
-      i === 0 || i < f ? h(n).fadeIn({ duration: o, to: f, easing: u }) : h(n).fadeOut({ duration: o, to: c, easing: u });
+      const { duration: o, off: c, on: f, easing: h } = Object.assign(s, t);
+      i === 0 || i < f ? u(n).fadeIn({ duration: o, to: f, easing: h }) : u(n).fadeOut({ duration: o, to: c, easing: h });
     }
   }), this;
 }, Tt = function(t) {
-  return t ? (this.queue(() => t.call(this)), this) : this;
+  return t ? (this.queue(async () => await t.call(this)), this) : this;
 }, jt = function(t) {
   return this.queue(() => {
     t && (this.nodes = C(t, this.doc));
@@ -674,7 +685,7 @@ const wt = function(t, e = {}) {
     for (const i of this.nodes) {
       const s = i, o = s.scrollHeight;
       n.push(
-        h(s).setAttr(m("original-height"), o).css("overflow", "hidden").animate({ height: "0px" }, {
+        u(s).setAttr(m("original-height"), o).css("overflow", "hidden").animate({ height: "0px" }, {
           easing: e,
           duration: t,
           keepStyle: !0
@@ -689,9 +700,9 @@ const wt = function(t, e = {}) {
     for (const i of this.nodes) {
       const s = i;
       s.style.removeProperty("display");
-      const c = `${h(s).getAttr(m("original-height")) ?? s.scrollHeight}px`;
+      const c = `${u(s).getAttr(m("original-height")) ?? s.scrollHeight}px`;
       n.push(
-        h(s).animate({ height: c }, { easing: e, duration: t }).run(() => {
+        u(s).animate({ height: c }, { easing: e, duration: t }).run(() => {
           s.style.removeProperty("overflow"), s.style.removeProperty("height");
         }).setAttr(m("original-height"), null).await
       );
@@ -706,9 +717,9 @@ const wt = function(t, e = {}) {
       override: s = !1
     } = _(t) ? t : {}, o = [];
     for (const c of this.nodes) {
-      const f = c, u = s ? this.nodes[0].style.display === "none" : f.style.display === "none";
+      const f = c, h = s ? this.nodes[0].style.display === "none" : f.style.display === "none";
       o.push(
-        u ? h(f).slideDown(n, i).await : h(f).slideUp(n, i).await
+        h ? u(f).slideDown(n, i).await : u(f).slideUp(n, i).await
       );
     }
     return Promise.allSettled(o);
@@ -721,7 +732,7 @@ const wt = function(t, e = {}) {
       const s = i;
       let o = (n = s == null ? void 0 : s.parentElement) == null ? void 0 : n.firstChild;
       for (; o; )
-        !o.isEqualNode(s) && o.nodeType === 1 && (t && h(o).is(t) || !t) && e.push(o), o = o.nextSibling;
+        !o.isEqualNode(s) && o.nodeType === 1 && (t && u(o).is(t) || !t) && e.push(o), o = o.nextSibling;
     }
     this.nodes = e;
   }), this;
@@ -733,7 +744,7 @@ const wt = function(t, e = {}) {
       const s = i;
       let o = (n = s == null ? void 0 : s.parentElement) == null ? void 0 : n.firstChild;
       for (; o && !o.isEqualNode(s); )
-        o.nodeType === 1 && (t && h(o).is(t) || !t) && e.push(o), o = o.nextSibling;
+        o.nodeType === 1 && (t && u(o).is(t) || !t) && e.push(o), o = o.nextSibling;
     }
     this.nodes = e;
   }), this;
@@ -744,15 +755,15 @@ const wt = function(t, e = {}) {
       const i = n;
       let s = i.nextSibling;
       for (; s; )
-        !s.isEqualNode(i) && s.nodeType === 1 && (t && h(s).is(t) || !t) && e.push(s), s = s.nextSibling;
+        !s.isEqualNode(i) && s.nodeType === 1 && (t && u(s).is(t) || !t) && e.push(s), s = s.nextSibling;
     }
     this.nodes = e;
   }), this;
 };
-function h(t, e) {
+function u(t, e) {
   return new l(t, e);
 }
-const w = class {
+const v = class {
   constructor(e, n) {
     r(this, "doc");
     r(this, "nodes");
@@ -760,25 +771,25 @@ const w = class {
     /* ----------  Chaining API  ---------- */
     r(this, "fullscreen", Et.bind(this));
     r(this, "prependChild", mt.bind(this));
-    r(this, "toggleClass", K.bind(this));
+    r(this, "toggleClass", W.bind(this));
     r(this, "appendChild", _t.bind(this));
     r(this, "fadeToggle", xt.bind(this));
     r(this, "asyncEach", X.bind(this));
-    r(this, "addClass", k.bind(this));
-    r(this, "delClass", B.bind(this));
+    r(this, "addClass", B.bind(this));
+    r(this, "delClass", K.bind(this));
     r(this, "children", nt.bind(this));
-    r(this, "hasClass", W.bind(this));
-    r(this, "teleport", ut.bind(this));
+    r(this, "hasClass", k.bind(this));
+    r(this, "teleport", ht.bind(this));
     r(this, "nthChild", yt.bind(this));
-    r(this, "addChild", v.bind(this));
+    r(this, "addChild", w.bind(this));
     r(this, "prepend", gt.bind(this));
     r(this, "setAttr", ct.bind(this));
     r(this, "getAttr", rt.bind(this));
     r(this, "replace", at.bind(this));
-    r(this, "trigger", wt.bind(this));
+    r(this, "trigger", vt.bind(this));
     r(this, "animate", St.bind(this));
     r(this, "fadeOut", Ct.bind(this));
-    r(this, "filter", ht.bind(this));
+    r(this, "filter", ut.bind(this));
     r(this, "fadeIn", Pt.bind(this));
     r(this, "append", bt.bind(this));
     r(this, "toggle", ot.bind(this));
@@ -822,7 +833,7 @@ const w = class {
     return await (this.taskQueue = this.taskQueue.then(e));
   }
   static text(e, n) {
-    const i = h(e);
+    const i = u(e);
     return A.bind(i)(n);
   }
   get length() {
@@ -839,7 +850,7 @@ const w = class {
    */
   static $fn(e, n) {
     Object.defineProperty(
-      w.prototype,
+      v.prototype,
       e,
       {
         value() {
@@ -849,10 +860,10 @@ const w = class {
     );
   }
 };
-let l = w;
+let l = v;
 /* ----------  Static API  ---------- */
 r(l, "fullscreen", j), r(l, "replace", x), r(l, "swap", T);
 export {
-  h as $,
+  u as $,
   l as Curry
 };

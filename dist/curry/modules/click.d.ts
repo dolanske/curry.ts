@@ -1,6 +1,6 @@
 import type { Curry } from '..';
 import type { EventCallback } from '../types';
-export type Click = (this: Curry, callback: EventCallback) => Curry;
+export type Click = (this: Curry, callback?: EventCallback) => Curry;
 /**
  *
  * @param this Curry instance
