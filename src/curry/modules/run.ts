@@ -17,6 +17,6 @@ export const _run: Run = function (this, fn) {
   if (!fn)
     return this
 
-  this.queue(() => fn.call(this))
+  this.queue(async () => await fn.call(this))
   return this
 }

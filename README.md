@@ -16,12 +16,25 @@ Any feedback, issues, ideas, PRs or feature requests are utmost welcome. I am ab
 
 ## TODO
 
-- [] $.siblings(prev, next)
-- [] $.prevSiblings()
-- [] $.nextSiblings()
 - [] documentation
+- [] explore event binding such as $('.btn').click().methodToExecuteOnClick()
 
 ## API
+
+I think most developers are familiar with the jQuery syntax. This library heavily borrows the main concepts but builds upon it.
+
+```ts
+// Select a dom node using the `$()` function
+// Now you can build a chain of methods as long as you wish
+$('.dropdown-button').next().slideToggle(300)
+```
+
+Curry builds on top of this concept by making the chain async. Next link is not executed until the previous one is resolved.
+This is a big advantage when you want your target to have multiple states with an async action inbetween
+
+```ts
+$('.fetch').click()
+```
 
 .. here ..
 
