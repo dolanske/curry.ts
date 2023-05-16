@@ -40,6 +40,8 @@ $('button').click().text('Hello')
 
 ## Selectors
 
+[parent](#$.parent), [children](#$.children), [nth](#$.nth)
+
 Selectors are used to query DOM nodes which can then be manipulated within the selection chain. Each time `$()` is used, it spawns a new, independent selection of DOM nodes.
 
 Other selectors are mainly used to narrow this list down to specific nodes. The third layer to this is providing a specific filter within these methods. Please refer to the type bellow in case it appears in the following methods.
@@ -47,6 +49,7 @@ Other selectors are mainly used to narrow this list down to specific nodes. The 
 ```ts
 type NarrowingSelector = string | Node | Node[] | HTMLCollection | Curry
 ```
+
 
 ### $()
 
@@ -65,7 +68,23 @@ The primary selector which spanws a new chain
   // #3 Changes it's text content
   $('#trigger').click().text('I was clicked!')
   ```
+
+### $.parent
+
+Select element's parent node
+
+- Definition
+  ```ts
+  $.parent(selector?: NarrowingSelector) {}
+  ``` 
+
+- Usage
+  ```ts
+  $('#parent').parent()
+  ```
 ### $.children
+
+Select element's child nodes
 
 - Definition
   ```ts
@@ -74,11 +93,11 @@ The primary selector which spanws a new chain
 
 - Usage
   ```ts
-  // #1 Selects all children of element with `parent` id
-  // #2 Filters selected children only to `<span>` elements
   $('#parent').children('span')
   ```
-- $.parent
+
+### $.nth
+
 - $.nth
 - $.children
 - $.nthChild
