@@ -10,7 +10,11 @@ Because I have literally 0.1 braincells, idk how to set up npm. You directly ins
  npm install github:dolanske/curry.ts
  ```
 
-Or you can just copy and paste the `curry.mjs` file wherever in your project and simply import the `import { $ } from "curry"` instead.
+Or you can just copy and paste the `curry.mjs` file wherever in your project and import it
+
+```ts
+import { $, Curry } from 'curry'
+```
 
 ## Feedback / Contributions
 
@@ -100,18 +104,39 @@ Select element's child nodes
 
 ### $.nth
 
-- $.nth
-- $.children
+Narrow down selected nodes by provided index(es)
+
+- Definition
+  ```ts
+  $.nth(index: number | number[], fn: IteratorCallback) {}
+  ```
+- Usage
+  ```ts
+  $('li').nth([2, 3]).text('I am third and fourth list item')
+  ```
+### $.nthChild
+
+Same as `$.nth` but on selected element's children.
+
+```ts
+$('ul').nthChild([3, 4])
+// Is the equivalent to this
+$('ul').children().nth([3, 4])
+```
+
 - $.nthChild
+
 - $.siblings
 - $.prevSiblings
 - $.nextSiblings
+
 - $.first
 - $.last
 - $.next
 - $.prev
-- $.even
 - $.odd
+- $.even
+
 - $.is
 - $.query
 - $.filter
@@ -183,3 +208,53 @@ Select element's child nodes
 - Curry.swap
 - Curry.text
 - Curry.$fn
+
+---
+
+## Type Definitions
+
+```ts
+export type GenericCallback = (
+  this: Element,
+  options: {
+    self: Element
+    instance: Curry
+    index?: number
+  }
+) => void
+
+interface CustomEventProperty extends Event {
+  detail?: any
+}
+
+export type EventCallback = (
+  this: Element,
+  event: CustomEventProperty,
+  instance: Curry
+) => void
+
+export type KeyboardEventCallback = (
+  this: Element,
+  event: KeyboardEvent,
+  instance: Curry
+) => void
+
+export type IteratorCallback<T = void> = (
+  this: Element,
+  options: {
+    self: Element
+    instance: Curry
+    index: number
+  }
+) => T
+
+export type PrevNextCallback = (
+  this: Element,
+  options: {
+    self?: Element | null
+    prev?: Element | null
+    instance: Curry
+    index?: number
+  }
+) => void
+```

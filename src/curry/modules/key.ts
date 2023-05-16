@@ -2,7 +2,7 @@
 
 import type { Curry } from '..'
 import { $ } from '..'
-import type { KeyboardeventCallback } from '../types'
+import type { KeyboardEventCallback } from '../types'
 import { toEl } from '../util'
 import type { KeyboardEventKey } from '../keycodes'
 
@@ -27,7 +27,7 @@ export class Key {
    * @param callback  Executed when the key(s) is/are pressed in the exact order
    */
   /* c8 ignore next 3 */
-  down(keys: Keys, callback: KeyboardeventCallback) {
+  down(keys: Keys, callback: KeyboardEventCallback) {
     handleKeyPress.call(this.curryInstance, 'keydown', keys, callback)
   }
 
@@ -39,7 +39,7 @@ export class Key {
    */
 
   /* c8 ignore next 3 */
-  up(keys: Keys, callback: KeyboardeventCallback) {
+  up(keys: Keys, callback: KeyboardEventCallback) {
     handleKeyPress.call(this.curryInstance, 'keyup', keys, callback)
   }
 
@@ -51,7 +51,7 @@ export class Key {
    */
 
   /* c8 ignore next 3 */
-  press(keys: Keys, callback: KeyboardeventCallback) {
+  press(keys: Keys, callback: KeyboardEventCallback) {
     handleKeyPress.call(this.curryInstance, 'keypress', keys, callback)
   }
 }
@@ -93,7 +93,7 @@ export function handleKeyPress(
   this: Curry,
   type: KeyboardEvents,
   keys: Keys,
-  callback: KeyboardeventCallback,
+  callback: KeyboardEventCallback,
 ) {
   const formatKeys: KeyboardEventKey[] = Array.isArray(keys) ? keys : [keys]
   const history = new History(formatKeys.length)

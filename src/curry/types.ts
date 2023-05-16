@@ -19,7 +19,7 @@ export type EventCallback = (
   instance: Curry
 ) => void
 
-export type KeyboardeventCallback = (
+export type KeyboardEventCallback = (
   this: Element,
   event: KeyboardEvent,
   instance: Curry
