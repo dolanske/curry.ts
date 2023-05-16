@@ -38,9 +38,7 @@ $('button').click().text('Hello')
 
 ---
 
-## Api
-
-### Selectors
+## Selectors
 
 Selectors are used to query DOM nodes which can then be manipulated within the selection chain. Each time `$()` is used, it spawns a new, independent selection of DOM nodes.
 
@@ -52,7 +50,7 @@ type NarrowingSelector = string | Node | Node[] | HTMLCollection | Curry
 
 ### $()
 
-The primary selector which spanws a new chain.
+The primary selector which spanws a new chain
 
 - Definition
   ```ts
@@ -60,33 +58,42 @@ The primary selector which spanws a new chain.
   // `document` Allows inserting a specific document node 
   $(selector: NarrowingSelector, document?: Document)
   ```
-
+- Usage
+  ```ts
+  // #1 Selects a button with the id `trigger`
+  // #2 Adds an event listener for a mousse click
+  // #3 Changes it's text content
+  $('#trigger').click().text('I was clicked!')
+  ```
 ### $.children
 
-- Implementation
+- Definition
   ```ts
   $.children(selector?: NarrowingSelector) {}
   ``` 
 
 - Usage
   ```ts
-  ``
+  // #1 Selects all children of element with `parent` id
+  // #2 Filters selected children only to `<span>` elements
+  $('#parent').children('span')
+  ```
+- $.parent
+- $.nth
 - $.children
+- $.nthChild
 - $.siblings
 - $.prevSiblings
 - $.nextSiblings
-- $.nthChild
-- $.nth
-- $.filter
-- $.parent
 - $.first
 - $.last
-- $.query
-- $.even
 - $.next
 - $.prev
+- $.even
 - $.odd
 - $.is
+- $.query
+- $.filter
 
 ### Events
 
