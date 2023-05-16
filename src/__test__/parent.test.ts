@@ -17,9 +17,9 @@ test('Select parent element', async () => {
   const noParent = await $(div).parent().get()
   const parentButWrongSelector = await $(first).parent('#div').get()
 
-  expect(parent).toBe(div)
-  expect(noParent).toBe(undefined)
-  expect(parentButWrongSelector).toBe(undefined)
+  expect(parent).toStrictEqual([div])
+  expect(noParent).toBeUndefined()
+  expect(parentButWrongSelector).toBeUndefined()
 })
 
 test('Select multiple parent elements', async () => {
@@ -45,5 +45,5 @@ test('Select multiple parent elements', async () => {
 
   // Select only 1 parent from multople
   const shouldBeSecond = await $([child1, child2]).parent('#parent2').get()
-  expect(shouldBeSecond).toStrictEqual(parent2)
+  expect(shouldBeSecond).toStrictEqual([parent2])
 })

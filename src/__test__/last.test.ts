@@ -15,7 +15,7 @@ test('Return the last matched element using $.last()', async () => {
   div.appendChild(span2)
 
   const shouldBeLast = await $(div.children).last().get()
-  expect(shouldBeLast).toStrictEqual(span2)
+  expect(shouldBeLast).toStrictEqual([span2])
 })
 
 test('Apply correct callback parameters to $.last()', () => {

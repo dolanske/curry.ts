@@ -15,7 +15,7 @@ for (let i = 0; i < 5; i++) {
 
 test('Select an element child at provided index', async () => {
   const shouldBeSecond = await $(div).nthChild(2).get()
-  expect(shouldBeSecond).toStrictEqual(div.children[1])
+  expect(shouldBeSecond).toStrictEqual([div.children[1]])
 
   const shouldBeFirstAndThird = await $(div).nthChild([1, 3]).get()
   expect(shouldBeFirstAndThird).toStrictEqual([

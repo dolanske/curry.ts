@@ -72,6 +72,8 @@ import type { Query } from './modules/query'
 import { _query } from './modules/query'
 import { _slideDown, _slideToggle, _slideUp } from './modules/slide'
 import type { Slide, SlideToggle } from './modules/slide'
+import type { Siblings } from './modules/siblings'
+import { _nextSiblings, _prevSiblings, _siblings } from './modules/siblings'
 
 // TODO: every method using document.querySelector should be able to substitude a different dom selector
 // from the `this.doc` variable. Meaning we can scope down DOM searching
@@ -149,6 +151,10 @@ export class Curry {
   slideUp: Slide = _slideUp.bind(this)
   slideDown: Slide = _slideDown.bind(this)
   slideToggle: SlideToggle = _slideToggle.bind(this)
+
+  siblings: Siblings = _siblings.bind(this)
+  prevSiblings: Siblings = _prevSiblings.bind(this)
+  nextSiblings: Siblings = _nextSiblings.bind(this)
 
   /**
    * Functions which return Curry instance can be queued to be asyncronously executed.

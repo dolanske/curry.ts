@@ -8,7 +8,7 @@ import { $ } from '../curry/index'
 test('Return nodes from current chain', async () => {
   const div = document.createElement('div')
   const returnDiv = await $(div).get()
-  expect(returnDiv).toStrictEqual(div)
+  expect(returnDiv).toStrictEqual([div])
 
   const span1 = document.createElement('span')
   const span2 = document.createElement('span')

@@ -16,10 +16,9 @@ export const _nthChild: NthChild = function (this, index, callback) {
 
         Promise.all(
           this.nodes.map(async (node) => {
-            const _el = await $(node).children().nth(index).get()
+            const el = await $(node).children().nth(index).get()
 
-            if (_el) {
-              const el: Element[] = Array.isArray(_el) ? _el : [_el]
+            if (el) {
               collected.push(...el)
 
               if (callback) {

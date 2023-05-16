@@ -14,6 +14,15 @@ export interface SlideToggleOptions {
 
 export type Slide = (this: Curry, duration?: number, easing?: string) => Curry
 
+/**
+ * Slides element up and hides it
+ *
+ * @param this Curry instance
+ * @param duration Animation duration
+ * @param easing Animation easing
+ * @returns Curry instance for chaining
+ */
+
 export const _slideUp: Slide = function (this, duration = 300, easing = 'linear') {
   this.queue(async () => {
     const executions: Promise<any>[] = []
@@ -34,7 +43,7 @@ export const _slideUp: Slide = function (this, duration = 300, easing = 'linear'
             keepStyle: true,
           })
           .css('display', 'none')
-          // Empty get is used to return a promise of the entire chain
+          // Return promise which resolves when chain completes
           .await,
       )
     }
@@ -44,6 +53,16 @@ export const _slideUp: Slide = function (this, duration = 300, easing = 'linear'
 
   return this
 }
+
+/**
+ * Slides element down to its original form
+ *
+ * @param this Curry instance
+ * @param duration Animation duration
+ * @param easing Animation easing
+ * @returns Curry instance for chaining
+ *
+ */
 
 export const _slideDown: Slide = function (this, duration = 300, easing = 'linear') {
   this.queue(async () => {
@@ -81,6 +100,20 @@ export const _slideDown: Slide = function (this, duration = 300, easing = 'linea
 
 export type SlideToggle = (this: Curry, duration?: number | SlideToggleOptions, easing?: string) => Curry
 
+/**
+ * Toggles between $.slideUp and $.slideDown depending on the element's
+ * visibility
+ *
+ * Instead of the normal duration & easing options it also accepts an object,
+ * with the respective options. An additional functionality is `override:
+ * boolean`.
+ *
+ * If multiple nodes are selected to be toggled, `override = true` will pick the
+ * state of the first node and apply the same slide to all remaining nodes.
+ * Unifying the slide state of all nodes.
+ *
+ */
+
 export const _slideToggle: SlideToggle = function (this, _duration, _easing) {
   this.queue(async () => {
     const {
@@ -88,8 +121,6 @@ export const _slideToggle: SlideToggle = function (this, _duration, _easing) {
       easing = _easing ?? 'linear',
       override = false,
     } = isObject(_duration) ? _duration : {}
-
-    // Check wether element is currently slid up (hidden) or down (visible)
 
     const executions: Promise<any>[] = []
 

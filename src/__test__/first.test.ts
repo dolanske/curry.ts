@@ -4,6 +4,7 @@
 
 import { expect, test } from 'vitest'
 import { $, Curry } from '../curry/index'
+
 // import { delay } from "../curry/util"
 
 test('Return the first matched element using $.first()', async () => {
@@ -16,7 +17,7 @@ test('Return the first matched element using $.first()', async () => {
   div.appendChild(span2)
 
   const shouldBeFirst = await $(div.children).first().get()
-  expect(shouldBeFirst).toStrictEqual(span1)
+  expect(shouldBeFirst).toStrictEqual([span1])
 })
 
 test('Apply correct callback parameters to $.first()', () => {

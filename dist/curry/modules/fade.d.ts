@@ -6,7 +6,7 @@ export type Fade = (this: Curry, options?: {
     easing?: DataType.EasingFunction;
 }) => Curry;
 /**
- * Fades element into full view or the selected `to` value >0
+ * Fades element into full view or the selected `to` value `>0`
  *
  * @param this Curry instance
  * @param options Fade options
@@ -14,7 +14,7 @@ export type Fade = (this: Curry, options?: {
  */
 export declare const _fadeIn: Fade;
 /**
- * Fades element out of view or the selected `to` value <1
+ * Fades element out of view or the selected `to` value `<1`
  *
  * @param this Curry instance
  * @param options Fade opitons

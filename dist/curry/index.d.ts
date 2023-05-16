@@ -34,6 +34,7 @@ import type { Fade, FadeToggle } from './modules/fade';
 import type { Run } from './modules/run';
 import type { Query } from './modules/query';
 import type { Slide, SlideToggle } from './modules/slide';
+import type { Siblings } from './modules/siblings';
 export type Selector = string | Node | Node[] | HTMLCollection | Curry;
 type CurryChainCompletion = boolean;
 export declare function $(selector: Selector, doc?: Document): Curry;
@@ -94,6 +95,9 @@ export declare class Curry {
     slideUp: Slide;
     slideDown: Slide;
     slideToggle: SlideToggle;
+    siblings: Siblings;
+    prevSiblings: Siblings;
+    nextSiblings: Siblings;
     /**
      * Functions which return Curry instance can be queued to be asyncronously executed.
      */

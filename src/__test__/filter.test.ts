@@ -25,12 +25,12 @@ describe('Filter element selection', () => {
       })
       .get()
 
-    expect(filtered).toStrictEqual(div.children[1])
+    expect(filtered).toStrictEqual([div.children[1]])
   })
 
   test('Filter on selected elements with 1 rule', async () => {
     const filtered = await $(div).children().filter('#span2').get()
-    expect(filtered).toStrictEqual(div.children[2])
+    expect(filtered).toStrictEqual([div.children[2]])
   })
 
   test('Filter on selected elements with set of rules', async () => {
@@ -48,7 +48,7 @@ describe('Filter element selection', () => {
       .get()
 
     expect(filtered1).toStrictEqual([div.children[0], div.children[2]])
-    expect(filtered2).toStrictEqual(div.children[0])
+    expect(filtered2).toStrictEqual([div.children[0]])
     expect(filtered3).toStrictEqual([div.children[1], div.children[3]])
 
     // Filters returning undeinfed

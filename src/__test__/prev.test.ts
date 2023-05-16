@@ -21,11 +21,11 @@ test('Selects the next node $.prev()', async () => {
   /* Getting elements which exist */
 
   const shouldBeSecond = await $(third).prev().get()
-  expect(shouldBeSecond).toBe(second)
-  expect(shouldBeSecond).not.toBe(first)
+  expect(shouldBeSecond).toStrictEqual([second])
+  expect(shouldBeSecond).not.toStrictEqual([first])
 
   const shouldBeThird = await $(third).prev(2).get()
-  expect(shouldBeThird).toBe(first)
+  expect(shouldBeThird).toStrictEqual([first])
 
   /* Getting elements which should not exist */
 
@@ -38,6 +38,6 @@ test('Selects the next node $.prev()', async () => {
     .prev()
     .get()
 
-  expect(shouldNotExist).toBe(undefined)
-  expect(shouldNotExistEither).toBe(undefined)
+  expect(shouldNotExist).toBeUndefined()
+  expect(shouldNotExistEither).toBeUndefined()
 })

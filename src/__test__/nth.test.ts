@@ -18,8 +18,8 @@ test('Select element at provided index', async () => {
   const shouldBeThird = await $(div).children().nth(3).get()
   const shouldBeSecondAndFourth = await $(div).children().nth([2, 4]).get()
 
-  expect(shouldBeFirst).toStrictEqual(div.children[0])
-  expect(shouldBeThird).toStrictEqual(div.children[2])
+  expect(shouldBeFirst).toStrictEqual([div.children[0]])
+  expect(shouldBeThird).toStrictEqual([div.children[2]])
   expect(shouldBeSecondAndFourth).toStrictEqual([
     div.children[1],
     div.children[3],

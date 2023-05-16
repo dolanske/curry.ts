@@ -1,7 +1,7 @@
 var O = Object.defineProperty;
 var H = (t, e, n) => e in t ? O(t, e, { enumerable: !0, configurable: !0, writable: !0, value: n }) : t[e] = n;
 var r = (t, e, n) => (H(t, typeof e != "symbol" ? e + "" : e, n), n);
-const w = function(t, e) {
+const A = function(t, e) {
   return this.queue(() => {
     for (const n of this.nodes)
       if (t)
@@ -42,13 +42,13 @@ function S(t) {
 }
 function P(t, e, n) {
   return this.queue(() => {
-    const s = t === "next" ? "nextElementSibling" : "previousElementSibling";
+    const i = t === "next" ? "nextElementSibling" : "previousElementSibling";
     typeof e != "number" && (n = e, e = void 0);
-    const i = [];
+    const s = [];
     for (const o of this.nodes) {
-      const c = o, f = c[s];
+      const c = o, f = c[i];
       if (!e || e === 1)
-        f && (i.push(f), n && n.apply(f, [{
+        f && (s.push(f), n && n.apply(f, [{
           self: f,
           prev: c,
           index: S(f),
@@ -57,8 +57,8 @@ function P(t, e, n) {
       else {
         let u = c;
         for (let y = 0; y < e; y++)
-          u && (u = u[s]);
-        u && (i.push(u), n && n.apply(u, [{
+          u && (u = u[i]);
+        u && (s.push(u), n && n.apply(u, [{
           self: u,
           prev: c,
           index: S(c),
@@ -66,7 +66,7 @@ function P(t, e, n) {
         }]));
       }
     }
-    this.nodes = i;
+    this.nodes = s;
   }), this;
 }
 function F(t) {
@@ -83,53 +83,53 @@ function C(t, e) {
   }
   return t instanceof HTMLCollection ? Array.from(t) : t instanceof Node ? [t] : t instanceof l ? t.nodes : t;
 }
-const b = (t) => L + t;
+const m = (t) => L + t;
 function M(t) {
   return this.queue(() => {
     if (this.nodes.length === 0)
       return;
     if (!t)
-      return this.nodes.length === 1 ? this.nodes[0] : this.nodes;
+      return this.nodes;
     const e = [];
     for (const n of this.nodes)
       n && e.push(Reflect.get(n, t));
     return e.length === 1 ? e[0] : e;
   });
 }
-const R = function(t, e = "every") {
+const N = function(t, e = "every") {
   const n = [];
-  for (const s of this.nodes) {
-    const i = s;
+  for (const i of this.nodes) {
+    const s = i;
     if (a(t))
       for (const o of t)
-        n.push(i.matches && i.matches(o));
+        n.push(s.matches && s.matches(o));
     else
-      i.matches && i.matches(t) ? n.push(!0) : n.push(!1);
+      s.matches && s.matches(t) ? n.push(!0) : n.push(!1);
   }
   switch (e) {
     case "some":
-      return n.some((s) => s);
+      return n.some((i) => i);
     case "none":
-      return !n.some((s) => s);
+      return !n.some((i) => i);
     case "every":
-      return n.every((s) => s);
+      return n.every((i) => i);
   }
-}, D = function(t, e, n) {
+}, R = function(t, e, n) {
   return this.queue(() => {
-    for (const s of this.nodes)
-      s.addEventListener(
+    for (const i of this.nodes)
+      i.addEventListener(
         t,
-        (i) => e.apply(s, [i, this]),
+        (s) => e.apply(i, [s, this]),
         n
       );
   }), this;
-}, Q = function(t) {
+}, D = function(t) {
   for (const e of this.nodes)
     h(e).on("click", (n) => {
       t.apply(e, [n, this]);
     });
   return this;
-}, U = function(t) {
+}, Q = function(t) {
   this.queue(() => {
     for (const e of this.nodes) {
       const n = e;
@@ -138,49 +138,49 @@ const R = function(t, e = "every") {
       n.remove();
     }
   });
-}, B = function(t, e) {
+}, U = function(t, e) {
   return this.queue(() => {
     for (const n of this.nodes) {
-      const s = n;
-      E(e) ? Object.assign(s.style, t) : typeof t == "string" && s.style.setProperty(t, String(e));
-    }
-  }), this;
-}, K = function(t) {
-  return this.queue(() => {
-    for (const e of this.nodes) {
-      const n = e;
-      t = typeof t == "string" ? [t] : t, n.classList.add(...t);
-    }
-  }), this;
-}, N = function(t) {
-  return this.queue(() => {
-    for (const e of this.nodes) {
-      const n = e;
-      t = typeof t == "string" ? [t] : t, n.classList.remove(...t);
+      const i = n;
+      E(e) ? Object.assign(i.style, t) : typeof t == "string" && i.style.setProperty(t, String(e));
     }
   }), this;
 }, k = function(t) {
   return this.queue(() => {
     for (const e of this.nodes) {
       const n = e;
+      t = typeof t == "string" ? [t] : t, n.classList.add(...t);
+    }
+  }), this;
+}, B = function(t) {
+  return this.queue(() => {
+    for (const e of this.nodes) {
+      const n = e;
+      t = typeof t == "string" ? [t] : t, n.classList.remove(...t);
+    }
+  }), this;
+}, K = function(t) {
+  return this.queue(() => {
+    for (const e of this.nodes) {
+      const n = e;
       t = typeof t == "string" ? [t] : t;
-      for (const s of t)
-        n.classList.toggle(s);
+      for (const i of t)
+        n.classList.toggle(i);
     }
   }), this;
 }, W = function(t, e = "every") {
-  const n = [], s = typeof t == "string" ? [t] : t;
-  for (const i of this.nodes) {
-    const o = i;
-    n.push(s.some((c) => o.classList.contains(c)));
+  const n = [], i = typeof t == "string" ? [t] : t;
+  for (const s of this.nodes) {
+    const o = s;
+    n.push(i.some((c) => o.classList.contains(c)));
   }
   switch (e) {
     case "some":
-      return n.some((i) => i);
+      return n.some((s) => s);
     case "every":
-      return n.every((i) => i);
+      return n.every((s) => s);
     case "none":
-      return !n.some((i) => i);
+      return !n.some((s) => s);
   }
 }, z = function(t) {
   return this.queue(() => {
@@ -201,8 +201,8 @@ const R = function(t, e = "every") {
       new Promise(async () => {
         let e = 0;
         for (const n of this.nodes)
-          await new Promise((s) => t.apply(n, [
-            s,
+          await new Promise((i) => t.apply(n, [
+            i,
             {
               self: n,
               index: e,
@@ -216,15 +216,15 @@ const R = function(t, e = "every") {
   return this.queue(() => {
     const n = [];
     typeof t == "number" && (t = [t]);
-    for (let s = 1; s <= this.nodes.length; s++)
-      t.includes(s) && n.push(this.nodes[s - 1]);
-    this.nodes = n, e && this.nodes.forEach((s, i) => {
-      e.apply(s, [
+    for (let i = 1; i <= this.nodes.length; i++)
+      t.includes(i) && n.push(this.nodes[i - 1]);
+    this.nodes = n, e && this.nodes.forEach((i, s) => {
+      e.apply(i, [
         {
           instance: this,
-          self: s,
+          self: i,
           /* c8 ignore next 1 */
-          index: Array.isArray(t) ? t[i] : t
+          index: Array.isArray(t) ? t[s] : t
         }
       ]);
     });
@@ -281,11 +281,11 @@ const R = function(t, e = "every") {
   return this.queue(() => {
     const e = [];
     for (const n of this.nodes) {
-      const s = n;
-      s.children && (t ? s.childNodes.forEach((i) => {
-        const o = i;
+      const i = n;
+      i.children && (t ? i.childNodes.forEach((s) => {
+        const o = s;
         h(o).is(t) && e.push(o);
-      }) : e.push(...Array.from(s.children)));
+      }) : e.push(...Array.from(i.children)));
     }
     this.nodes = e;
   }), this;
@@ -313,7 +313,7 @@ const R = function(t, e = "every") {
 }, rt = function(t) {
   const e = this.nodes[0];
   if (a(t)) {
-    const n = t.map((s) => e.getAttribute(s)).filter((s) => s);
+    const n = t.map((i) => e.getAttribute(i)).filter((i) => i);
     return n.length > 0 ? n : null;
   } else
     return e.getAttribute(t);
@@ -324,25 +324,25 @@ function g(t, e, n) {
 const ct = function(t, e) {
   return this.queue(() => {
     for (const n of this.nodes) {
-      const s = n;
+      const i = n;
       if (typeof t == "string")
-        g(s, t, e);
+        g(i, t, e);
       else if (a(t))
-        for (const i of t) {
-          const o = Object.keys(i)[0], c = i[o];
-          g(s, o, c);
+        for (const s of t) {
+          const o = Object.keys(s)[0], c = s[o];
+          g(i, o, c);
         }
       else if (_(t)) {
-        const i = Object.keys(t)[0], o = t[i];
-        g(s, i, o);
+        const s = Object.keys(t)[0], o = t[s];
+        g(i, s, o);
       }
     }
   }), this;
 }, ht = function(t, e) {
   return this.queue(() => {
     const n = [];
-    this.nodes.forEach((s, i) => {
-      const o = s;
+    this.nodes.forEach((i, s) => {
+      const o = i;
       if (a(t))
         switch (e) {
           case "every": {
@@ -359,7 +359,7 @@ const ct = function(t, e) {
         }
       else
         typeof t == "string" ? h(o).is(t) && n.push(o) : t.apply(o, [
-          { instance: this, self: o, index: i }
+          { instance: this, self: o, index: s }
         ]) && n.push(o);
     }), this.nodes = n;
   }), this;
@@ -373,14 +373,14 @@ const ct = function(t, e) {
 }, ft = function(t, e) {
   if (I(t)) {
     const n = [];
-    this.nodes.forEach((s, i) => {
-      const o = s;
-      n[i] = o.cloneNode(!0), h(o).on(
+    this.nodes.forEach((i, s) => {
+      const o = i;
+      n[s] = o.cloneNode(!0), h(o).on(
         "mouseenter",
         (c) => t.apply(o, [c, this]),
         e
       ), h(o).on("mouseleave", () => {
-        const c = n[i];
+        const c = n[s];
         o.removeAttribute("style"), o.removeAttribute("class"), o.innerHTML = c.innerHTML;
         for (const u in c.classList)
           o.classList.add(u);
@@ -394,16 +394,16 @@ const ct = function(t, e) {
       });
     });
   } else {
-    const { enter: n, leave: s } = t;
-    for (const i of this.nodes) {
-      const o = i;
+    const { enter: n, leave: i } = t;
+    for (const s of this.nodes) {
+      const o = s;
       h(o).on(
         "mouseenter",
         (c) => n.apply(o, [c, this]),
         e
       ), h(o).on(
         "mouseleave",
-        (c) => s.apply(o, [c, this]),
+        (c) => i.apply(o, [c, this]),
         e
       );
     }
@@ -413,38 +413,38 @@ const ct = function(t, e) {
   return this.queue(() => {
     const e = /* @__PURE__ */ new Set();
     for (const n of this.nodes) {
-      const s = n;
-      if (s.parentNode)
+      const i = n;
+      if (i.parentNode)
         if (t) {
-          const i = s.parentNode;
-          h(i).is(t) && e.add(i);
+          const s = i.parentNode;
+          h(s).is(t) && e.add(s);
         } else
-          e.add(s.parentNode);
+          e.add(i.parentNode);
     }
     this.nodes = Array.from(e);
   }), this;
 }, lt = function(t = 1) {
   return this.queue(() => $(t)), this;
-}, j = function(t, e, n) {
-  var s;
+}, x = function(t, e, n) {
+  var i;
   if (typeof t == "string") {
-    const i = (n ?? document).querySelector(t);
-    if (!i)
+    const s = (n ?? document).querySelector(t);
+    if (!s)
       return;
-    t = i;
+    t = s;
   }
   if (typeof e == "string")
     if (e.startsWith("<") && e.endsWith(">"))
       e = F(e);
     else {
-      const i = (n ?? document).querySelector(e);
-      if (!i)
+      const s = (n ?? document).querySelector(e);
+      if (!s)
         return;
-      e = i;
+      e = s;
     }
-  e && t && ((s = t.parentNode) == null || s.replaceChild(e, t));
+  e && t && ((i = t.parentNode) == null || i.replaceChild(e, t));
 }, at = function(t, e, n) {
-  return this.queue(() => j(t, e ?? this.nodes[0], n)), this;
+  return this.queue(() => x(t, e ?? this.nodes[0], n)), this;
 }, T = function(t, e, n) {
   if (typeof t == "string") {
     const o = (n ?? document).querySelector(t);
@@ -458,32 +458,29 @@ const ct = function(t, e) {
       return;
     e = o;
   }
-  const s = t.cloneNode(!0), i = e.cloneNode(!0);
-  h(s).replace(e), h(i).replace(t);
+  const i = t.cloneNode(!0), s = e.cloneNode(!0);
+  h(i).replace(e), h(s).replace(t);
 }, pt = function(t, e) {
   return this.queue(() => T(t, e, this.doc)), this;
 }, yt = function(t, e) {
   return this.queue(
     () => new Promise((n) => {
-      const s = [];
+      const i = [];
       Promise.all(
-        this.nodes.map(async (i) => {
-          const o = await h(i).children().nth(t).get();
-          if (o) {
-            const c = Array.isArray(o) ? o : [o];
-            s.push(...c), e && c.map(
-              (f, u) => e.apply(f, [
-                {
-                  self: f,
-                  instance: this,
-                  index: Array.isArray(t) ? t[u] : t
-                }
-              ])
-            );
-          }
+        this.nodes.map(async (s) => {
+          const o = await h(s).children().nth(t).get();
+          o && (i.push(...o), e && o.map(
+            (c, f) => e.apply(c, [
+              {
+                self: c,
+                instance: this,
+                index: Array.isArray(t) ? t[f] : t
+              }
+            ])
+          ));
         })
       ).then(() => {
-        this.nodes = s, n(!0);
+        this.nodes = i, n(!0);
       });
     })
   ), this;
@@ -491,25 +488,25 @@ const ct = function(t, e) {
   return this.queue(() => {
     a(t) || (t = [t]);
     for (const n of this.nodes) {
-      const s = n;
-      for (const i of t)
-        (i instanceof Element || i instanceof Node) && s.parentNode && (e === "prepend" ? s.parentNode.insertBefore(i, s) : s.parentNode.insertBefore(i, s.nextSibling)), typeof i == "string" && (e === "prepend" ? s.insertAdjacentHTML("beforebegin", i) : s.insertAdjacentHTML("afterend", i));
+      const i = n;
+      for (const s of t)
+        (s instanceof Element || s instanceof Node) && i.parentNode && (e === "prepend" ? i.parentNode.insertBefore(s, i) : i.parentNode.insertBefore(s, i.nextSibling)), typeof s == "string" && (e === "prepend" ? i.insertAdjacentHTML("beforebegin", s) : i.insertAdjacentHTML("afterend", s));
     }
   }), this;
 }, gt = function(t) {
   return q.call(this, t, "prepend"), this;
-}, mt = function(t) {
+}, bt = function(t) {
   return q.call(this, t, "append"), this;
 }, v = function(t, e = "append") {
   return this.queue(() => {
     a(t) || (t = [t]);
     for (const n of this.nodes) {
-      const s = n;
-      for (const i of t)
-        (i instanceof Element || i instanceof Node) && (e === "prepend" ? s.insertBefore(i, s.firstChild) : s.appendChild(i)), typeof i == "string" && (e === "prepend" ? s.insertAdjacentHTML("afterbegin", i) : s.insertAdjacentHTML("beforeend", i));
+      const i = n;
+      for (const s of t)
+        (s instanceof Element || s instanceof Node) && (e === "prepend" ? i.insertBefore(s, i.firstChild) : i.appendChild(s)), typeof s == "string" && (e === "prepend" ? i.insertAdjacentHTML("afterbegin", s) : i.insertAdjacentHTML("beforeend", s));
     }
   }), this;
-}, bt = function(t) {
+}, mt = function(t) {
   return v.call(this, t, "prepend"), this;
 }, _t = function(t) {
   return v.call(this, t, "append"), this;
@@ -527,7 +524,7 @@ class qt {
    */
   /* c8 ignore next 3 */
   down(e, n) {
-    m.call(this.curryInstance, "keydown", e, n);
+    b.call(this.curryInstance, "keydown", e, n);
   }
   /**
    * Same as addEventListener('keyup')
@@ -537,7 +534,7 @@ class qt {
    */
   /* c8 ignore next 3 */
   up(e, n) {
-    m.call(this.curryInstance, "keyup", e, n);
+    b.call(this.curryInstance, "keyup", e, n);
   }
   /**
    * Same as addEventListener('keypress')
@@ -547,7 +544,7 @@ class qt {
    */
   /* c8 ignore next 3 */
   press(e, n) {
-    m.call(this.curryInstance, "keypress", e, n);
+    b.call(this.curryInstance, "keypress", e, n);
   }
 }
 class vt {
@@ -562,27 +559,27 @@ class vt {
   }
   pressing(e) {
     return e.every(
-      (n, s) => this.registry.at(s - e.length) === n
+      (n, i) => this.registry.at(i - e.length) === n
     );
   }
 }
-function m(t, e, n) {
-  const s = Array.isArray(e) ? e : [e], i = new vt(s.length);
+function b(t, e, n) {
+  const i = Array.isArray(e) ? e : [e], s = new vt(i.length);
   for (const o of this.nodes)
     h(o).on(t, (c) => {
-      c = c, i.add(c.key), i.pressing(s) && n.apply(o, [c, this]);
+      c = c, s.add(c.key), s.pressing(i) && n.apply(o, [c, this]);
     });
 }
-const At = function(t, e = {}) {
+const wt = function(t, e = {}) {
   return this.queue(() => {
     for (const n of this.nodes) {
-      const s = new CustomEvent(t, {
+      const i = new CustomEvent(t, {
         detail: e
       });
-      n.dispatchEvent(s);
+      n.dispatchEvent(i);
     }
   }), this;
-}, wt = {
+}, At = {
   easing: "linear",
   duration: 300,
   iterations: 1,
@@ -591,7 +588,7 @@ const At = function(t, e = {}) {
   return this.queue(async () => {
     if (!t)
       return Promise.resolve();
-    const { onFinish: n, keepStyle: s, onStart: i, onCancel: o } = Object.assign(wt, e);
+    const { onFinish: n, keepStyle: i, onStart: s, onCancel: o } = Object.assign(At, e);
     t = a(t) ? t : [t], t.length > 1 && t.unshift({});
     const c = t, f = [];
     for (const u of this.nodes) {
@@ -599,8 +596,8 @@ const At = function(t, e = {}) {
       if (!y.animate)
         return Promise.resolve();
       const d = y.animate(c, e);
-      i && i(d), d.onfinish = () => {
-        if (n && n(d), s) {
+      s && s(d), d.onfinish = () => {
+        if (n && n(d), i) {
           const p = c.at(-1);
           h(u).css(p);
         }
@@ -612,17 +609,17 @@ const At = function(t, e = {}) {
     }
     return Promise.allSettled(f);
   }), this;
-}, x = async function(t, e, n) {
-  const s = n ?? document;
+}, j = async function(t, e, n) {
+  const i = n ?? document;
   if (typeof t == "string") {
-    const i = s.querySelector(t);
-    if (!i)
+    const s = i.querySelector(t);
+    if (!s)
       return Promise.reject(Error("[$.fullscreen] Target does not exist"));
-    t = i;
+    t = s;
   }
   if (t) {
-    const i = t;
-    return Object.hasOwn(t, "requestFullscreen") ? (s.fullscreenElement && s.exitFullscreen(), i.requestFullscreen(e).then(() => {
+    const s = t;
+    return Object.hasOwn(t, "requestFullscreen") ? (i.fullscreenElement && i.exitFullscreen(), s.requestFullscreen(e).then(() => {
       e != null && e.onOpen && (e == null || e.onOpen());
     }).catch(
       (o) => e != null && e.onError ? e == null ? void 0 : e.onError(o) : Promise.reject(Error("[$.fullscreen] Error during initialization."))
@@ -630,54 +627,54 @@ const At = function(t, e = {}) {
   }
   return Promise.reject(Error("[$.fullscreen] Target does not exist"));
 }, Et = function(t, e) {
-  return this.queue(() => (_(t) ? (e = t, t = this.nodes[0]) : t ?? (t = this.nodes[0]), x(t, e, this.doc))), this;
+  return this.queue(() => (_(t) ? (e = t, t = this.nodes[0]) : t ?? (t = this.nodes[0]), j(t, e, this.doc))), this;
 }, Pt = function(t) {
-  const { duration: e, to: n, easing: s } = Object.assign({
+  const { duration: e, to: n, easing: i } = Object.assign({
     duration: 300,
     to: 1,
     easing: "linear"
   }, t);
   return this.queue(() => {
-    for (const i of this.nodes)
-      h(i).animate([{ opacity: n }], { duration: e, easing: s, keepStyle: !0 });
+    for (const s of this.nodes)
+      h(s).animate([{ opacity: n }], { duration: e, easing: i, keepStyle: !0 });
   }), this;
 }, Ct = function(t) {
-  const { duration: e, to: n, easing: s } = Object.assign({
+  const { duration: e, to: n, easing: i } = Object.assign({
     duration: 300,
     to: 0,
     easing: "linear"
   }, t);
   return this.queue(() => {
-    for (const i of this.nodes)
-      h(i).animate([{ opacity: n }], { duration: e, easing: s, keepStyle: !0 });
+    for (const s of this.nodes)
+      h(s).animate([{ opacity: n }], { duration: e, easing: i, keepStyle: !0 });
   }), this;
-}, jt = function(t = {}) {
+}, xt = function(t = {}) {
   return this.queue(() => {
     for (const e of this.nodes) {
-      const n = e, s = parseFloat(n.style.opacity), i = {
+      const n = e, i = parseFloat(n.style.opacity), s = {
         duration: 300,
         off: 0,
         on: 1,
         easing: "linear"
       };
       typeof t == "number" && (t = { duration: t });
-      const { duration: o, off: c, on: f, easing: u } = Object.assign(i, t);
-      s === 0 || s < f ? h(n).fadeIn({ duration: o, to: f, easing: u }) : h(n).fadeOut({ duration: o, to: c, easing: u });
+      const { duration: o, off: c, on: f, easing: u } = Object.assign(s, t);
+      i === 0 || i < f ? h(n).fadeIn({ duration: o, to: f, easing: u }) : h(n).fadeOut({ duration: o, to: c, easing: u });
     }
   }), this;
 }, Tt = function(t) {
   return t ? (this.queue(() => t.call(this)), this) : this;
-}, xt = function(t) {
+}, jt = function(t) {
   return this.queue(() => {
     t && (this.nodes = C(t, this.doc));
   }), this;
 }, Ot = function(t = 300, e = "linear") {
   return this.queue(async () => {
     const n = [];
-    for (const s of this.nodes) {
-      const i = s, o = i.scrollHeight;
+    for (const i of this.nodes) {
+      const s = i, o = s.scrollHeight;
       n.push(
-        h(i).setAttr(b("original-height"), o).css("overflow", "hidden").animate({ height: "0px" }, {
+        h(s).setAttr(m("original-height"), o).css("overflow", "hidden").animate({ height: "0px" }, {
           easing: e,
           duration: t,
           keepStyle: !0
@@ -689,14 +686,14 @@ const At = function(t, e = {}) {
 }, Ht = function(t = 300, e = "linear") {
   return this.queue(async () => {
     const n = [];
-    for (const s of this.nodes) {
-      const i = s;
-      i.style.removeProperty("display");
-      const c = `${h(i).getAttr(b("original-height")) ?? i.scrollHeight}px`;
+    for (const i of this.nodes) {
+      const s = i;
+      s.style.removeProperty("display");
+      const c = `${h(s).getAttr(m("original-height")) ?? s.scrollHeight}px`;
       n.push(
-        h(i).animate({ height: c }, { easing: e, duration: t }).run(() => {
-          i.style.removeProperty("overflow"), i.style.removeProperty("height");
-        }).setAttr(b("original-height"), null).await
+        h(s).animate({ height: c }, { easing: e, duration: t }).run(() => {
+          s.style.removeProperty("overflow"), s.style.removeProperty("height");
+        }).setAttr(m("original-height"), null).await
       );
     }
     return Promise.allSettled(n);
@@ -705,35 +702,70 @@ const At = function(t, e = {}) {
   return this.queue(async () => {
     const {
       duration: n = 300,
-      easing: s = e ?? "linear",
-      override: i = !1
+      easing: i = e ?? "linear",
+      override: s = !1
     } = _(t) ? t : {}, o = [];
     for (const c of this.nodes) {
-      const f = c, u = i ? this.nodes[0].style.display === "none" : f.style.display === "none";
+      const f = c, u = s ? this.nodes[0].style.display === "none" : f.style.display === "none";
       o.push(
-        u ? h(f).slideDown(n, s).await : h(f).slideUp(n, s).await
+        u ? h(f).slideDown(n, i).await : h(f).slideUp(n, i).await
       );
     }
     return Promise.allSettled(o);
+  }), this;
+}, It = function(t) {
+  return this.queue(() => {
+    var n;
+    const e = [];
+    for (const i of this.nodes) {
+      const s = i;
+      let o = (n = s == null ? void 0 : s.parentElement) == null ? void 0 : n.firstChild;
+      for (; o; )
+        !o.isEqualNode(s) && o.nodeType === 1 && (t && h(o).is(t) || !t) && e.push(o), o = o.nextSibling;
+    }
+    this.nodes = e;
+  }), this;
+}, Ft = function(t) {
+  return this.queue(() => {
+    var n;
+    const e = [];
+    for (const i of this.nodes) {
+      const s = i;
+      let o = (n = s == null ? void 0 : s.parentElement) == null ? void 0 : n.firstChild;
+      for (; o && !o.isEqualNode(s); )
+        o.nodeType === 1 && (t && h(o).is(t) || !t) && e.push(o), o = o.nextSibling;
+    }
+    this.nodes = e;
+  }), this;
+}, $t = function(t) {
+  return this.queue(() => {
+    const e = [];
+    for (const n of this.nodes) {
+      const i = n;
+      let s = i.nextSibling;
+      for (; s; )
+        !s.isEqualNode(i) && s.nodeType === 1 && (t && h(s).is(t) || !t) && e.push(s), s = s.nextSibling;
+    }
+    this.nodes = e;
   }), this;
 };
 function h(t, e) {
   return new l(t, e);
 }
-const A = class {
+const w = class {
   constructor(e, n) {
     r(this, "doc");
     r(this, "nodes");
     r(this, "taskQueue");
     /* ----------  Chaining API  ---------- */
     r(this, "fullscreen", Et.bind(this));
-    r(this, "prependChild", bt.bind(this));
-    r(this, "toggleClass", k.bind(this));
+    r(this, "prependChild", mt.bind(this));
+    r(this, "toggleClass", K.bind(this));
     r(this, "appendChild", _t.bind(this));
-    r(this, "fadeToggle", jt.bind(this));
+    r(this, "fadeToggle", xt.bind(this));
     r(this, "asyncEach", X.bind(this));
-    r(this, "addClass", K.bind(this));
-    r(this, "delClass", N.bind(this));
+    r(this, "addClass", k.bind(this));
+    r(this, "delClass", B.bind(this));
     r(this, "children", nt.bind(this));
     r(this, "hasClass", W.bind(this));
     r(this, "teleport", ut.bind(this));
@@ -743,41 +775,44 @@ const A = class {
     r(this, "setAttr", ct.bind(this));
     r(this, "getAttr", rt.bind(this));
     r(this, "replace", at.bind(this));
-    r(this, "trigger", At.bind(this));
+    r(this, "trigger", wt.bind(this));
     r(this, "animate", St.bind(this));
     r(this, "fadeOut", Ct.bind(this));
     r(this, "filter", ht.bind(this));
     r(this, "fadeIn", Pt.bind(this));
-    r(this, "append", mt.bind(this));
+    r(this, "append", bt.bind(this));
     r(this, "toggle", ot.bind(this));
     r(this, "parent", dt.bind(this));
-    r(this, "click", Q.bind(this));
+    r(this, "click", D.bind(this));
     r(this, "first", G.bind(this));
     r(this, "hover", ft.bind(this));
     r(this, "wait", lt.bind(this));
     r(this, "swap", pt.bind(this));
     r(this, "show", st.bind(this));
     r(this, "hide", it.bind(this));
-    r(this, "query", xt.bind(this));
-    r(this, "text", w.bind(this));
+    r(this, "query", jt.bind(this));
+    r(this, "text", A.bind(this));
     r(this, "each", z.bind(this));
     r(this, "last", J.bind(this));
     r(this, "even", Z.bind(this));
     r(this, "next", tt.bind(this));
     r(this, "prev", et.bind(this));
     r(this, "add", q.bind(this));
-    r(this, "del", U.bind(this));
+    r(this, "del", Q.bind(this));
     r(this, "odd", V.bind(this));
     r(this, "get", M.bind(this));
-    r(this, "css", B.bind(this));
+    r(this, "css", U.bind(this));
     r(this, "nth", Y.bind(this));
     r(this, "run", Tt.bind(this));
     r(this, "key", new qt(this));
-    r(this, "is", R.bind(this));
-    r(this, "on", D.bind(this));
+    r(this, "is", N.bind(this));
+    r(this, "on", R.bind(this));
     r(this, "slideUp", Ot.bind(this));
     r(this, "slideDown", Ht.bind(this));
     r(this, "slideToggle", Lt.bind(this));
+    r(this, "siblings", It.bind(this));
+    r(this, "prevSiblings", Ft.bind(this));
+    r(this, "nextSiblings", $t.bind(this));
     this.doc = n, this.nodes = C(e, n), this.taskQueue = Promise.resolve();
   }
   /**
@@ -787,8 +822,8 @@ const A = class {
     return await (this.taskQueue = this.taskQueue.then(e));
   }
   static text(e, n) {
-    const s = h(e);
-    return w.bind(s)(n);
+    const i = h(e);
+    return A.bind(i)(n);
   }
   get length() {
     return this.nodes.length;
@@ -804,7 +839,7 @@ const A = class {
    */
   static $fn(e, n) {
     Object.defineProperty(
-      A.prototype,
+      w.prototype,
       e,
       {
         value() {
@@ -814,9 +849,9 @@ const A = class {
     );
   }
 };
-let l = A;
+let l = w;
 /* ----------  Static API  ---------- */
-r(l, "fullscreen", x), r(l, "replace", j), r(l, "swap", T);
+r(l, "fullscreen", j), r(l, "replace", x), r(l, "swap", T);
 export {
   h as $,
   l as Curry
