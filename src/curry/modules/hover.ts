@@ -5,16 +5,15 @@ import { isFunction, toEl } from '../util'
 
 export type Hover = (
   this: Curry,
-  states:
-  | {
+  states: {
     enter: EventCallback
     leave: EventCallback
-  }
-  | EventCallback,
+  } | EventCallback,
   options?: EventListenerOptions
 ) => Curry
 
 /**
+ * Note: Hover does not support chain triggering. If you want to trigger a chain on hover, use $.on('mouseenter').<methods>
  *
  * @param this Curry instance
  * @param states Functions to execute when the mouse enters or leaves the element

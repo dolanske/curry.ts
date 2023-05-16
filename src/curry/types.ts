@@ -34,8 +34,6 @@ export type IteratorCallback<T = void> = (
   }
 ) => T
 
-export interface DynamicObject { [key: string | number]: any }
-
 export type PrevNextCallback = (
   this: Element,
   options: {

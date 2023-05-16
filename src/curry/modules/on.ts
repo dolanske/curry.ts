@@ -5,7 +5,7 @@ import type { EventCallback } from '../types'
 export type On = (
   this: Curry,
   eventName: string,
-  callback: EventCallback,
+  callback?: EventCallback,
   options?: {
     passive?: boolean
     once?: boolean
@@ -23,14 +23,24 @@ export type On = (
  */
 
 export const _on: On = function (this, eventName, callback, options) {
-  this.queue(() => {
+  this.queue(async () => {
+    const executions: Promise<any>[] = []
+
     for (const node of this.nodes) {
-      node.addEventListener(
-        eventName,
-        event => callback.apply(toEl(node), [event, this]),
-        options as unknown as EventListenerOptions,
-      )
+      executions.push(new Promise((resolve) => {
+        node.addEventListener(
+          eventName,
+          (event) => {
+            resolve(true)
+            if (callback)
+              callback.apply(toEl(node), [event, this])
+          },
+          options as unknown as EventListenerOptions,
+        )
+      }))
     }
+
+    return Promise.allSettled(executions)
   })
 
   return this

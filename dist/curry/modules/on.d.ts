@@ -1,6 +1,6 @@
 import type { Curry } from '..';
 import type { EventCallback } from '../types';
-export type On = (this: Curry, eventName: string, callback: EventCallback, options?: {
+export type On = (this: Curry, eventName: string, callback?: EventCallback, options?: {
     passive?: boolean;
     once?: boolean;
     capture?: boolean;
