@@ -82,8 +82,7 @@ export type Selector = string | Node | Node[] | HTMLCollection | Curry
 type CurryChainCompletion = boolean
 
 export function $(selector: Selector, doc?: Document) {
-  const instance = new Curry(selector, doc)
-  return instance
+  return new Curry(selector, doc)
 }
 
 export class Curry {
@@ -147,11 +146,9 @@ export class Curry {
   key: Key = new Key(this)
   is: Is = _is.bind(this)
   on: On = _on.bind(this)
-
   slideUp: Slide = _slideUp.bind(this)
   slideDown: Slide = _slideDown.bind(this)
   slideToggle: SlideToggle = _slideToggle.bind(this)
-
   siblings: Siblings = _siblings.bind(this)
   prevSiblings: Siblings = _prevSiblings.bind(this)
   nextSiblings: Siblings = _nextSiblings.bind(this)

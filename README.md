@@ -10,14 +10,14 @@ Because I have literally 0.1 braincells, idk how to set up npm. You directly ins
 
 Or you can just copy and paste the `curry.mjs` file wherever in your project and simply import the `import { $ } from "curry"` instead.
 
-## Feedback / Ideas
+## Feedback / Contributions
 
 Any feedback, issues, ideas, PRs or feature requests are utmost welcome. I am absolutely open to any form of collaboration. Always looking to learn from others!
 
-## TODO
+Currently this is the list of features I am considering
 
-- [] documentation
-- [] explore event binding such as $('.btn').click().methodToExecuteOnClick()
+- [ ] Async triggering on key events
+- [ ] Simple reusable UI component definitions
 
 ## Usage
 
@@ -36,24 +36,122 @@ This is a big advantage when you want your target to have multiple states with a
 $('button').click().text('Hello')
 ```
 
+---
+
 ## Api
 
 ### Selectors
 
+Selectors are used to query DOM nodes which can then be manipulated within the selection chain. Each time `$()` is used, it spawns a new, independent selection of DOM nodes.
+
+Other selectors are mainly used to narrow this list down to specific nodes. The third layer to this is providing a specific filter within these methods. Please refer to the type bellow in case it appears in the following methods.
+
+```ts
+type NarrowingSelector = string | Node | Node[] | HTMLCollection | Curry
+```
+
+### $()
+
+The primary selector which spanws a new chain.
+
+- Definition
+  ```ts
+  // `selector` Queries the relevant dom nodes using document.querySelectorAll()
+  // `document` Allows inserting a specific document node 
+  $(selector: NarrowingSelector, document?: Document)
+  ```
+
+### $.children
+
+- Implementation
+  ```ts
+  $.children(selector?: NarrowingSelector) {}
+  ``` 
+
+- Usage
+  ```ts
+  ``
+- $.children
+- $.siblings
+- $.prevSiblings
+- $.nextSiblings
+- $.nthChild
+- $.nth
+- $.filter
+- $.parent
+- $.first
+- $.last
+- $.query
+- $.even
+- $.next
+- $.prev
+- $.odd
+- $.is
+
 ### Events
 
-### Styles
+- $.on
+- $.hover
+- $.click
+- $.trigger
+- $.key
+
+### Styling
+
+- $.toggleClass
+- $.addClass
+- $.delClass
+- $.css
+- $.show
+- $.hide
+- $.toggle
+### Attributes
+- $.hasClass
+- $.attr
+- $.setAttr
+- $.getAttr
+
 
 ### Animations
 
+- $.aniamate
+- $.fadeToggle
+- $.fadeIn
+- $.fadeOut
+- $.slideToggle
+- $.slideDown
+- $.slideUp
+
+
+
 ### Iterators
 
+- $.each
+- $.asyncEach
 ### Manipulators
+
+- $.add
+- $.del
+- $.replace
+- $.addChild
+- $.fullscreen
+- $.prependChild
+- $.teleport
+- $.prepend
+- $.append
+- $.swap
+- $.text
 
 ### Meta
 
-- wait
-- run
-- $
+- $.wait
+- $.run
+- $.get
 
 ### Static API
+
+- Curry.fullscreen
+- Curry.replace
+- Curry.swap
+- Curry.text
+- Curry.$fn
