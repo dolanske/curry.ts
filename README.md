@@ -46,7 +46,7 @@ $('button').click().text('Hello')
 
 ## Selectors
 
-[parent](#parent), [children](#children), [nth](#nth)
+[parent](#parent), [children](#children), [nth](#nth), [nthChild](#nthChild)
 
 Selectors are used to query DOM nodes which can then be manipulated within the selection chain. Each time `$()` is used, it spawns a new, independent selection of DOM nodes.
 
