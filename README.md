@@ -33,7 +33,7 @@ Curry builds on top of this concept by making the chain async. Next link is not 
 This is a big advantage when you want your target to have multiple states with an async action inbetween
 
 ```ts
-$('.fetch').click()
+$('.fetch').click().text('Hello')
 ```
 
 .. here ..

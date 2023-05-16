@@ -3,7 +3,7 @@ import { $ } from '..'
 import type { EventCallback } from '../types'
 import { toEl } from '../util'
 
-export type Click = (this: Curry, callback: EventCallback) => Curry
+export type Click = (this: Curry, callback?: EventCallback) => Curry
 
 /**
  *
@@ -13,11 +13,22 @@ export type Click = (this: Curry, callback: EventCallback) => Curry
  */
 
 export const _click: Click = function (this, callback) {
-  for (const node of this.nodes) {
-    $(node).on('click', (event) => {
-      callback.apply(toEl<HTMLElement>(node), [event, this])
-    })
-  }
+  this.queue(async () => {
+    const executions: Promise<any>[] = []
+
+    for (const node of this.nodes) {
+      executions.push(new Promise((resolve) => {
+        $(node).on('click', (event) => {
+          resolve(true)
+
+          if (callback)
+            callback.apply(toEl<HTMLElement>(node), [event, this])
+        })
+      }))
+    }
+
+    return Promise.allSettled(executions)
+  })
 
   return this
 }
