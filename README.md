@@ -6,7 +6,9 @@ The successor to the most known word in the javascript universe. Every person wh
 
 Because I have literally 0.1 braincells, idk how to set up npm. You directly install this repo and it will clone the `/dist` folder into your node_module.
 
- `npm install github:dolanske/curry.ts`
+ ```bash
+ npm install github:dolanske/curry.ts
+ ```
 
 Or you can just copy and paste the `curry.mjs` file wherever in your project and simply import the `import { $ } from "curry"` instead.
 
@@ -51,7 +53,7 @@ type NarrowingSelector = string | Node | Node[] | HTMLCollection | Curry
 ```
 
 
-### $()
+## $()
 
 The primary selector which spanws a new chain
 
@@ -69,7 +71,7 @@ The primary selector which spanws a new chain
   $('#trigger').click().text('I was clicked!')
   ```
 
-### parent
+## parent
 
 Select element's parent node
 
@@ -82,7 +84,7 @@ Select element's parent node
   ```ts
   $('#parent').parent()
   ```
-### children
+## children
 
 Select element's child nodes
 
