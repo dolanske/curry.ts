@@ -12,15 +12,20 @@ export type Query = (
  *
  * @param this Curry instance
  * @param selector Element or a string to search for in DOM
+ * @param append If set to true, old queried elements are preserved
  * @returns Curry instance for chaining
  */
 
-export const _query: Query = function (this, selector) {
+export const _query: Query = function (this, selector, append?: boolean) {
   this.queue(() => {
     if (!selector)
       return
 
-    this.nodes = queryDom(selector, this.doc)
+    const newQuery = queryDom(selector, this.doc)
+
+    this.nodes = append
+      ? [...this.nodes, ...newQuery]
+      : newQuery
   })
 
   return this

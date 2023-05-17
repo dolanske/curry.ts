@@ -46,7 +46,7 @@ $('button').click().text('Hello')
 
 ## Selectors
 
-[parent](#parent) • [children](#children) • [nth](#nth) • [nthChild](#nthChild) • [siblings](#siblings) • [prevSiblings](#prevsiblings) • [nextSiblings](#nextSiblings)  • [first](#first)  • [last](#last) • [prev](#prev)  • [next](#next)
+[parent](#parent) • [children](#children) • [nth](#nth) • [nthChild](#nthChild) • [siblings](#siblings) • [prevSiblings](#prevsiblings) • [nextSiblings](#nextSiblings) • [first](#first) • [last](#last) • [prev](#prev) • [next](#next) • [query](#query)
 
 Selectors are used to query DOM nodes which can then be manipulated within the selection chain. Each time `$()` is used, it spawns a new, independent selection of DOM nodes.
 
@@ -179,18 +179,19 @@ Usage
 $('button').click().next().hide()
 ```
 
+## query
 
+Allows querying new set of DOM nodes during a chain execution instead of having to create new chain. The previously selected nodes can be optionally preserved.
 
+```ts
+// `append` if set to `true`, the previously queried elements are preserved 
+$.query(selector: NarrowingSelector, append?: boolean)
+```
 
-
-- $.next
-- $.prev
-- $.odd
-- $.even
-
-- $.is
-- $.query
-- $.filter
+Usage
+```ts
+$('.theme-switch').click().query('body').toggleClass('dark-theme')
+```
 
 ### Events
 
@@ -232,6 +233,10 @@ $('button').click().next().hide()
 
 - $.each
 - $.asyncEach
+- $.odd
+- $.even
+- $.filter
+
 ### Manipulators
 
 - $.add
@@ -251,6 +256,8 @@ $('button').click().next().hide()
 - $.wait
 - $.run
 - $.get
+- $.is
+
 
 ### Static API
 
