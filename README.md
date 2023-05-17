@@ -413,7 +413,7 @@ $('.square').animate([
 
 ## Fading
 
-Applies a fading in/out/toggle animation to the selected elements
+Apply fading in & out animation to the selected elements
 ```ts
 interface FadeOptions {
   duration?: number
@@ -429,7 +429,7 @@ $.fadeOut(options?: FadeOptions);
 
 Toggle between the two states. The function determines it's current toggle state based on the provided options and the elements current opacity value.
 - `elOpacity === 0 || elOpacity < options.on` --> `fadeIn`
-- `else` --> `fadeIn`
+- `else` --> `fadeOut`
 
 ```ts
 interface FadeToggleOptions {
@@ -446,9 +446,31 @@ $.fadeToggle(options?: FadeToggleOptions);
 
 ## Sliding
 
-- $.slideToggle
-- $.slideDown
-- $.slideUp
+Apply hiding and showing elements in a smooth sliding up animation
+```ts
+$.slideUp(duration?:number, easing?: AnimationEasingFunction);
+$.slidedown(duration?:number, easing?: AnimationEasingFunction);
+```
+
+Usage
+```ts
+$('#show').click().next().slideDown(500, 'ease-in-out')
+```
+
+Also allows toggling between the two states. If target element has `display: 'none'`, it will trigger `$.slideDown()` and vice versa. This method has two overloads.
+```ts
+interface SlideToggleOptions {
+  easing?: number,
+  easing?: AnimationEasingFunction,
+  // If multiple nodes are selected to be toggled, `override = true` will pick the
+  // state of the first node and apply the same slide to all remaining nodes.
+  // Unifying the slide state of all nodes.
+  override?:boolean,
+};
+
+$.slideToggle(duration?: number, easing?: AnimationEasingFunction);
+$.slideToggle(options?: SlideToggleOptions);
+```
 
 ---
 
