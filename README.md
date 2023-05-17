@@ -201,6 +201,7 @@ $('.theme-switch').click().query('body').toggleClass('dark-theme')
 [on](#on) • [click](#click) • [key](#key) • [hover](#hover) • [trigger](#trigger) 
 
 Bind and trigger DOM events. This functionality is similar to how jQuery works, but it's been significantly improved upon.
+
 When using `$.on`, `$.click` (and maybe `$.key` in the future) - all chained methods beyond the definition are executed when the event is fired.
 
 ```ts
@@ -287,17 +288,51 @@ $(window).on('resize', function () {
 })
 ```
 
-### Styling
+---
 
-- $.toggleClass
-- $.addClass
-- $.delClass
-- $.css
-- $.show
-- $.hide
-- $.toggle
+## Styling
+
+[classes](#classes) • [display](#display) • [css](#css)
+
+Apply non-animatory stylistic changes to elements
+
+## classes
+
+Manipulate selected element's class list
+```ts
+$.addClass(className: string | string[])
+$.delClass(className: string | string[])
+// Toggles between adding an deleting the provided class names
+$.toggleClass(className: string | string[])
+```
+
+## display
+
+Control selected element's visibility by applying `display: none` to them
+```ts
+$.show()
+$.hide()
+$.toggle()
+```
+
+## css
+
+Apply inline CSS styling to selected elements. If you're using typescrpit, all the valid style properties are provided in the autocomplete.
+```ts
+$.css(key: keyof CSSStyle | CSSStyle, value: ValueOf<CSSStyle>)
+$.css(styleObject: Record<keyof CSSStyle | CSSStyle, ValueOf<CSSStyle>>)
+```
+
+Usage
+```ts
+$('button').click().next().css({
+  fontSize: '20px',
+  backgroundColor: 'red'
+})
+```
 
 ### Attributes
+
 - $.hasClass
 - $.attr
 - $.setAttr
@@ -347,7 +382,6 @@ $(window).on('resize', function () {
 - Curry.fullscreen
 - Curry.replace
 - Curry.swap
-- Curry.text
 - Curry.$fn
 
 ---
