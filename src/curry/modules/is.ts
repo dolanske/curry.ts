@@ -24,8 +24,12 @@ export const _is: Is = function (condition, applyTo = 'every') {
       for (const _condition of condition)
         results.push(el.matches && el.matches(_condition))
     }
-    else if (el.matches && el.matches(condition)) { results.push(true) }
-    else { results.push(false) }
+    else if (el.matches && el.matches(condition)) {
+      results.push(true)
+    }
+    else {
+      results.push(false)
+    }
   }
 
   switch (applyTo) {

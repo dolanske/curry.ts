@@ -46,7 +46,7 @@ $('button').click().text('Hello')
 
 ## Selectors
 
-[parent](#parent) • [children](#children) • [nth](#nth) • [nthChild](#nthChild) • [siblings](#siblings) • [prevSiblings](#prevsiblings) • [nextSiblings](#nextSiblings)
+[parent](#parent) • [children](#children) • [nth](#nth) • [nthChild](#nthChild) • [siblings](#siblings) • [prevSiblings](#prevsiblings) • [nextSiblings](#nextSiblings)  • [first](#first)  • [last](#last) • [prev](#prev)  • [next](#next)
 
 Selectors are used to query DOM nodes which can then be manipulated within the selection chain. Each time `$()` is used, it spawns a new, independent selection of DOM nodes.
 
@@ -138,7 +138,7 @@ Select all element's siblings. Siblings are DOM nodes in the same nesting layer 
   ```
 ## prevSiblings
 
-Same as `$.siblings` except it only selects the elements rendered *before* the selected element
+Selects all sibling elements rendered *before* the current selector.
 
 - Definition
   ```ts
@@ -147,21 +147,62 @@ Same as `$.siblings` except it only selects the elements rendered *before* the s
 
 ## nextSiblings
 
-Same as `$.prevSiblings` except it selects the elements rendered *after* the selected element
+Selects all sibling elements rendered *after* the current selector.
 
 - Definition
   ```ts
   $.nextSiblings(selector?: NarrowSelector)
   ```
   
+## first
+
+Filter down selected elements to the first one. Optionally executes the provided callback.
+
+- Definition
+  ```ts
+  $.first(callback?: GenericCallback)
+  ```
+
+## last
+
+Filter down selected elements to the last one. Optionally executes the provided callback.
+
+- Definition
+  ```ts
+  $.last(callback?: GenericCallback)
+  ```
+
+## prev
+
+Selects the previous element sibling, if there is one available.
+
+- Definition
+  ```ts
+  // `index` select a previous sibling at specific index (starting from the current selector). Providing `0` and `1` will have the same result as using `prev()`
+  $.prev(index?: number | PrevNextCallback, callback?: PrevNextCallback)
+  ```
+- Usage
+  ```ts
+  $('button').click().prev().text('I am the previous element')
+  ```
+## next
+
+Selects the next element sibling, if there is one available.
+
+- Definition
+  ```ts
+  // `index` select a next sibling at specific index (starting from the current selector). Providing `0` and `1` will have the same result as using `prev()`
+  $.next(index?:number | PrevNextCallback, callback?: PrevNextCallback)
+  ```
+- Usage
+  ```ts
+  $('button').click().next().hide()
+  ```
 
 
-- $.siblings
-- $.prevSiblings
-- $.nextSiblings
 
-- $.first
-- $.last
+
+
 - $.next
 - $.prev
 - $.odd
