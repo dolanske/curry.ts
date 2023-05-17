@@ -36,7 +36,7 @@ $('button').next().slideToggle(300)
 ```
 
 Curry builds on top of this concept by making the chain async. Next link is not executed until the previous one is resolved.
-This is a big advantage when you want your target to have multiple states with an async action inbetween
+This is a big advantage when you want your target to have multiple states with an async action in-between
 
 ```ts
 $('button').click().text('Hello')
@@ -59,12 +59,12 @@ type NarrowingSelector = string | Node | Node[] | HTMLCollection | Curry
 
 ## $()
 
-The primary selector which spanws a new chain
+The primary selector which spawns a new chain
 
 ```ts
 // `selector` Queries the relevant dom nodes using document.querySelectorAll()
 // `document` Allows inserting a specific document node 
-$(selector: NarrowingSelector, document?: Document)
+$(selector: NarrowingSelector, document?: Document);
 ```
 
 Usage
@@ -79,7 +79,7 @@ $('#trigger').click().text('I was clicked!')
 
 Select element's parent node
 ```ts
-$.parent(selector?: NarrowingSelector) {}
+$.parent(selector?: NarrowingSelector);
 ``` 
 
 Usage
@@ -90,7 +90,7 @@ $('#parent').parent()
 
 Select element's child nodes
 ```ts
-$.children(selector?: NarrowingSelector) {}
+$.children(selector?: NarrowingSelector);
 ``` 
 
 Usage
@@ -102,7 +102,7 @@ $('#parent').children('span')
 
 Narrow down selected nodes to the provided index(es)
 ```ts
-$.nth(index: number | number[], fn: IteratorCallback) {}
+$.nth(index: number | number[], fn: IteratorCallback);
 ```
 
 Usage
@@ -124,34 +124,34 @@ $('ul').children().nth([3, 4])
 
 Select all element's siblings. Siblings are DOM nodes in the same nesting layer as the selected element
 ```ts
-$.siblings(selector?: NarrowSelector)
+$.siblings(selector?: NarrowSelector);
 ```
 ## prevSiblings
 
 Selects all sibling elements rendered *before* the current selector
 ```ts
-$.prevSiblings(selector?: NarrowSelector)
+$.prevSiblings(selector?: NarrowSelector);
 ```
 
 ## nextSiblings
 
 Selects all sibling elements rendered *after* the current selector
 ```ts
-$.nextSiblings(selector?: NarrowSelector)
+$.nextSiblings(selector?: NarrowSelector);
 ```
   
 ## first
 
 Filter down selected elements to the first one. Optionally executes the provided callback
 ```ts
-$.first(callback?: GenericCallback)
+$.first(callback?: GenericCallback);
 ```
 
 ## last
 
 Filter down selected elements to the last one. Optionally executes the provided callback.
 ```ts
-$.last(callback?: GenericCallback)
+$.last(callback?: GenericCallback);
 ```
 
 ## prev
@@ -160,7 +160,7 @@ Selects the previous element sibling, if there is one available.
 ```ts
 // `index` select a previous sibling at specific index (starting from the current selector). 
 // Providing `0` and `1` will have the same result as using `prev()`
-$.prev(index?: number | PrevNextCallback, callback?: PrevNextCallback)
+$.prev(index?: number | PrevNextCallback, callback?: PrevNextCallback);
 ```
 
 Usage
@@ -173,7 +173,7 @@ Selects the next element sibling, if there is one available.
 ```ts
 // `index` select a next sibling at specific index (starting from the current selector). 
 // Providing `0` and `1` will have the same result as using `prev()`
-$.next(index?:number | PrevNextCallback, callback?: PrevNextCallback)
+$.next(index?:number | PrevNextCallback, callback?: PrevNextCallback);
 ```
 
 Usage
@@ -187,7 +187,7 @@ Allows querying new set of DOM nodes during a chain execution instead of having 
 
 ```ts
 // `append` if set to `true`, the previously queried elements are preserved 
-$.query(selector: NarrowingSelector, append?: boolean)
+$.query(selector: NarrowingSelector, append?: boolean);
 ```
 
 Usage
@@ -218,7 +218,7 @@ $('button').on('click').text('I was clicked!')
 
 Attach an event to the selected element
 ```ts
-$.on(eventName: string, callback?: EventCallback, options?: EventListenerOptions)
+$.on(eventName: string, callback?: EventCallback, options?: EventListenerOptions);
 ```
 
 Usage
@@ -243,9 +243,9 @@ $('button').on('click').text('Clicked!')
 Attach keyboard events to the selected elements. This is not a method but an object and can not have any more links chained to it.
 ```ts
 // `keys` 
-$.key.down(keys: KeyboardEventKey | KeyboardEventKey[], callback: KeyboardEventCallback)
-$.key.up(keys: KeyboardEventKey | KeyboardEventKey[], callback: KeyboardEventCallback)
-$.key.press(keys: KeyboardEventKey | KeyboardEventKey[], callback: KeyboardEventCallback)
+$.key.down(keys: KeyboardEventKey | KeyboardEventKey[], callback: KeyboardEventCallback);
+$.key.up(keys: KeyboardEventKey | KeyboardEventKey[], callback: KeyboardEventCallback);
+$.key.press(keys: KeyboardEventKey | KeyboardEventKey[], callback: KeyboardEventCallback);
 ```
 Usage
 ```ts
@@ -262,14 +262,14 @@ Note: `hover` does not support trigger chaining. If you wish to trigger chains o
 ```ts
 // Experimental: Attempts to restore element to its pre-hover state. Meaning if 
 // any styles / classes are removed once the user stops hovering the element
-$('div').hover(callback?: EventCallback, options?: EventListenerOptions)
+$('div').hover(callback?: EventCallback, options?: EventListenerOptions);
 
 $('div').hover({
   // Triggered when user's mouse enters the element
   enter: EventCallback,
   // Triggered when user's mouse leaves the element
   leave: EventCallback
-}, options?: EventListenerOptions )
+}, options?: EventListenerOptions );
 
 ```
 
@@ -290,20 +290,31 @@ $(window).on('resize', function () {
 
 ---
 
-## Styling
+## Attributes
 
-[classes](#classes) • [display](#display) • [css](#css)
+[classes](#classes) • [hasClass](#hasClass) • [display](#display) • [css](#css) • [setAttr](#setAttr) • [getAttr](#getAttr) 
 
-Apply non-animatory stylistic changes to elements
+Interaction with DOM element attributes and application of non-animation stylistic changes to elements
 
 ## classes
 
 Manipulate selected element's class list
 ```ts
-$.addClass(className: string | string[])
-$.delClass(className: string | string[])
+$.addClass(className: string | string[]);
+$.delClass(className: string | string[]);
 // Toggles between adding an deleting the provided class names
-$.toggleClass(className: string | string[])
+$.toggleClass(className: string | string[]);
+```
+
+## hasClass
+
+Check wether the selected elements have one ore multiple of the provided class names. This link should exclusively be used in conditions therefore it does not allow chaining.
+```ts
+// Apply to controls the returned result based on which selected elements pass the check
+// `some`   at least 1 selected element has the classes
+// `every`  every selected element must contain the classes
+// `none`   inverse of `every`
+$.hasClass(className: string | string[], applyTo?: "some" | 'every' | 'none');
 ```
 
 ## display
@@ -317,10 +328,10 @@ $.toggle()
 
 ## css
 
-Apply inline CSS styling to selected elements. If you're using typescrpit, all the valid style properties are provided in the autocomplete.
+Apply inline CSS styling to selected elements. If you're using type-script, all the valid style properties are provided in the autocomplete.
 ```ts
-$.css(key: keyof CSSStyle | CSSStyle, value: ValueOf<CSSStyle>)
-$.css(styleObject: Record<keyof CSSStyle | CSSStyle, ValueOf<CSSStyle>>)
+$.css(key: keyof CSSStyle | CSSStyle, value: ValueOf<CSSStyle>);
+$.css(styleObject: Record<keyof CSSStyle | CSSStyle, ValueOf<CSSStyle>>);
 ```
 
 Usage
@@ -331,12 +342,38 @@ $('button').click().next().css({
 })
 ```
 
-### Attributes
+## setAttr
 
-- $.hasClass
-- $.attr
-- $.setAttr
-- $.getAttr
+Add a specific attribute and its value to the selected elements. 
+If the attribute value is `null`, it will instead remove the attribute.
+```ts
+type Attr = Record<string, string | number>;
+$.setAttr(key: string | Attr | Attr[], value: any);
+```
+
+Usage
+```ts
+$('div').setAttr('data-title', 'Hello World')
+$('div').setAttr({ 'data-title': 'Hello World' })
+$('div').setAttr([
+  { 'data-title': 'Hello World' },
+  { 'data-subtitle': 'Goodbye World' },
+])
+```
+
+## getAttr
+
+Returns a value or an array of values to the provided attribute key(s)
+```ts
+$.getAttr(key: string | string[]): string | string[] | null;
+```
+
+Usage
+```ts
+// Return the classList and style attribute content in a union
+const attributes = $('div').getAttr(['class', 'style'])
+```
+---
 
 ### Animations
 
