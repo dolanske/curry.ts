@@ -383,7 +383,7 @@ const attributes = $('div').getAttr(['class', 'style'])
 ## Animate
 
  Apply animation to DOM elements from the provided key-frames. Using the browser [Animation API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API).
- ```js
+ ```ts
 
 // https://developer.mozilla.org/en-US/docs/Web/API/KeyframeEffect/KeyframeEffect#parameters
 interface AnimationOptions extends KeyframeAnimationOptions {
@@ -474,13 +474,96 @@ $.slideToggle(options?: SlideToggleOptions);
 
 ---
 
-### Iterators
+## Iterators
 
-- $.each
-- $.asyncEach
-- $.odd
-- $.even
-- $.filter
+[each](#each) • [asyncEach](#asyncEach) • [odd](#odd) • [even](#even) • [filter](#filter)
+
+
+These method iterate over the selected elements and execute the provided callback. This callback exposes each of the elements as well as additional properties
+
+## each
+
+Iterates over every selected element.
+```ts
+$.each(callback: IteratorCallback);
+```
+
+Usage
+```ts
+$('ul > li').each(function ({ index, self, instance }) {
+  // this, self:  the current <li> element
+  // instance:    the current Curry instance
+  $(this).text(index)
+})
+```
+
+## asyncEach
+
+Iterates over every selected element in an async fashion. The iteration does not continue to the next method until the exposed `next()` function has not been called. The entire function also stops the chain exeuction until all iterations have resolved
+```ts
+$.asyncEach(callback)
+```
+
+Usage
+```ts
+$.asyncEach(function (next, { index, self, instance }) {
+  // this, self:  the current <li> element
+  // instance:    the current Curry instance
+  $(this).text(index);
+  // Think of it as `continue` except without calling the iteration pauses
+  next();
+}).
+```
+
+## odd
+ 
+Iterates over each odd selected element and executes a callback.
+```ts
+$.odd(callback: IteratorCallback);
+```
+
+## even
+ 
+Iterates over each even selected element and executes a callback.
+```ts
+$.even(callback: IteratorCallback);
+```
+
+
+## filter
+
+Iterate over every selected element and checks wether each element passes the provided check.
+Check can be
+- a `NarrowSelector`
+- and array of `NarrowSelectors`
+- a callback function, if it returns false, the element is removed from the list
+
+```ts
+type Condition = string | string[] | IteratorCallback<boolean>;
+
+// ApplyTo is only useful if multiple NarrowSelectors are provided.
+// It will check every condition against every element and returns a true/false
+// based on the following:
+// `some`   at least 1 condition passes
+// `every`  every condition must pass
+// `none`   no condition must pass
+$.filter(condition: Condition, applyTo?: "some" | 'every' | 'none');
+```
+
+Usage
+```ts
+// Using callback function
+$('ul > li')
+  .filter(({ index }) => {
+    return index % 4 === 0
+  })
+  .text('I am every 5th list item!!')
+
+// Using conditions
+$('ul > li')
+  .filter([':nth-child(5)', ':visible'], 'every')
+  .text('I am every 5th list item!!')
+```
 
 ### Manipulators
 
