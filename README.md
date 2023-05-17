@@ -158,7 +158,8 @@ $.last(callback?: GenericCallback)
 
 Selects the previous element sibling, if there is one available.
 ```ts
-// `index` select a previous sibling at specific index (starting from the current selector). Providing `0` and `1` will have the same result as using `prev()`
+// `index` select a previous sibling at specific index (starting from the current selector). 
+// Providing `0` and `1` will have the same result as using `prev()`
 $.prev(index?: number | PrevNextCallback, callback?: PrevNextCallback)
 ```
 
@@ -170,7 +171,8 @@ $('button').click().prev().text('I am the previous element')
 
 Selects the next element sibling, if there is one available.
 ```ts
-// `index` select a next sibling at specific index (starting from the current selector). Providing `0` and `1` will have the same result as using `prev()`
+// `index` select a next sibling at specific index (starting from the current selector). 
+// Providing `0` and `1` will have the same result as using `prev()`
 $.next(index?:number | PrevNextCallback, callback?: PrevNextCallback)
 ```
 
