@@ -61,63 +61,59 @@ type NarrowingSelector = string | Node | Node[] | HTMLCollection | Curry
 
 The primary selector which spanws a new chain
 
-- Definition
-  ```ts
-  // `selector` Queries the relevant dom nodes using document.querySelectorAll()
-  // `document` Allows inserting a specific document node 
-  $(selector: NarrowingSelector, document?: Document)
-  ```
-- Usage
-  ```ts
-  // #1 Selects a button with the id `trigger`
-  // #2 Adds an event listener for a mousse click
-  // #3 Changes it's text content
-  $('#trigger').click().text('I was clicked!')
-  ```
+```ts
+// `selector` Queries the relevant dom nodes using document.querySelectorAll()
+// `document` Allows inserting a specific document node 
+$(selector: NarrowingSelector, document?: Document)
+```
+
+Usage
+```ts
+// #1 Selects a button with the id `trigger`
+// #2 Adds an event listener for a mousse click
+// #3 Changes it's text content
+$('#trigger').click().text('I was clicked!')
+```
 
 ## parent
 
 Select element's parent node
+```ts
+$.parent(selector?: NarrowingSelector) {}
+``` 
 
-- Definition
-  ```ts
-  $.parent(selector?: NarrowingSelector) {}
-  ``` 
-
-- Usage
-  ```ts
-  $('#parent').parent()
-  ```
+Usage
+```ts
+$('#parent').parent()
+```
 ## children
 
 Select element's child nodes
+```ts
+$.children(selector?: NarrowingSelector) {}
+``` 
 
-- Definition
-  ```ts
-  $.children(selector?: NarrowingSelector) {}
-  ``` 
-
-- Usage
-  ```ts
-  $('#parent').children('span')
-  ```
+Usage
+```ts
+$('#parent').children('span')
+```
 
 ## nth
 
-Narrow down selected nodes by provided index(es)
+Narrow down selected nodes to the provided index(es)
+```ts
+$.nth(index: number | number[], fn: IteratorCallback) {}
+```
 
-- Definition
-  ```ts
-  $.nth(index: number | number[], fn: IteratorCallback) {}
-  ```
-- Usage
-  ```ts
-  $('li').nth([2, 3]).text('I am third and fourth list item')
-  ```
+Usage
+```ts
+$('li').nth([2, 3]).text('I am third and fourth list item')
+```
 ## nthChild
 
-Same as `$.nth` but on selected element's children.
+Narrow down selected element's children to the provided index(es)
 
+Usage
 ```ts
 $('ul').nthChild([3, 4])
 // Is the equivalent to this
@@ -126,78 +122,62 @@ $('ul').children().nth([3, 4])
 
 ## siblings
 
-Select all element's siblings. Siblings are DOM nodes in the same nesting layer as the selected element.
-
-- Definition
-  ```ts
-  $.siblings(selector?: NarrowSelector)
-  ```
-- Usage
-  ```ts
-  $('a').click().addclass('active').siblings().delClass('active')
-  ```
+Select all element's siblings. Siblings are DOM nodes in the same nesting layer as the selected element
+```ts
+$.siblings(selector?: NarrowSelector)
+```
 ## prevSiblings
 
-Selects all sibling elements rendered *before* the current selector.
-
-- Definition
-  ```ts
-  $.prevSiblings(selector?: NarrowSelector)
-  ```
+Selects all sibling elements rendered *before* the current selector
+```ts
+$.prevSiblings(selector?: NarrowSelector)
+```
 
 ## nextSiblings
 
-Selects all sibling elements rendered *after* the current selector.
-
-- Definition
-  ```ts
-  $.nextSiblings(selector?: NarrowSelector)
-  ```
+Selects all sibling elements rendered *after* the current selector
+```ts
+$.nextSiblings(selector?: NarrowSelector)
+```
   
 ## first
 
-Filter down selected elements to the first one. Optionally executes the provided callback.
-
-- Definition
-  ```ts
-  $.first(callback?: GenericCallback)
-  ```
+Filter down selected elements to the first one. Optionally executes the provided callback
+```ts
+$.first(callback?: GenericCallback)
+```
 
 ## last
 
 Filter down selected elements to the last one. Optionally executes the provided callback.
-
-- Definition
-  ```ts
-  $.last(callback?: GenericCallback)
-  ```
+```ts
+$.last(callback?: GenericCallback)
+```
 
 ## prev
 
 Selects the previous element sibling, if there is one available.
+```ts
+// `index` select a previous sibling at specific index (starting from the current selector). Providing `0` and `1` will have the same result as using `prev()`
+$.prev(index?: number | PrevNextCallback, callback?: PrevNextCallback)
+```
 
-- Definition
-  ```ts
-  // `index` select a previous sibling at specific index (starting from the current selector). Providing `0` and `1` will have the same result as using `prev()`
-  $.prev(index?: number | PrevNextCallback, callback?: PrevNextCallback)
-  ```
-- Usage
-  ```ts
-  $('button').click().prev().text('I am the previous element')
-  ```
+Usage
+```ts
+$('button').click().prev().text('I am the previous element')
+```
 ## next
 
 Selects the next element sibling, if there is one available.
+```ts
+// `index` select a next sibling at specific index (starting from the current selector). Providing `0` and `1` will have the same result as using `prev()`
+$.next(index?:number | PrevNextCallback, callback?: PrevNextCallback)
+```
 
-- Definition
-  ```ts
-  // `index` select a next sibling at specific index (starting from the current selector). Providing `0` and `1` will have the same result as using `prev()`
-  $.next(index?:number | PrevNextCallback, callback?: PrevNextCallback)
-  ```
-- Usage
-  ```ts
-  $('button').click().next().hide()
-  ```
+Usage
+```ts
+$('button').click().next().hide()
+```
 
 
 
