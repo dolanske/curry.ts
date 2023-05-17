@@ -194,14 +194,98 @@ Usage
 ```ts
 $('.theme-switch').click().query('body').toggleClass('dark-theme')
 ```
+---
 
-### Events
+## Events
 
-- $.on
-- $.hover
-- $.click
-- $.trigger
-- $.key
+[on](#on) • [click](#click) • [key](#key) • [hover](#hover) • [trigger](#trigger) 
+
+Bind and trigger DOM events. This functionality is similar to how jQuery works, but it's been significantly improved upon.
+When using `$.on`, `$.click` (and maybe `$.key` in the future) - all chained methods beyond the definition are executed when the event is fired.
+
+```ts
+// jQuery syntax (also supported by this library)
+$('button').on('click', function () {
+  $(this).text('I was clicked!')
+})
+
+// The improved syntax jCurry supports
+$('button').on('click').text('I was clicked!')
+```
+
+## on
+
+Attach an event to the selected element
+```ts
+$.on(eventName: string, callback?: EventCallback, options?: EventListenerOptions)
+```
+
+Usage
+```ts
+$('.trigger').on('mouseenter', _, { passive: true }).addClass('active')
+$('.trigger').on('mouseleave', function () {
+  $(this).delClass('active')
+})
+```
+
+## click
+
+Shorthand for attaching the click event to selected elements
+```ts
+$('button').click().text('Clicked!')
+// is the same as
+$('button').on('click').text('Clicked!')
+```
+
+## key
+
+Attach keyboard events to the selected elements. This is not a method but an object and can not have any more links chained to it.
+```ts
+// `keys` 
+$.key.down(keys: KeyboardEventKey | KeyboardEventKey[], callback: KeyboardEventCallback)
+$.key.up(keys: KeyboardEventKey | KeyboardEventKey[], callback: KeyboardEventCallback)
+$.key.press(keys: KeyboardEventKey | KeyboardEventKey[], callback: KeyboardEventCallback)
+```
+Usage
+```ts
+$(window).key.down('Escape', () => {})
+
+// Waiting for a specific key sequence (up to 10 keys)
+$(window).key.down(['Ctrl', 'C'], () => {})
+```
+
+## hover
+
+Shorthand for attaching `mouseenter` and `mouseleave` to selected elements. Supports two different syntaxes.
+Note: `hover` does not support trigger chaining. If you wish to trigger chains on hover, use the `$.on('mouseenter').<chain>` syntax
+```ts
+// Experimental: Attempts to restore element to its pre-hover state. Meaning if 
+// any styles / classes are removed once the user stops hovering the element
+$('div').hover(callback?: EventCallback, options?: EventListenerOptions)
+
+$('div').hover({
+  // Triggered when user's mouse enters the element
+  enter: EventCallback,
+  // Triggered when user's mouse leaves the element
+  leave: EventCallback
+}, options?: EventListenerOptions )
+
+```
+
+## trigger
+
+Manually create DOM events
+```ts
+// `payload`: optionally define data to be sent to the listeners
+$.trigger(eventName: string, payload?: Record<any, any>)
+```
+
+Usage
+```ts
+$(window).on('resize', function () {
+  $(this).trigger('my-custom-resize-event', { width: this.innerWidth })
+})
+```
 
 ### Styling
 
@@ -212,12 +296,12 @@ $('.theme-switch').click().query('body').toggleClass('dark-theme')
 - $.show
 - $.hide
 - $.toggle
+
 ### Attributes
 - $.hasClass
 - $.attr
 - $.setAttr
 - $.getAttr
-
 
 ### Animations
 
@@ -228,8 +312,6 @@ $('.theme-switch').click().query('body').toggleClass('dark-theme')
 - $.slideToggle
 - $.slideDown
 - $.slideUp
-
-
 
 ### Iterators
 
@@ -259,7 +341,6 @@ $('.theme-switch').click().query('body').toggleClass('dark-theme')
 - $.run
 - $.get
 - $.is
-
 
 ### Static API
 
