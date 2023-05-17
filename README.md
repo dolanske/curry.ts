@@ -373,17 +373,106 @@ Usage
 // Return the classList and style attribute content in a union
 const attributes = $('div').getAttr(['class', 'style'])
 ```
+
 ---
 
-### Animations
+## Animations
 
-- $.aniamate
-- $.fadeToggle
-- $.fadeIn
-- $.fadeOut
-- $.slideToggle
-- $.slideDown
-- $.slideUp
+[animate](#animate) • [fading](#fading) • [sliding](#sliding)
+
+## Animate
+
+ Apply animation to DOM elements from the provided key-frames. Using the browser [Animation API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API).
+ ```js
+
+// https://developer.mozilla.org/en-US/docs/Web/API/KeyframeEffect/KeyframeEffect#parameters
+interface AnimationOptions extends KeyframeAnimationOptions {
+  onStart?: (animation: Animation) => void
+  onFinish?: (animation: Animation) => void
+  onCancel?: (animation: Animation, err: AnimationPlaybackEvent) => void
+  // If true, the last keyframe styles will be applied to the elements `style` attribute
+  keepStyle?: boolean
+};
+type Animator = CSSPropertyKeyValuePair | CSSPropertyKeyValuePair[];
+
+$.animate(animator: Animator, options?: AnimationOptions);
+```
+
+Usage
+```ts
+$('.square').animate([
+  { backgroundColor: 'red' },
+  { backgroundColor: 'blue' },
+  { backgroundColor: 'green' },
+], {
+  infinite: true,
+  easing: 'linear',
+  duration: 500
+})
+```
+
+## Fading
+
+Apply fading in & out animation to the selected elements
+```ts
+interface FadeOptions {
+  duration?: number
+  easing: AnimationEasingFunction
+  // Opacity amount at the end of the applied animation
+  // Allows values between 0 and 1
+  to?: number
+};
+
+$.fadeIn(options?: FadeOptions);
+$.fadeOut(options?: FadeOptions);
+```
+
+Toggle between the two states. The function determines it's current toggle state based on the provided options and the elements current opacity value.
+- `elOpacity === 0 || elOpacity < options.on` --> `fadeIn`
+- `else` --> `fadeOut`
+
+```ts
+interface FadeToggleOptions {
+  duration?: number
+  easing: AnimationEasingFunction
+  // Opacity amount when fading IN
+  on?: number
+  // Opacity amount when fading OUT
+  off?: number
+};
+
+$.fadeToggle(options?: FadeToggleOptions);
+```
+
+## Sliding
+
+Apply hiding and showing elements in a smooth sliding up animation
+```ts
+$.slideUp(duration?:number, easing?: AnimationEasingFunction);
+$.slidedown(duration?:number, easing?: AnimationEasingFunction);
+```
+
+Usage
+```ts
+$('#show').click().next().slideDown(500, 'ease-in-out')
+```
+
+Also allows toggling between the two states. If target element has `display: 'none'`, it will trigger `$.slideDown()` and vice versa. This method has two overloads.
+```ts
+interface SlideToggleOptions {
+  easing?: number,
+  easing?: AnimationEasingFunction,
+  // If multiple nodes are selected to be toggled, `override = true` will pick the
+  // state of the first node and apply the same slide to all remaining nodes.
+  // Unifying the slide state of all nodes.
+  override?:boolean,
+};
+
+$.slideToggle(duration?: number, easing?: AnimationEasingFunction);
+$.slideToggle(options?: SlideToggleOptions);
+```
+
+---
 
 ### Iterators
 
