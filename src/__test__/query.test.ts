@@ -27,4 +27,10 @@ test('Query new set of dom nodes for a chain using $.query', async () => {
     .run(function () {
       expect(this.nodes).toStrictEqual([b1, b2])
     })
+
+  $('p', document)
+    .query('b', true)
+    .run(function () {
+      expect(this.nodes).toStrictEqual([p, b1, b2])
+    })
 })

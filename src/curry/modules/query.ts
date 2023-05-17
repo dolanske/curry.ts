@@ -3,7 +3,8 @@ import { queryDom } from '../util'
 
 export type Query = (
   this: Curry,
-  selector: Selector
+  selector: Selector,
+  append?: boolean
 ) => Curry
 
 /**

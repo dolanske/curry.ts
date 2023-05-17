@@ -166,10 +166,10 @@ export class Curry {
   static fullscreen: StaticFullscreen = _staticFullscreen
   static replace: StaticReplace = _staticReplace
   static swap: StaticSwap = _staticSwap
-  static text(el: Selector, text: string | number) {
-    const instance = $(el)
-    return _text.bind(instance)(text)
-  }
+  // static text(el: Selector, text: string | number) {
+  //   const instance = $(el)
+  //   return _text.bind(instance)(text)
+  // }
 
   get length() {
     return this.nodes.length
