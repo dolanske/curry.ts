@@ -1,4 +1,4 @@
-import type { DataType, Properties } from 'csstype'
+import type { Properties } from 'csstype'
 import type { Curry } from '..'
 import { $ } from '..'
 import { isArray, toEl } from '../util'
@@ -6,10 +6,10 @@ import { isArray, toEl } from '../util'
 interface Options extends KeyframeAnimationOptions {
   onStart?: (animation: Animation) => void
   onFinish?: (animation: Animation) => void
-  onCancel?: (aniamtion: Animation, err: AnimationPlaybackEvent) => void
+  onCancel?: (animation: Animation, err: AnimationPlaybackEvent) => void
 
   keepStyle?: boolean
-  easing?: DataType.EasingFunction
+  // easing?: DataType.EasingFunction
 }
 
 export type Animate = (
@@ -45,7 +45,7 @@ export const _animate: Animate = function (this, animator, options = {}) {
     // Convert to array in case only 1 keyframe is provided
     animator = isArray(animator) ? animator : ([animator] as Properties[])
 
-    // NOTE: This is a workaround for animation ignoring the first frame when we unput an array of keyframes.
+    // NOTE: This is a workaround for animation ignoring the first frame when we input an array of keyframes.
     // TODO: Test if its required for multiple keyframes
     if (animator.length > 1)
       animator.unshift({})
