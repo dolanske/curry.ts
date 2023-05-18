@@ -726,7 +726,6 @@ Usage
 ```ts
 $('p').text('I am the text now!')
 ```
-``
 
 ## del
 
@@ -747,7 +746,7 @@ $('ul').children().del(':not(:first-child)')
 
 ## Meta
 
-[wait](#wait) • [run](#run) • [get](#get) 
+[wait](#wait) • [run](#run) • [get](#get)
 
 Set of specific functions which don't interact with the DOM
 
@@ -764,8 +763,8 @@ $('button').click().wait(500).addClass('clicked')
 Execute a callback function in the chain. Function can return a promise and the chain will pause until the promise is resolved. This can be used to perform async operations and execute chain depending on the result
 ```ts
 // Callback exposes the whole chain instance
-$.run(callback: (this: Curry) => void)
-$.run(callback: (this: Curry) => Promise<any>)
+$.run(callback: (this: Curry) => void);
+$.run(callback: (this: Curry) => Promise<any>);
 ```
 
 ## get
@@ -774,15 +773,15 @@ Can be placed at the end of the chain. It does not allow any chaining. If no par
 
 You can provide a parameter, which will return the top level property from the DOM object. [Full list on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element#instance_properties)
 ```ts
-$.get(key?: string)
+$.get(key?: string);
 ```
 
 Usage
 ```ts
 // Because chains are async, we have to await them
 // because there could be more chained links which take a while to execute.
-const listItems = await $('li').get()
-const listItemsContents = await $('li').get('textContent')
+const listItems = await $('li').get();
+const listItemsContents = await $('li').get('textContent');
 ```
 
 ---
