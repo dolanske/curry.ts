@@ -532,14 +532,9 @@ $.even(callback: IteratorCallback);
 
 ## filter
 
-Iterate over every selected element and checks wether each element passes the provided check.
-Check can be
-- a `NarrowSelector`
-- and array of `NarrowSelectors`
-- a callback function, if it returns false, the element is removed from the list
-
+Iterate over every selected element and checks wether each element passes the provided condition
 ```ts
-type Condition = string | string[] | IteratorCallback<boolean>;
+type Condition = NarrowSelector | NarrowSelector[] | IteratorCallback<boolean>;
 
 // ApplyTo is only useful if multiple NarrowSelectors are provided.
 // It will check every condition against every element and returns a true/false
@@ -565,19 +560,89 @@ $('ul > li')
   .text('I am every 5th list item!!')
 ```
 
-### Manipulators
+## Manipulators
 
-- $.add
-- $.del
-- $.replace
-- $.addChild
-- $.fullscreen
-- $.prependChild
-- $.teleport
-- $.prepend
-- $.append
-- $.swap
-- $.text
+[add](#add) • [prepend](#prepend) • [append](#append) • [addChild](#addChild) • [prependChild](#prependChild) • [appendChild](#appendChild) • [swap](#swap) • [replace](#replace) • [teleport](#teleport) • [fullscreen](#fullscreen) • [text](#text) • [del](#del)
+
+
+Methods which directly manipulate the DOM. Used for creating, deleting or moving elements around.
+Those which create elements accept the same time.
+```ts
+type NewNode = Element | string | Node | Array<Element | string | Node>
+```
+## add
+
+Create a new HTML Element and insert it before/after the selected element
+```ts
+$.add(node: NewNode, location?: "prepend" | 'append' /* default: 'append' */)
+```
+
+Usage
+```ts
+$('.link:last-of-type').add('<a href="/"" class="link">New link</a>')
+$('div').add(document.createElement('a'), 'prepend')
+$('div').add()
+```
+
+## prepend
+
+Shorthand for using `$.add(<element>, 'prepend')`
+```ts
+$.prepend(node: NewNode);
+```
+
+## append
+
+Shorthand for using `$.add(<element>, 'append')`
+```ts
+$.append(node: NewNode);
+```
+
+## addChild
+
+Create a new HTML and insert it before/after the selected element's children
+```ts
+$.addChild(node: NewNode, location?: "prepend" | 'append' /* default: 'append' */);
+```
+
+Usage
+```ts
+$('ul').addChild(document.createElement('li'))
+```
+
+## prependChild
+
+Shorthand for using `$.addChild(<element>, 'prepend')`
+```ts
+$.prependChild(node: NewNode);
+```
+## appendChild
+
+Shorthand for using `$.addChild(<element>, 'append')`
+```ts
+$.appendChild(node: NewNode);
+```
+
+## swap
+## replace
+## teleport
+## fullscreen
+
+
+## text
+
+Change the `textContent` of the selected elements
+```ts
+// `location` if not undefined, it will add the new text before or after the elements textContent
+$('p').text(text: string, location?: 'prepend' | 'append')
+```
+
+Usage
+```ts
+``
+
+## del
+
 
 ### Meta
 
