@@ -53,7 +53,7 @@ Selectors are used to query DOM nodes which can then be manipulated within the s
 Other selectors are mainly used to narrow this list down to specific nodes. The third layer to this is providing a specific filter within these methods. Please refer to the type bellow in case it appears in the following methods.
 
 ```ts
-type NarrowingSelector = string | Node | Node[] | HTMLCollection | Curry
+type NarrowSelector = string | Node | Node[] | HTMLCollection | Curry
 ```
 
 
@@ -64,7 +64,7 @@ The primary selector which spawns a new chain
 ```ts
 // `selector` Queries the relevant dom nodes using document.querySelectorAll()
 // `document` Allows inserting a specific document node 
-$(selector: NarrowingSelector, document?: Document);
+$(selector: NarrowSelector, document?: Document);
 ```
 
 Usage
@@ -79,7 +79,7 @@ $('#trigger').click().text('I was clicked!')
 
 Select element's parent node
 ```ts
-$.parent(selector?: NarrowingSelector);
+$.parent(selector?: NarrowSelector);
 ``` 
 
 Usage
@@ -90,7 +90,7 @@ $('#parent').parent()
 
 Select element's child nodes
 ```ts
-$.children(selector?: NarrowingSelector);
+$.children(selector?: NarrowSelector);
 ``` 
 
 Usage
@@ -187,13 +187,28 @@ Allows querying new set of DOM nodes during a chain execution instead of having 
 
 ```ts
 // `append` if set to `true`, the previously queried elements are preserved 
-$.query(selector: NarrowingSelector, append?: boolean);
+$.query(selector: NarrowSelector, append?: boolean);
 ```
 
 Usage
 ```ts
 $('.theme-switch').click().query('body').toggleClass('dark-theme')
 ```
+
+## is
+
+Returns wether the selected elements match the provided condition(s)
+```ts
+// `applyTo` Decides wether to check if the condition is true for all, some or none of the selected elements
+$.is(condition: string | string[], applyTo?: 'some' | 'every' | 'none')
+```
+
+Usage
+```ts
+$('span#id').is(['#id', 'b'], 'every') // false
+$('span#id').is('span') // true
+```
+
 ---
 
 ## Events
@@ -499,7 +514,7 @@ $('ul > li').each(function ({ index, self, instance }) {
 
 ## asyncEach
 
-Iterates over every selected element in an async fashion. The iteration does not continue to the next method until the exposed `next()` function has not been called. The entire function also stops the chain exeuction until all iterations have resolved
+Iterates over every selected element in an async fashion. The iteration does not continue to the next method until the exposed `next()` function has not been called. The entire function also stops the chain execution until all iterations have resolved
 ```ts
 $.asyncEach(callback)
 ```
@@ -616,6 +631,7 @@ Shorthand for using `$.addChild(<element>, 'prepend')`
 ```ts
 $.prependChild(node: NewNode);
 ```
+
 ## appendChild
 
 Shorthand for using `$.addChild(<element>, 'append')`
@@ -640,33 +656,103 @@ $('#element').swap('#otherelement')
 $(document).swap('#element', '#otherelement')
 ```
 
-
 ## replace
+
+Replace element with the given target. Same as with swap, if multiple nodes are selected, it only takes the first one to be replaced
+```ts
+// If only target is provided, the `$.nodes[0]` will replace `target`
+$.replace(target)
+// If target and el are provided, the `target` will replace `el`
+$.replace(target, el)
+```
+
+Usage
+```ts
+$('#replacer').replace('#uwu')
+// Document does not figure in this what so ever
+// both target and el are provided in the method itself
+$(document).replace('#replacer', document.createElement('span'))
+```
+
 ## teleport
+
+Moves the selected elements to the provided destination
+```ts
+$.teleport(target: Element | Node | string);
+```
+
+Usage
+```ts
+// https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen#parameters
+$('#text-wrapper').teleport('#modal-wrapper')
+```
+
 ## fullscreen
 
+Takes the first selected element and opens it in fullscreen. This is usually used when we have a wrapper div (with an ID) and want to display it in the fullscreen. Not recommended on a query of elements larger than 1.
+```ts
+type Options = FullscreenOptions & {
+  // this: the fullscreen element
+  onOpen?: (this: string | Element | Node) => void
+  onError?: (this: string | Element | Node, error: Error) => void
+};
+
+$.fullscreen(options?: Options);
+$.fullscreen(target: Element | Node | string, options?: Options);
+```
+
+Usage
+```ts
+// Takes #wrapper and opens it in fullscreen
+$('#wrapper').fullscreen({
+  onOpen: () => console.log('Opened fullscreen!');
+});
+
+// You can provide a target in the fullscreen function itself
+$('.open-fullscreen').click().fullscreen('#wrapper', {
+  onOpen: () => console.log('Opened fullscreen!');
+});
+```
 
 ## text
 
 Change the `textContent` of the selected elements
 ```ts
 // `location` if not undefined, it will add the new text before or after the elements textContent
-$('p').text(text: string, location?: 'prepend' | 'append')
+$.text(text: string, location?: 'prepend' | 'append');
 ```
 
 Usage
 ```ts
+$('p').text('I am the text now!')
+```
 ``
 
 ## del
 
+Removes the selected elements
+```ts
+// In case selector is provided, only the elements matching it will be deleted
+$.del(selector?: NarrowSelector)
+```
 
-### Meta
+Usage
+```ts
+// Delete all list items except the first one
+$('ul').children().del(':not(:first-child)')
+```
+
+---
+
+
+## Meta
+
+
 
 - $.wait
 - $.run
 - $.get
-- $.is
+
 
 ### Static API
 

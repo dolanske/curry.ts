@@ -2,8 +2,8 @@ import type { Curry } from '..'
 import { isObject, toEl } from '../util'
 
 type MergedOptions = FullscreenOptions & {
-  onOpen?: () => void
-  onError?: (error: Error) => void
+  onOpen?: (this: string | Element | Node) => void
+  onError?: (this: string | Element | Node, error: Error) => void
 }
 
 export type StaticFullscreen = (
@@ -48,10 +48,10 @@ export const _staticFullscreen: StaticFullscreen = async function (target, optio
     return parsed.requestFullscreen(options)
       .then(() => {
         if (options?.onOpen)
-          options?.onOpen()
+          options?.onOpen.apply(target)
       })
       .catch(e => options?.onError
-        ? options?.onError(e)
+        ? options?.onError.apply(target, [e])
         : Promise.reject(Error('[$.fullscreen] Error during initialization.')),
       )
   }
