@@ -733,7 +733,7 @@ $('p').text('I am the text now!')
 Removes the selected elements
 ```ts
 // In case selector is provided, only the elements matching it will be deleted
-$.del(selector?: NarrowSelector)
+$.del(selector?: NarrowSelector);
 ```
 
 Usage
@@ -747,14 +747,50 @@ $('ul').children().del(':not(:first-child)')
 
 ## Meta
 
+[wait](#wait) • [run](#run) • [get](#get) 
 
+Set of specific functions which don't interact with the DOM
 
-- $.wait
-- $.run
-- $.get
+## wait
 
+Pauses the chain for the specified amount of milliseconds
+```ts
+// Upon clicking, add a `clicked` class to the button in 0.5 seconds
+$('button').click().wait(500).addClass('clicked')
+```
+
+## run
+
+Execute a callback function in the chain. Function can return a promise and the chain will pause until the promise is resolved. This can be used to perform async operations and execute chain depending on the result
+```ts
+// Callback exposes the whole chain instance
+$.run(callback: (this: Curry) => void)
+$.run(callback: (this: Curry) => Promise<any>)
+```
+
+## get
+
+Can be placed at the end of the chain. It does not allow any chaining. If no parameter is provided, it will return the remaining selected elements
+
+You can provide a parameter, which will return the top level property from the DOM object. [Full list on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element#instance_properties)
+```ts
+$.get(key?: string)
+```
+
+Usage
+```ts
+// Because chains are async, we have to await them
+// because there could be more chained links which take a while to execute.
+const listItems = await $('li').get()
+
+const listItemsContents = await $('li').get('textContent')
+```
+
+---
 
 ### Static API
+
+Some functions are also exposed as static methods on the Curry class.
 
 - Curry.fullscreen
 - Curry.replace
