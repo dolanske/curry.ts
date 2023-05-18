@@ -58,6 +58,11 @@ export const _staticReplace: StaticReplace = function (target, el, doc) {
  */
 
 export const _replace: Replace = function (this, target, el, doc) {
-  this.queue(() => _staticReplace(target, el ?? this.nodes[0], doc))
+  this.queue(() => {
+    if (!el)
+      _staticReplace(this.nodes[0], target, doc)
+    else
+      _staticReplace(target, el, doc)
+  })
   return this
 }

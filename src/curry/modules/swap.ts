@@ -37,8 +37,8 @@ export const _staticSwap: StaticSwap = function (target, el, doc?: Document) {
   const _target = toEl<Node>(target).cloneNode(true)
   const _el = toEl<Node>(el).cloneNode(true)
 
-  $(_target).replace(el)
-  $(_el).replace(target)
+  $(el).replace(_target)
+  $(target).replace(_el)
 }
 
 export type Swap = (
