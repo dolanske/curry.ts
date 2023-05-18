@@ -64,5 +64,14 @@ describe('Swap two elements', () => {
     expect(wrap1.firstChild).toStrictEqual(span2)
     expect(wrap2.firstChild).toStrictEqual(span1)
   })
-})
 
+  test('Swap selected nodes', async () => {
+    const { wrap1, wrap2, span2 } = prepareDom()
+    document.body.replaceChildren()
+    document.body.appendChild(wrap1)
+    document.body.appendChild(wrap2)
+
+    await $('#first', document).swap(span2).get()
+    expect(wrap1.firstChild).toStrictEqual(span2)
+  })
+})

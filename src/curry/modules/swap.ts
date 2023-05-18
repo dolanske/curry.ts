@@ -44,7 +44,7 @@ export const _staticSwap: StaticSwap = function (target, el, doc?: Document) {
 export type Swap = (
   this: Curry,
   target: Element | Node | string,
-  el: Element | Node | string,
+  el?: Element | Node | string,
   doc?: Document
 ) => Curry
 
@@ -57,6 +57,15 @@ export type Swap = (
  */
 
 export const _swap: Swap = function (this, target, el) {
-  this.queue(() => _staticSwap(target, el, this.doc))
+  this.queue(() => {
+    // 1. If el is not provided, we swap the selected nodes with the target
+    if (!el)
+      _staticSwap(this.nodes[0], target, this.doc)
+
+    // 2. We swap target with el
+    else
+      _staticSwap(target, el, this.doc)
+  })
+
   return this
 }
