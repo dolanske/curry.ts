@@ -626,6 +626,7 @@ $.appendChild(node: NewNode);
 ## swap
 
 Swap the position of two elements. It is recommended to use this method when selecting a single element to avoid problems.
+Note: If the chain contains multiple selected elements, it will always pick the first one, as swapping multiple elements is currently not supported.
 
 ```ts
 // this takes the currently selected element and swaps it with the provided one
@@ -633,6 +634,11 @@ $.swap(el)
 $.swap(target, el)
 ```
 
+Usage
+```ts
+$('#element').swap('#otherelement')
+$(document).swap('#element', '#otherelement')
+```
 
 
 ## replace
