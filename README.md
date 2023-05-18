@@ -624,6 +624,17 @@ $.appendChild(node: NewNode);
 ```
 
 ## swap
+
+Swap the position of two elements. It is recommended to use this method when selecting a single element to avoid problems.
+
+```ts
+// this takes the currently selected element and swaps it with the provided one
+$.swap(el)
+$.swap(target, el)
+```
+
+
+
 ## replace
 ## teleport
 ## fullscreen
