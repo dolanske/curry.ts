@@ -782,20 +782,8 @@ Usage
 // Because chains are async, we have to await them
 // because there could be more chained links which take a while to execute.
 const listItems = await $('li').get()
-
 const listItemsContents = await $('li').get('textContent')
 ```
-
----
-
-### Static API
-
-Some functions are also exposed as static methods on the Curry class.
-
-- Curry.fullscreen
-- Curry.replace
-- Curry.swap
-- Curry.$fn
 
 ---
 
