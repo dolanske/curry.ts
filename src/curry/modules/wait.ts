@@ -6,8 +6,8 @@ export type Wait = (this: Curry, timeout: number) => Curry
 /**
  * Method used to pause execution chain
  *
- * @param this Curry instace
- * @param timeout Length of pause in miliseconds
+ * @param this Curry instance
+ * @param timeout Length of pause in milliseconds
  * @returns Curry instance for chaining
  */
 

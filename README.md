@@ -53,7 +53,7 @@ Selectors are used to query DOM nodes which can then be manipulated within the s
 Other selectors are mainly used to narrow this list down to specific nodes. The third layer to this is providing a specific filter within these methods. Please refer to the type bellow in case it appears in the following methods.
 
 ```ts
-type NarrowingSelector = string | Node | Node[] | HTMLCollection | Curry
+type NarrowSelector = string | Node | Node[] | HTMLCollection | Curry
 ```
 
 
@@ -64,7 +64,7 @@ The primary selector which spawns a new chain
 ```ts
 // `selector` Queries the relevant dom nodes using document.querySelectorAll()
 // `document` Allows inserting a specific document node 
-$(selector: NarrowingSelector, document?: Document);
+$(selector: NarrowSelector, document?: Document);
 ```
 
 Usage
@@ -79,7 +79,7 @@ $('#trigger').click().text('I was clicked!')
 
 Select element's parent node
 ```ts
-$.parent(selector?: NarrowingSelector);
+$.parent(selector?: NarrowSelector);
 ``` 
 
 Usage
@@ -90,7 +90,7 @@ $('#parent').parent()
 
 Select element's child nodes
 ```ts
-$.children(selector?: NarrowingSelector);
+$.children(selector?: NarrowSelector);
 ``` 
 
 Usage
@@ -187,13 +187,28 @@ Allows querying new set of DOM nodes during a chain execution instead of having 
 
 ```ts
 // `append` if set to `true`, the previously queried elements are preserved 
-$.query(selector: NarrowingSelector, append?: boolean);
+$.query(selector: NarrowSelector, append?: boolean);
 ```
 
 Usage
 ```ts
 $('.theme-switch').click().query('body').toggleClass('dark-theme')
 ```
+
+## is
+
+Returns wether the selected elements match the provided condition(s)
+```ts
+// `applyTo` Decides wether to check if the condition is true for all, some or none of the selected elements
+$.is(condition: string | string[], applyTo?: 'some' | 'every' | 'none')
+```
+
+Usage
+```ts
+$('span#id').is(['#id', 'b'], 'every') // false
+$('span#id').is('span') // true
+```
+
 ---
 
 ## Events
@@ -499,7 +514,7 @@ $('ul > li').each(function ({ index, self, instance }) {
 
 ## asyncEach
 
-Iterates over every selected element in an async fashion. The iteration does not continue to the next method until the exposed `next()` function has not been called. The entire function also stops the chain exeuction until all iterations have resolved
+Iterates over every selected element in an async fashion. The iteration does not continue to the next method until the exposed `next()` function has not been called. The entire function also stops the chain execution until all iterations have resolved
 ```ts
 $.asyncEach(callback)
 ```
@@ -532,14 +547,9 @@ $.even(callback: IteratorCallback);
 
 ## filter
 
-Iterate over every selected element and checks wether each element passes the provided check.
-Check can be
-- a `NarrowSelector`
-- and array of `NarrowSelectors`
-- a callback function, if it returns false, the element is removed from the list
-
+Iterate over every selected element and checks wether each element passes the provided condition
 ```ts
-type Condition = string | string[] | IteratorCallback<boolean>;
+type Condition = NarrowSelector | NarrowSelector[] | IteratorCallback<boolean>;
 
 // ApplyTo is only useful if multiple NarrowSelectors are provided.
 // It will check every condition against every element and returns a true/false
@@ -565,33 +575,215 @@ $('ul > li')
   .text('I am every 5th list item!!')
 ```
 
-### Manipulators
+## Manipulators
 
-- $.add
-- $.del
-- $.replace
-- $.addChild
-- $.fullscreen
-- $.prependChild
-- $.teleport
-- $.prepend
-- $.append
-- $.swap
-- $.text
+[add](#add) • [prepend](#prepend) • [append](#append) • [addChild](#addChild) • [prependChild](#prependChild) • [appendChild](#appendChild) • [swap](#swap) • [replace](#replace) • [teleport](#teleport) • [fullscreen](#fullscreen) • [text](#text) • [del](#del)
 
-### Meta
 
-- $.wait
-- $.run
-- $.get
-- $.is
+Methods which directly manipulate the DOM. Used for creating, deleting or moving elements around.
+Those which create elements accept the same time.
+```ts
+type NewNode = Element | string | Node | Array<Element | string | Node>
+```
+## add
 
-### Static API
+Create a new HTML Element and insert it before/after the selected element
+```ts
+$.add(node: NewNode, location?: "prepend" | 'append' /* default: 'append' */)
+```
 
-- Curry.fullscreen
-- Curry.replace
-- Curry.swap
-- Curry.$fn
+Usage
+```ts
+$('.link:last-of-type').add('<a href="/"" class="link">New link</a>')
+$('div').add(document.createElement('a'), 'prepend')
+$('div').add()
+```
+
+## prepend
+
+Shorthand for using `$.add(<element>, 'prepend')`
+```ts
+$.prepend(node: NewNode);
+```
+
+## append
+
+Shorthand for using `$.add(<element>, 'append')`
+```ts
+$.append(node: NewNode);
+```
+
+## addChild
+
+Create a new HTML and insert it before/after the selected element's children
+```ts
+$.addChild(node: NewNode, location?: "prepend" | 'append' /* default: 'append' */);
+```
+
+Usage
+```ts
+$('ul').addChild(document.createElement('li'))
+```
+
+## prependChild
+
+Shorthand for using `$.addChild(<element>, 'prepend')`
+```ts
+$.prependChild(node: NewNode);
+```
+
+## appendChild
+
+Shorthand for using `$.addChild(<element>, 'append')`
+```ts
+$.appendChild(node: NewNode);
+```
+
+## swap
+
+Swap the position of two elements. It is recommended to use this method when selecting a single element to avoid problems.
+Note: If the chain contains multiple selected elements, it will always pick the first one, as swapping multiple elements is currently not supported.
+
+```ts
+// this takes the currently selected element and swaps it with the provided one
+$.swap(el)
+$.swap(target, el)
+```
+
+Usage
+```ts
+$('#element').swap('#otherelement')
+$(document).swap('#element', '#otherelement')
+```
+
+## replace
+
+Replace element with the given target. Same as with swap, if multiple nodes are selected, it only takes the first one to be replaced
+```ts
+// If only target is provided, the `$.nodes[0]` will replace `target`
+$.replace(target)
+// If target and el are provided, the `target` will replace `el`
+$.replace(target, el)
+```
+
+Usage
+```ts
+$('#replacer').replace('#uwu')
+// Document does not figure in this what so ever
+// both target and el are provided in the method itself
+$(document).replace('#replacer', document.createElement('span'))
+```
+
+## teleport
+
+Moves the selected elements to the provided destination
+```ts
+$.teleport(target: Element | Node | string);
+```
+
+Usage
+```ts
+// https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen#parameters
+$('#text-wrapper').teleport('#modal-wrapper')
+```
+
+## fullscreen
+
+Takes the first selected element and opens it in fullscreen. This is usually used when we have a wrapper div (with an ID) and want to display it in the fullscreen. Not recommended on a query of elements larger than 1.
+```ts
+type Options = FullscreenOptions & {
+  // this: the fullscreen element
+  onOpen?: (this: string | Element | Node) => void
+  onError?: (this: string | Element | Node, error: Error) => void
+};
+
+$.fullscreen(options?: Options);
+$.fullscreen(target: Element | Node | string, options?: Options);
+```
+
+Usage
+```ts
+// Takes #wrapper and opens it in fullscreen
+$('#wrapper').fullscreen({
+  onOpen: () => console.log('Opened fullscreen!');
+});
+
+// You can provide a target in the fullscreen function itself
+$('.open-fullscreen').click().fullscreen('#wrapper', {
+  onOpen: () => console.log('Opened fullscreen!');
+});
+```
+
+## text
+
+Change the `textContent` of the selected elements
+```ts
+// `location` if not undefined, it will add the new text before or after the elements textContent
+$.text(text: string, location?: 'prepend' | 'append');
+```
+
+Usage
+```ts
+$('p').text('I am the text now!')
+```
+``
+
+## del
+
+Removes the selected elements
+```ts
+// In case selector is provided, only the elements matching it will be deleted
+$.del(selector?: NarrowSelector);
+```
+
+Usage
+```ts
+// Delete all list items except the first one
+$('ul').children().del(':not(:first-child)')
+```
+
+---
+
+
+## Meta
+
+[wait](#wait) • [run](#run) • [get](#get) 
+
+Set of specific functions which don't interact with the DOM
+
+## wait
+
+Pauses the chain for the specified amount of milliseconds
+```ts
+// Upon clicking, add a `clicked` class to the button in 0.5 seconds
+$('button').click().wait(500).addClass('clicked')
+```
+
+## run
+
+Execute a callback function in the chain. Function can return a promise and the chain will pause until the promise is resolved. This can be used to perform async operations and execute chain depending on the result
+```ts
+// Callback exposes the whole chain instance
+$.run(callback: (this: Curry) => void)
+$.run(callback: (this: Curry) => Promise<any>)
+```
+
+## get
+
+Can be placed at the end of the chain. It does not allow any chaining. If no parameter is provided, it will return the remaining selected elements
+
+You can provide a parameter, which will return the top level property from the DOM object. [Full list on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element#instance_properties)
+```ts
+$.get(key?: string)
+```
+
+Usage
+```ts
+// Because chains are async, we have to await them
+// because there could be more chained links which take a while to execute.
+const listItems = await $('li').get()
+const listItemsContents = await $('li').get('textContent')
+```
 
 ---
 
