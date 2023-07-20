@@ -22,8 +22,7 @@ Any feedback, issues, ideas, PRs or feature requests are utmost welcome. I am ab
 
 Currently this is the list of features I am considering
 
-- [ ] Async triggering on key events
-- [ ] Simple reusable UI component definitions
+- [ ] Async triggering on key events eg `$.key().(chain to be executed after key event is triggered)`
 
 ## Usage
 
@@ -605,7 +604,7 @@ const binding = $('#app').bind({ count: 0 }, function ({ count }) {
 })
 binding.count++
 binding.count += 10
-// #app.textContent === 11
+// #app.textContent === 'Count is 11'
 
 delete binding.count
 // #app.textContent === 'Count is undefined'
