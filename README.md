@@ -1,4 +1,4 @@
-# J C U R R Y (curry.ts)
+# JCURRY (curry.ts)
 
 The successor to the most known word in the javascript universe. Every person who came within 5km radius of an IDE has heard of that word. Some shiver, some get excited, some faint when they hear it. What if I told you that you don't need a 40k behemoth of a javascript object? That you actually just need a little curry in your life instead?
 
@@ -55,7 +55,6 @@ Other selectors are mainly used to narrow this list down to specific nodes. The 
 ```ts
 type NarrowSelector = string | Node | Node[] | HTMLCollection | Curry
 ```
-
 
 ## $()
 
@@ -577,13 +576,39 @@ $('ul > li')
 
 ## Manipulators
 
-[add](#add) • [prepend](#prepend) • [append](#append) • [addChild](#addChild) • [prependChild](#prependChild) • [appendChild](#appendChild) • [swap](#swap) • [replace](#replace) • [teleport](#teleport) • [fullscreen](#fullscreen) • [text](#text) • [del](#del)
+[bind](#bind) • [add](#add) • [prepend](#prepend) • [append](#append) • [addChild](#addChild) • [prependChild](#prependChild) • [appendChild](#appendChild) • [swap](#swap) • [replace](#replace) • [teleport](#teleport) • [fullscreen](#fullscreen) • [text](#text) • [del](#del)
 
 
 Methods which directly manipulate the DOM. Used for creating, deleting or moving elements around.
 Those which create elements accept the same time.
 ```ts
 type NewNode = Element | string | Node | Array<Element | string | Node>
+```
+
+## bind
+
+Allows us to bind reactive data to a DOM node. This chain returns an object and
+each time its property is updated, it runs the reactive function. Allowing us to
+update the DOM based on the data.
+
+```ts
+type RawObject = Record<PropertyKey, string | number | boolean | null | undefined>
+type BindFn<T> = (this: HTMLElement, obj: T, instance: Curry) => void
+
+$.bind(data: RawObject, fn: BindFn<typeof data>)
+```
+
+Usage
+```ts
+const binding = $('#app').bind({ count: 0 }, function ({ count }) {
+  this.textContent = `Count is ${count}`
+})
+binding.count++
+binding.count += 10
+// #app.textContent === 11
+
+delete binding.count
+// #app.textContent === 'Count is undefined'
 ```
 ## add
 
@@ -780,8 +805,8 @@ Usage
 ```ts
 // Because chains are async, we have to await them
 // because there could be more chained links which take a while to execute.
-const listItems = await $('li').get();
-const listItemsContents = await $('li').get('textContent');
+const listItems = await $('li').get()
+const listItemsContents = await $('li').get('textContent')
 ```
 
 ---
