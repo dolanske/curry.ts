@@ -155,6 +155,7 @@ export class Curry {
   prevSiblings: Siblings = _prevSiblings.bind(this)
   nextSiblings: Siblings = _nextSiblings.bind(this)
   // Experimental
+  // @ts-expect-error I don't really understand this problem, sorry :/
   bind: Bind = _bind.bind(this)
 
   /**

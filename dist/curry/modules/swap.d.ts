@@ -7,7 +7,7 @@ export type StaticSwap = (target: Element | Node | string, el: Element | Node | 
  * @returns Curry instance for chaining
  */
 export declare const _staticSwap: StaticSwap;
-export type Swap = (this: Curry, target: Element | Node | string, el: Element | Node | string, doc?: Document) => Curry;
+export type Swap = (this: Curry, target: Element | Node | string, el?: Element | Node | string, doc?: Document) => Curry;
 /**
  *
  * @param this Curry instance
