@@ -1,5 +1,5 @@
 import type { Curry } from '..';
-export type Teleport = (this: Curry, destination: Element | string) => Curry;
+export type Teleport = (this: Curry, destination: Element | Node | string) => Curry;
 /**
  *
  * @param this Curry instance

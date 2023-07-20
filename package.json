@@ -1,6 +1,6 @@
 {
   "name": "@dolanske/curry",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fully typed, simple and powerful DOM manipulation library.",
   "author": "dolanske",
   "license": "MIT",

@@ -1,7 +1,7 @@
-var O = Object.defineProperty;
-var H = (t, e, n) => e in t ? O(t, e, { enumerable: !0, configurable: !0, writable: !0, value: n }) : t[e] = n;
-var r = (t, e, n) => (H(t, typeof e != "symbol" ? e + "" : e, n), n);
-const A = function(t, e) {
+var j = Object.defineProperty;
+var O = (t, e, n) => e in t ? j(t, e, { enumerable: !0, configurable: !0, writable: !0, value: n }) : t[e] = n;
+var r = (t, e, n) => (O(t, typeof e != "symbol" ? e + "" : e, n), n);
+const H = function(t, e) {
   return this.queue(() => {
     for (const n of this.nodes)
       if (t)
@@ -22,7 +22,7 @@ const A = function(t, e) {
 function a(t) {
   return t ? Array.isArray(t) : !1;
 }
-function _(t) {
+function w(t) {
   const e = typeof t;
   return t != null && e === "object";
 }
@@ -32,7 +32,7 @@ function I(t) {
 function E(t) {
   return t == null;
 }
-function S(t) {
+function P(t) {
   if (!t || !t.previousElementSibling)
     return 0;
   let e = 0, n = t;
@@ -40,7 +40,7 @@ function S(t) {
     e++;
   return e;
 }
-function P(t, e, n) {
+function C(t, e, n) {
   return this.queue(() => {
     const i = t === "next" ? "nextElementSibling" : "previousElementSibling";
     typeof e != "number" && (n = e, e = void 0);
@@ -51,7 +51,7 @@ function P(t, e, n) {
         f && (s.push(f), n && n.apply(f, [{
           self: f,
           prev: c,
-          index: S(f),
+          index: P(f),
           instance: this
         }]));
       else {
@@ -61,7 +61,7 @@ function P(t, e, n) {
         h && (s.push(h), n && n.apply(h, [{
           self: h,
           prev: c,
-          index: S(c),
+          index: P(c),
           instance: this
         }]));
       }
@@ -73,10 +73,10 @@ function F(t) {
   const e = document.createElement("div");
   return e.insertAdjacentHTML("beforeend", t), e.children[0];
 }
-function $(t = 1) {
+function R(t = 1) {
   return new Promise((e) => setTimeout(e, t));
 }
-function C(t, e) {
+function x(t, e) {
   if (typeof t == "string") {
     let n;
     return e ? n = e.querySelectorAll(t) : n = document.querySelectorAll(t), Array.from(n);
@@ -84,7 +84,7 @@ function C(t, e) {
   return t instanceof HTMLCollection ? Array.from(t) : t instanceof Node ? [t] : t instanceof l ? t.nodes : t;
 }
 const m = (t) => L + t;
-function M(t) {
+function $(t) {
   return this.queue(() => {
     if (this.nodes.length === 0)
       return;
@@ -96,7 +96,7 @@ function M(t) {
     return e.length === 1 ? e[0] : e;
   });
 }
-const N = function(t, e = "every") {
+const M = function(t, e = "every") {
   const n = [];
   for (const i of this.nodes) {
     const s = i;
@@ -114,7 +114,7 @@ const N = function(t, e = "every") {
     case "every":
       return n.every((i) => i);
   }
-}, R = function(t, e, n) {
+}, N = function(t, e, n) {
   return this.queue(async () => {
     const i = [];
     for (const s of this.nodes)
@@ -129,7 +129,7 @@ const N = function(t, e = "every") {
       }));
     return Promise.allSettled(i);
   }), this;
-}, D = function(t) {
+}, Q = function(t) {
   return this.queue(async () => {
     const e = [];
     for (const n of this.nodes)
@@ -140,7 +140,7 @@ const N = function(t, e = "every") {
       }));
     return Promise.allSettled(e);
   }), this;
-}, Q = function(t) {
+}, D = function(t) {
   this.queue(() => {
     for (const e of this.nodes) {
       const n = e;
@@ -209,17 +209,18 @@ const N = function(t, e = "every") {
   return this.queue(
     () => (
       // eslint-disable-next-line no-async-promise-executor
-      new Promise(async () => {
-        let e = 0;
-        for (const n of this.nodes)
-          await new Promise((i) => t.apply(n, [
-            i,
+      new Promise(async (e) => {
+        let n = 0;
+        for (const i of this.nodes)
+          await new Promise((s) => t.apply(i, [
+            s,
             {
-              self: n,
-              index: e,
+              self: i,
+              index: n,
               instance: this
             }
-          ])), e++;
+          ])), n++;
+        e(!0);
       })
     )
   ), this;
@@ -285,9 +286,9 @@ const N = function(t, e = "every") {
     });
   }), this;
 }, tt = function(t, e) {
-  return P.apply(this, ["next", t, e]);
+  return C.apply(this, ["next", t, e]);
 }, et = function(t, e) {
-  return P.apply(this, ["prev", t, e]);
+  return C.apply(this, ["prev", t, e]);
 }, nt = function(t) {
   return this.queue(() => {
     const e = [];
@@ -343,7 +344,7 @@ const ct = function(t, e) {
           const o = Object.keys(s)[0], c = s[o];
           g(i, o, c);
         }
-      else if (_(t)) {
+      else if (w(t)) {
         const s = Object.keys(t)[0], o = t[s];
         g(i, s, o);
       }
@@ -435,8 +436,8 @@ const ct = function(t, e) {
     this.nodes = Array.from(e);
   }), this;
 }, lt = function(t = 1) {
-  return this.queue(() => $(t)), this;
-}, x = function(t, e, n) {
+  return this.queue(() => R(t)), this;
+}, _ = function(t, e, n) {
   var i;
   if (typeof t == "string") {
     const s = (n ?? document).querySelector(t);
@@ -455,8 +456,10 @@ const ct = function(t, e) {
     }
   e && t && ((i = t.parentNode) == null || i.replaceChild(e, t));
 }, at = function(t, e, n) {
-  return this.queue(() => x(t, e ?? this.nodes[0], n)), this;
-}, T = function(t, e, n) {
+  return this.queue(() => {
+    e ? _(t, e, n) : _(this.nodes[0], t, n);
+  }), this;
+}, q = function(t, e, n) {
   if (typeof t == "string") {
     const o = (n ?? document).querySelector(t);
     if (!o)
@@ -470,9 +473,11 @@ const ct = function(t, e) {
     e = o;
   }
   const i = t.cloneNode(!0), s = e.cloneNode(!0);
-  u(i).replace(e), u(s).replace(t);
+  u(e).replace(i), u(t).replace(s);
 }, pt = function(t, e) {
-  return this.queue(() => T(t, e, this.doc)), this;
+  return this.queue(() => {
+    e ? q(t, e, this.doc) : q(this.nodes[0], t, this.doc);
+  }), this;
 }, yt = function(t, e) {
   return this.queue(
     () => new Promise((n) => {
@@ -495,7 +500,7 @@ const ct = function(t, e) {
       });
     })
   ), this;
-}, q = function(t, e = "append") {
+}, v = function(t, e = "append") {
   return this.queue(() => {
     a(t) || (t = [t]);
     for (const n of this.nodes) {
@@ -505,10 +510,10 @@ const ct = function(t, e) {
     }
   }), this;
 }, gt = function(t) {
-  return q.call(this, t, "prepend"), this;
+  return v.call(this, t, "prepend"), this;
 }, bt = function(t) {
-  return q.call(this, t, "append"), this;
-}, w = function(t, e = "append") {
+  return v.call(this, t, "append"), this;
+}, A = function(t, e = "append") {
   return this.queue(() => {
     a(t) || (t = [t]);
     for (const n of this.nodes) {
@@ -518,9 +523,9 @@ const ct = function(t, e) {
     }
   }), this;
 }, mt = function(t) {
-  return w.call(this, t, "prepend"), this;
+  return A.call(this, t, "prepend"), this;
 }, _t = function(t) {
-  return w.call(this, t, "append"), this;
+  return A.call(this, t, "append"), this;
 };
 class qt {
   constructor(e) {
@@ -620,7 +625,7 @@ const vt = function(t, e = {}) {
     }
     return Promise.allSettled(f);
   }), this;
-}, j = async function(t, e, n) {
+}, T = async function(t, e, n) {
   const i = n ?? document;
   if (typeof t == "string") {
     const s = i.querySelector(t);
@@ -631,15 +636,15 @@ const vt = function(t, e = {}) {
   if (t) {
     const s = t;
     return Object.hasOwn(t, "requestFullscreen") ? (i.fullscreenElement && i.exitFullscreen(), s.requestFullscreen(e).then(() => {
-      e != null && e.onOpen && (e == null || e.onOpen());
+      e != null && e.onOpen && (e == null || e.onOpen.apply(t));
     }).catch(
-      (o) => e != null && e.onError ? e == null ? void 0 : e.onError(o) : Promise.reject(Error("[$.fullscreen] Error during initialization."))
+      (o) => e != null && e.onError ? e == null ? void 0 : e.onError.apply(t, [o]) : Promise.reject(Error("[$.fullscreen] Error during initialization."))
     )) : Promise.reject(Error("[$.fullscreen] Target does not implement the fullscreen API"));
   }
   return Promise.reject(Error("[$.fullscreen] Target does not exist"));
-}, Et = function(t, e) {
-  return this.queue(() => (_(t) ? (e = t, t = this.nodes[0]) : t ?? (t = this.nodes[0]), j(t, e, this.doc))), this;
-}, Pt = function(t) {
+}, Pt = function(t, e) {
+  return this.queue(() => (w(t) ? (e = t, t = this.nodes[0]) : t ?? (t = this.nodes[0]), T(t, e, this.doc))), this;
+}, Et = function(t) {
   const { duration: e, to: n, easing: i } = Object.assign({
     duration: 300,
     to: 1,
@@ -675,9 +680,12 @@ const vt = function(t, e = {}) {
   }), this;
 }, Tt = function(t) {
   return t ? (this.queue(async () => await t.call(this)), this) : this;
-}, jt = function(t) {
+}, jt = function(t, e) {
   return this.queue(() => {
-    t && (this.nodes = C(t, this.doc));
+    if (!t)
+      return;
+    const n = x(t, this.doc);
+    this.nodes = e ? [...this.nodes, ...n] : n;
   }), this;
 }, Ot = function(t = 300, e = "linear") {
   return this.queue(async () => {
@@ -715,7 +723,7 @@ const vt = function(t, e = {}) {
       duration: n = 300,
       easing: i = e ?? "linear",
       override: s = !1
-    } = _(t) ? t : {}, o = [];
+    } = w(t) ? t : {}, o = [];
     for (const c of this.nodes) {
       const f = c, h = s ? this.nodes[0].style.display === "none" : f.style.display === "none";
       o.push(
@@ -748,7 +756,7 @@ const vt = function(t, e = {}) {
     }
     this.nodes = e;
   }), this;
-}, $t = function(t) {
+}, Rt = function(t) {
   return this.queue(() => {
     const e = [];
     for (const n of this.nodes) {
@@ -759,17 +767,35 @@ const vt = function(t, e = {}) {
     }
     this.nodes = e;
   }), this;
+}, $t = function(t, e) {
+  for (const n of this.nodes)
+    e.apply(n, [t, this]);
+  return new Proxy(t, {
+    get: (n, i, s) => Reflect.get(n, i, s),
+    set: (n, i, s, o) => {
+      const c = Reflect.set(n, i, s, o);
+      for (const f of this.nodes)
+        e.apply(f, [n, this]);
+      return c;
+    },
+    deleteProperty: (n, i) => {
+      const s = Reflect.deleteProperty(n, i);
+      for (const o of this.nodes)
+        e.apply(o, [n, this]);
+      return s;
+    }
+  });
 };
 function u(t, e) {
   return new l(t, e);
 }
-const v = class {
+const S = class {
   constructor(e, n) {
     r(this, "doc");
     r(this, "nodes");
     r(this, "taskQueue");
     /* ----------  Chaining API  ---------- */
-    r(this, "fullscreen", Et.bind(this));
+    r(this, "fullscreen", Pt.bind(this));
     r(this, "prependChild", mt.bind(this));
     r(this, "toggleClass", W.bind(this));
     r(this, "appendChild", _t.bind(this));
@@ -781,7 +807,7 @@ const v = class {
     r(this, "hasClass", k.bind(this));
     r(this, "teleport", ht.bind(this));
     r(this, "nthChild", yt.bind(this));
-    r(this, "addChild", w.bind(this));
+    r(this, "addChild", A.bind(this));
     r(this, "prepend", gt.bind(this));
     r(this, "setAttr", ct.bind(this));
     r(this, "getAttr", rt.bind(this));
@@ -790,11 +816,11 @@ const v = class {
     r(this, "animate", St.bind(this));
     r(this, "fadeOut", Ct.bind(this));
     r(this, "filter", ut.bind(this));
-    r(this, "fadeIn", Pt.bind(this));
+    r(this, "fadeIn", Et.bind(this));
     r(this, "append", bt.bind(this));
     r(this, "toggle", ot.bind(this));
     r(this, "parent", dt.bind(this));
-    r(this, "click", D.bind(this));
+    r(this, "click", Q.bind(this));
     r(this, "first", G.bind(this));
     r(this, "hover", ft.bind(this));
     r(this, "wait", lt.bind(this));
@@ -802,39 +828,38 @@ const v = class {
     r(this, "show", st.bind(this));
     r(this, "hide", it.bind(this));
     r(this, "query", jt.bind(this));
-    r(this, "text", A.bind(this));
+    r(this, "text", H.bind(this));
     r(this, "each", z.bind(this));
     r(this, "last", J.bind(this));
     r(this, "even", Z.bind(this));
     r(this, "next", tt.bind(this));
     r(this, "prev", et.bind(this));
-    r(this, "add", q.bind(this));
-    r(this, "del", Q.bind(this));
+    r(this, "add", v.bind(this));
+    r(this, "del", D.bind(this));
     r(this, "odd", V.bind(this));
-    r(this, "get", M.bind(this));
+    r(this, "get", $.bind(this));
     r(this, "css", U.bind(this));
     r(this, "nth", Y.bind(this));
     r(this, "run", Tt.bind(this));
     r(this, "key", new qt(this));
-    r(this, "is", N.bind(this));
-    r(this, "on", R.bind(this));
+    r(this, "is", M.bind(this));
+    r(this, "on", N.bind(this));
     r(this, "slideUp", Ot.bind(this));
     r(this, "slideDown", Ht.bind(this));
     r(this, "slideToggle", Lt.bind(this));
     r(this, "siblings", It.bind(this));
     r(this, "prevSiblings", Ft.bind(this));
-    r(this, "nextSiblings", $t.bind(this));
-    this.doc = n, this.nodes = C(e, n), this.taskQueue = Promise.resolve();
+    r(this, "nextSiblings", Rt.bind(this));
+    // Experimental
+    // @ts-expect-error I don't really understand this problem, sorry :/
+    r(this, "bind", $t.bind(this));
+    this.doc = n, this.nodes = x(e, n), this.taskQueue = Promise.resolve();
   }
   /**
    * Functions which return Curry instance can be queued to be asyncronously executed.
    */
   async queue(e) {
     return await (this.taskQueue = this.taskQueue.then(e));
-  }
-  static text(e, n) {
-    const i = u(e);
-    return A.bind(i)(n);
   }
   get length() {
     return this.nodes.length;
@@ -844,13 +869,13 @@ const v = class {
       e(!0);
     }));
   }
-  // Expose prototype so that users can extend curry with their own functions
   /**
    *  Experimental extension API
+   *  Expose prototype so that users can extend curry with their own functions
    */
   static $fn(e, n) {
     Object.defineProperty(
-      v.prototype,
+      S.prototype,
       e,
       {
         value() {
@@ -860,10 +885,13 @@ const v = class {
     );
   }
 };
-let l = v;
+let l = S;
 /* ----------  Static API  ---------- */
-r(l, "fullscreen", j), r(l, "replace", x), r(l, "swap", T);
+r(l, "fullscreen", T), r(l, "replace", _), r(l, "swap", q);
 export {
   u as $,
-  l as Curry
+  l as Curry,
+  T as fullscreen,
+  _ as replace,
+  q as swap
 };

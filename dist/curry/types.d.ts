@@ -8,7 +8,7 @@ interface CustomEventProperty extends Event {
     detail?: any;
 }
 export type EventCallback = (this: Element, event: CustomEventProperty, instance: Curry) => void;
-export type KeyboardeventCallback = (this: Element, event: KeyboardEvent, instance: Curry) => void;
+export type KeyboardEventCallback = (this: Element, event: KeyboardEvent, instance: Curry) => void;
 export type IteratorCallback<T = void> = (this: Element, options: {
     self: Element;
     instance: Curry;

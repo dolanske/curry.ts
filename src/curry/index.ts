@@ -74,6 +74,8 @@ import { _slideDown, _slideToggle, _slideUp } from './modules/slide'
 import type { Slide, SlideToggle } from './modules/slide'
 import type { Siblings } from './modules/siblings'
 import { _nextSiblings, _prevSiblings, _siblings } from './modules/siblings'
+import type { Bind } from './modules/bind'
+import { _bind } from './modules/bind'
 
 // TODO: every method using document.querySelector should be able to substitude a different dom selector
 // from the `this.doc` variable. Meaning we can scope down DOM searching
@@ -152,6 +154,9 @@ export class Curry {
   siblings: Siblings = _siblings.bind(this)
   prevSiblings: Siblings = _prevSiblings.bind(this)
   nextSiblings: Siblings = _nextSiblings.bind(this)
+  // Experimental
+  // @ts-expect-error I don't really understand this problem, sorry :/
+  bind: Bind = _bind.bind(this)
 
   /**
    * Functions which return Curry instance can be queued to be asyncronously executed.
@@ -166,10 +171,6 @@ export class Curry {
   static fullscreen: StaticFullscreen = _staticFullscreen
   static replace: StaticReplace = _staticReplace
   static swap: StaticSwap = _staticSwap
-  // static text(el: Selector, text: string | number) {
-  //   const instance = $(el)
-  //   return _text.bind(instance)(text)
-  // }
 
   get length() {
     return this.nodes.length
@@ -183,9 +184,9 @@ export class Curry {
     })
   }
 
-  // Expose prototype so that users can extend curry with their own functions
   /**
    *  Experimental extension API
+   *  Expose prototype so that users can extend curry with their own functions
    */
 
   static $fn(name: string, fn: (this: Curry) => void) {

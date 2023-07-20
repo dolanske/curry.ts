@@ -35,6 +35,7 @@ import type { Run } from './modules/run';
 import type { Query } from './modules/query';
 import type { Slide, SlideToggle } from './modules/slide';
 import type { Siblings } from './modules/siblings';
+import type { Bind } from './modules/bind';
 export type Selector = string | Node | Node[] | HTMLCollection | Curry;
 type CurryChainCompletion = boolean;
 export declare function $(selector: Selector, doc?: Document): Curry;
@@ -98,6 +99,7 @@ export declare class Curry {
     siblings: Siblings;
     prevSiblings: Siblings;
     nextSiblings: Siblings;
+    bind: Bind;
     /**
      * Functions which return Curry instance can be queued to be asyncronously executed.
      */
@@ -105,11 +107,11 @@ export declare class Curry {
     static fullscreen: StaticFullscreen;
     static replace: StaticReplace;
     static swap: StaticSwap;
-    static text(el: Selector, text: string | number): Curry;
     get length(): number;
     get await(): Promise<CurryChainCompletion>;
     /**
      *  Experimental extension API
+     *  Expose prototype so that users can extend curry with their own functions
      */
     static $fn(name: string, fn: (this: Curry) => void): void;
 }

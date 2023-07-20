@@ -1,7 +1,7 @@
 import type { Curry } from '..';
 type MergedOptions = FullscreenOptions & {
-    onOpen?: () => void;
-    onError?: (error: Error) => void;
+    onOpen?: (this: string | Element | Node) => void;
+    onError?: (this: string | Element | Node, error: Error) => void;
 };
 export type StaticFullscreen = (target: string | Element | Node, options?: MergedOptions, doc?: Document) => Promise<void>;
 export type Fullscreen = (this: Curry, target?: string | Element | Node | MergedOptions, options?: MergedOptions) => void;
