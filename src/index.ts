@@ -16,5 +16,9 @@ export {
 } from './curry/modules/swap'
 
 export {
-  stopOnMutate as stopObserver
+  stopOnMutate
 } from "./curry/modules/onMutate"
+
+export {
+  stopOnResize
+} from "./curry/modules/onResize"

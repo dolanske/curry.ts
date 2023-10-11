@@ -1,17 +1,14 @@
-import { $ } from './curry'
-import { delay } from './curry/util'
+import { $ } from "./curry"
+import { delay } from "./curry/util"
 
 function updateLogger() {
-  console.log('Updated')
-
+  console.log("Resized!!!")
 }
 
-$('span').onMutate(updateLogger).stopOnMutate()
+$(".wrap").onResize(updateLogger).stopOnResize()
+
+// $(".wrap").css("width", "200px")
 
 await delay(500)
 
-$('span').text('cum')
-
-await delay(500)
-
-$('span').text('PLUM')
+// $(".wrap").css("width", "500px")
