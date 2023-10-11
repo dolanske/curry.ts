@@ -1,10 +1,17 @@
 import { $ } from './curry'
+import { delay } from './curry/util'
 
-// Automatically runs a callback fn whenever the object property is changed or deleted
-// 1. Create a variable using the bind function
-const content = $('#app').bind({ msg: 'Hello' }, function ({ msg }) {
-  this.textContent = msg
-})
+function updateLogger() {
+  console.log('Updated')
 
-// 2. Change variable anywhere on the code
-content.msg = 'It works!!'
+}
+
+$('span').onMutate(updateLogger).stopOnMutate()
+
+await delay(500)
+
+$('span').text('cum')
+
+await delay(500)
+
+$('span').text('PLUM')

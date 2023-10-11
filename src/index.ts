@@ -14,3 +14,7 @@ export {
 export {
   _staticSwap as swap,
 } from './curry/modules/swap'
+
+export {
+  stopOnMutate as stopObserver
+} from "./curry/modules/onMutate"

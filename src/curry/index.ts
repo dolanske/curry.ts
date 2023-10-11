@@ -76,6 +76,7 @@ import type { Siblings } from './modules/siblings'
 import { _nextSiblings, _prevSiblings, _siblings } from './modules/siblings'
 import type { Bind } from './modules/bind'
 import { _bind } from './modules/bind'
+import { OnMutate, StopOnMutate, _onMutate, _stopOnMutate } from './modules/onMutate'
 
 // TODO: every method using document.querySelector should be able to substitude a different dom selector
 // from the `this.doc` variable. Meaning we can scope down DOM searching
@@ -154,6 +155,8 @@ export class Curry {
   siblings: Siblings = _siblings.bind(this)
   prevSiblings: Siblings = _prevSiblings.bind(this)
   nextSiblings: Siblings = _nextSiblings.bind(this)
+  onMutate: OnMutate = _onMutate.bind(this)
+  stopOnMutate: StopOnMutate = _stopOnMutate.bind(this)
   // Experimental
   // @ts-expect-error I don't really understand this problem, sorry :/
   bind: Bind = _bind.bind(this)
