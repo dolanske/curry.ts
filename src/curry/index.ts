@@ -1,83 +1,93 @@
-import type { Text } from './modules/text'
-import { _text } from './modules/text'
-import type { Get } from './modules/get'
-import { _get } from './modules/get'
-import type { Is } from './modules/is'
-import { _is } from './modules/is'
-import type { On } from './modules/on'
-import { _on } from './modules/on'
-import type { Click } from './modules/click'
-import { _click } from './modules/click'
-import type { Del } from './modules/del'
-import { _del } from './modules/del'
-import type { CSS } from './modules/css'
-import { _css } from './modules/css'
-import type { ClassCheck, ClassManipulation } from './modules/class'
-import { _addClass, _delClass, _hasClass, _toggleClass } from './modules/class'
-import type { Each } from './modules/each'
-import { _each } from './modules/each'
-import type { AsyncEach } from './modules/asyncEach'
-import { _asyncEach } from './modules/asyncEach'
-import type { Nth } from './modules/nth'
-import { _nth } from './modules/nth'
-import type { First } from './modules/first'
-import { _first } from './modules/first'
-import type { Last } from './modules/last'
-import { _last } from './modules/last'
-import type { Odd } from './modules/odd'
-import { _odd } from './modules/odd'
-import type { Even } from './modules/even'
-import { _even } from './modules/even'
-import type { Next } from './modules/next'
-import { _next } from './modules/next'
-import { _prev } from './modules/prev'
-import type { Children } from './modules/children'
-import { _children } from './modules/children'
-import type { Visibility } from './modules/visibility'
-import { _hide, _show, _toggle } from './modules/visibility'
-import type { GetAttr, SetAttr } from './modules/attr'
-import { _getAttr, _setAttr } from './modules/attr'
-import type { Filter } from './modules/filter'
-import { _filter } from './modules/filter'
-import type { Teleport } from './modules/teleport'
-import { _teleport } from './modules/teleport'
-import type { Hover } from './modules/hover'
-import { _hover } from './modules/hover'
-import type { Parent } from './modules/parent'
-import { _parent } from './modules/parent'
-import type { Wait } from './modules/wait'
-import { _wait } from './modules/wait'
-import type { Replace, StaticReplace } from './modules/replace'
-import { _replace, _staticReplace } from './modules/replace'
-import type { StaticSwap, Swap } from './modules/swap'
-import { _staticSwap, _swap } from './modules/swap'
-import type { NthChild } from './modules/nthChild'
-import { _nthChild } from './modules/nthChild'
-import type { Add, AddShorthand } from './modules/add'
-import { _add, _append, _prepend } from './modules/add'
-import { _addChild, _appendChild, _prependChild } from './modules/addChild'
-import { Key } from './modules/key'
-import type { Trigger } from './modules/trigger'
-import { _trigger } from './modules/trigger'
-import type { Animate } from './modules/animate'
-import { _animate } from './modules/animate'
-import { _fullscreen, _staticFullscreen } from './modules/fullscreen'
-import type { Fullscreen, StaticFullscreen } from './modules/fullscreen'
-import { _fadeIn, _fadeOut, _fadeToggle } from './modules/fade'
-import type { Fade, FadeToggle } from './modules/fade'
-import type { Run } from './modules/run'
-import { _run } from './modules/run'
-import { queryDom } from './util'
-import type { Query } from './modules/query'
-import { _query } from './modules/query'
-import { _slideDown, _slideToggle, _slideUp } from './modules/slide'
-import type { Slide, SlideToggle } from './modules/slide'
-import type { Siblings } from './modules/siblings'
-import { _nextSiblings, _prevSiblings, _siblings } from './modules/siblings'
-import type { Bind } from './modules/bind'
-import { _bind } from './modules/bind'
-import { OnMutate, StopOnMutate, _onMutate, _stopOnMutate } from './modules/onMutate'
-import { OnResize, StopOnResize, _onResize, _stopOnResize } from './modules/onResize'
+import type { Text } from "./modules/text"
+import { _text } from "./modules/text"
+import type { Get } from "./modules/get"
+import { _get } from "./modules/get"
+import type { Is } from "./modules/is"
+import { _is } from "./modules/is"
+import type { On } from "./modules/on"
+import { _on } from "./modules/on"
+import type { Click } from "./modules/click"
+import { _click } from "./modules/click"
+import type { Del } from "./modules/del"
+import { _del } from "./modules/del"
+import type { CSS } from "./modules/css"
+import { _css } from "./modules/css"
+import type { ClassCheck, ClassManipulation } from "./modules/class"
+import { _addClass, _delClass, _hasClass, _toggleClass } from "./modules/class"
+import type { Each } from "./modules/each"
+import { _each } from "./modules/each"
+import type { AsyncEach } from "./modules/asyncEach"
+import { _asyncEach } from "./modules/asyncEach"
+import type { Nth } from "./modules/nth"
+import { _nth } from "./modules/nth"
+import type { First } from "./modules/first"
+import { _first } from "./modules/first"
+import type { Last } from "./modules/last"
+import { _last } from "./modules/last"
+import type { Odd } from "./modules/odd"
+import { _odd } from "./modules/odd"
+import type { Even } from "./modules/even"
+import { _even } from "./modules/even"
+import type { Next } from "./modules/next"
+import { _next } from "./modules/next"
+import { _prev } from "./modules/prev"
+import type { Children } from "./modules/children"
+import { _children } from "./modules/children"
+import type { Visibility } from "./modules/visibility"
+import { _hide, _show, _toggle } from "./modules/visibility"
+import type { GetAttr, SetAttr } from "./modules/attr"
+import { _getAttr, _setAttr } from "./modules/attr"
+import type { Filter } from "./modules/filter"
+import { _filter } from "./modules/filter"
+import type { Teleport } from "./modules/teleport"
+import { _teleport } from "./modules/teleport"
+import type { Hover } from "./modules/hover"
+import { _hover } from "./modules/hover"
+import type { Parent } from "./modules/parent"
+import { _parent } from "./modules/parent"
+import type { Wait } from "./modules/wait"
+import { _wait } from "./modules/wait"
+import type { Replace } from "./modules/replace"
+import { _replace, _staticReplace } from "./modules/replace"
+import type { Swap } from "./modules/swap"
+import { _staticSwap, _swap } from "./modules/swap"
+import type { NthChild } from "./modules/nthChild"
+import { _nthChild } from "./modules/nthChild"
+import type { Add, AddShorthand } from "./modules/add"
+import { _add, _append, _prepend } from "./modules/add"
+import { _addChild, _appendChild, _prependChild } from "./modules/addChild"
+import { Key } from "./modules/key"
+import type { Trigger } from "./modules/trigger"
+import { _trigger } from "./modules/trigger"
+import type { Animate } from "./modules/animate"
+import { _animate } from "./modules/animate"
+import { _fullscreen, _staticFullscreen } from "./modules/fullscreen"
+import type { Fullscreen } from "./modules/fullscreen"
+import { _fadeIn, _fadeOut, _fadeToggle } from "./modules/fade"
+import type { Fade, FadeToggle } from "./modules/fade"
+import type { Run } from "./modules/run"
+import { _run } from "./modules/run"
+import { queryDom } from "./util"
+import type { Query } from "./modules/query"
+import { _query } from "./modules/query"
+import { _slideDown, _slideToggle, _slideUp } from "./modules/slide"
+import type { Slide, SlideToggle } from "./modules/slide"
+import type { Siblings } from "./modules/siblings"
+import { _nextSiblings, _prevSiblings, _siblings } from "./modules/siblings"
+import type { Bind } from "./modules/bind"
+import { _bind } from "./modules/bind"
+import {
+  OnMutate,
+  StopOnMutate,
+  _onMutate,
+  _stopOnMutate
+} from "./modules/onMutate"
+import {
+  OnResize,
+  StopOnResize,
+  _onResize,
+  _stopOnResize
+} from "./modules/onResize"
 
 // TODO: every method using document.querySelector should be able to substitude a different dom selector
 // from the `this.doc` variable. Meaning we can scope down DOM searching
@@ -172,12 +182,6 @@ export class Curry {
     return await (this.taskQueue = this.taskQueue.then(fn))
   }
 
-  /* ----------  Static API  ---------- */
-
-  static fullscreen: StaticFullscreen = _staticFullscreen
-  static replace: StaticReplace = _staticReplace
-  static swap: StaticSwap = _staticSwap
-
   get length() {
     return this.nodes.length
   }
@@ -196,15 +200,11 @@ export class Curry {
    */
 
   static $fn(name: string, fn: (this: Curry) => void) {
-    Object.defineProperty(
-      Curry.prototype,
-      name,
-      {
-        value(this: Curry) {
-          fn.apply(this)
-          return this
-        },
-      },
-    )
+    Object.defineProperty(Curry.prototype, name, {
+      value(this: Curry) {
+        fn.apply(this)
+        return this
+      }
+    })
   }
 }
