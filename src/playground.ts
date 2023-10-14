@@ -1,10 +1,14 @@
-import { $ } from './curry'
+import { $ } from "./curry"
+import { delay } from "./curry/util"
 
-// Automatically runs a callback fn whenever the object property is changed or deleted
-// 1. Create a variable using the bind function
-const content = $('#app').bind({ msg: 'Hello' }, function ({ msg }) {
-  this.textContent = msg
-})
+function updateLogger() {
+  console.log("Resized!!!")
+}
 
-// 2. Change variable anywhere on the code
-content.msg = 'It works!!'
+$(".wrap").onResize(updateLogger).stopOnResize()
+
+// $(".wrap").css("width", "200px")
+
+await delay(500)
+
+// $(".wrap").css("width", "500px")
