@@ -88,6 +88,7 @@ import {
   _onResize,
   _stopOnResize
 } from "./modules/onResize"
+import { OnIntersect, StopOnIntersect, _onIntersect, _stopOnIntersect } from "./modules/onIntersect"
 
 // TODO: every method using document.querySelector should be able to substitude a different dom selector
 // from the `this.doc` variable. Meaning we can scope down DOM searching
@@ -170,6 +171,8 @@ export class Curry {
   stopOnMutate: StopOnMutate = _stopOnMutate.bind(this)
   onResize: OnResize = _onResize.bind(this)
   stopOnResize: StopOnResize = _stopOnResize.bind(this)
+  onIntersect: OnIntersect = _onIntersect.bind(this)
+  stopOnIntersect: StopOnIntersect = _stopOnIntersect.bind(this)
   // Experimental
   // @ts-expect-error I don't really understand this problem, sorry :/
   bind: Bind = _bind.bind(this)
