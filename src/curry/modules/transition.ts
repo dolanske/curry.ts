@@ -49,9 +49,7 @@ export const _transition: Transition = function(this, cb) {
     const onCallbackUpdate = (cb: TransitionLifecycle) => onCallbackUpdateCbs.push(cb)
 
     const transitionInstance = document.startViewTransition(() => {
-      // Callback stuff
       for (const node of this.nodes) {
-        
         cb.call(node, {
           onReady,
           onFinished,
@@ -93,4 +91,8 @@ export const _transition: Transition = function(this, cb) {
 //   onFinished(() => {
 
 //   })
+// })
+
+// $('button').click().wait(300).transition(({ self }) => {
+//   $(self).css('width', 500)
 // })
