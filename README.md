@@ -31,7 +31,7 @@ I think most developers are familiar with the jQuery syntax. This library heavil
 ```ts
 // Select a dom node using the `$()` function
 // Now you can build a chain of methods as long as you wish
-$('button').next().slideToggle(300)
+$('.heading').next('p').css('font-size', '12px')
 ```
 
 Curry builds on top of this concept by making the chain async. Next link is not executed until the previous one is resolved.
@@ -82,7 +82,7 @@ $.parent(selector?: NarrowSelector);
 
 Usage
 ```ts
-$('#parent').parent()
+$('#child').parent()
 ```
 ## children
 
