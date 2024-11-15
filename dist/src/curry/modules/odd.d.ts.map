@@ -1,0 +1,1 @@
+{"version":3,"file":"odd.d.ts","sourceRoot":"","sources":["../../../../src/curry/modules/odd.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,KAAK,EAAE,MAAM,IAAI,CAAA;AAC/B,OAAO,KAAK,EAAE,gBAAgB,EAAE,MAAM,UAAU,CAAA;AAGhD,MAAM,MAAM,GAAG,GAAG,CAAC,IAAI,EAAE,KAAK,EAAE,QAAQ,CAAC,EAAE,gBAAgB,KAAK,KAAK,CAAA;AAErE;;;;;GAKG;AAEH,eAAO,MAAM,IAAI,EAAE,GAiBlB,CAAA"}

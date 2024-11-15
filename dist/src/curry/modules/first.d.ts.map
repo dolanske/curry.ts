@@ -1,0 +1,1 @@
+{"version":3,"file":"first.d.ts","sourceRoot":"","sources":["../../../../src/curry/modules/first.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,KAAK,EAAE,MAAM,IAAI,CAAA;AAC/B,OAAO,KAAK,EAAE,eAAe,EAAE,MAAM,UAAU,CAAA;AAG/C,MAAM,MAAM,KAAK,GAAG,CAAC,IAAI,EAAE,KAAK,EAAE,QAAQ,CAAC,EAAE,eAAe,KAAK,KAAK,CAAA;AAEtE;;;;;;GAMG;AAEH,eAAO,MAAM,MAAM,EAAE,KAepB,CAAA"}
