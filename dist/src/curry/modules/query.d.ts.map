@@ -1,1 +1,0 @@
-{"version":3,"file":"query.d.ts","sourceRoot":"","sources":["../../../../src/curry/modules/query.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,KAAK,EAAE,QAAQ,EAAE,MAAM,IAAI,CAAA;AAGzC,MAAM,MAAM,KAAK,GAAG,CAClB,IAAI,EAAE,KAAK,EACX,QAAQ,EAAE,QAAQ,EAClB,MAAM,CAAC,EAAE,OAAO,KACb,KAAK,CAAA;AAEV;;;;;;;;GAQG;AAEH,eAAO,MAAM,MAAM,EAAE,KAapB,CAAA"}
