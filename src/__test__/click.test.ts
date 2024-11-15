@@ -2,11 +2,11 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $, Curry } from '../curry/index'
 import { delay } from '../curry/util'
 
-test('Click event listener with callback', async () => {
+it('click event listener with callback', async () => {
   const btn = document.createElement('button')
   document.body.appendChild(btn)
 
@@ -20,7 +20,7 @@ test('Click event listener with callback', async () => {
   btn.click()
 })
 
-test('Chain click events', async () => {
+it('chain click events', async () => {
   const btn = document.createElement('button')
   document.body.appendChild(btn)
 

@@ -2,16 +2,16 @@
  * @vitest-environment jsdom
  */
 
-import { describe, expect, test } from 'vitest'
-import { $, Curry } from '../curry'
-import { History, Key, handleKeyPress } from '../curry/modules/key'
 import type { KeyboardEventKey } from '../curry/keycodes'
+import { describe, expect, it } from 'vitest'
+import { $, Curry } from '../curry'
+import { handleKeyPress, History, Key } from '../curry/modules/key'
 import { delay } from '../curry/util'
 
 const key = new Key($(document))
 
-describe('Keyboard events handling', () => {
-  test('History utility class', async () => {
+describe('keyboard events handling', () => {
+  it('history utility class', async () => {
     const keys: KeyboardEventKey[] = ['Control', 'c']
     const history = new History(keys.length)
 
@@ -31,11 +31,11 @@ describe('Keyboard events handling', () => {
     expect(match2).toBeFalsy()
   })
 
-  test('Key class', () => {
+  it('key class', () => {
     expect(key.curryInstance).toBeInstanceOf(Curry)
   })
 
-  test('Key press handling', async () => {
+  it('key press handling', async () => {
     handleKeyPress.call(
       key.curryInstance,
       'keydown',

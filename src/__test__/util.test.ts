@@ -2,20 +2,20 @@
  * @vitest-environment jsdom
  */
 
-import { describe, expect, test } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { getSiblingIndex, isArray, isFunction, isNil, isObject } from '../curry/util'
 
-describe('Testing utility functions', () => {
-  test('[fn] isArray', () => {
+describe('testing utility functions', () => {
+  it('[fn] isArray', () => {
     expect(isArray([])).toBeTruthy()
-    expect(new Array(10)).toBeTruthy()
+    expect(Array.from({ length: 10 })).toBeTruthy()
 
     // @ts-expect-error No param check
     expect(isArray()).toBeFalsy()
     expect(isArray('Hello World')).toBeFalsy()
   })
 
-  test('[fn] isObject', () => {
+  it('[fn] isObject', () => {
     expect(isObject({})).toBeTruthy()
     expect(new Map()).toBeTruthy()
     expect(new Set()).toBeTruthy()
@@ -25,7 +25,7 @@ describe('Testing utility functions', () => {
     expect(isObject('')).toBeFalsy()
   })
 
-  test('[fn] isFunction', () => {
+  it('[fn] isFunction', () => {
     expect(isFunction(() => {})).toBeTruthy()
 
     // @ts-expect-error No param check
@@ -33,7 +33,7 @@ describe('Testing utility functions', () => {
     expect(isFunction({})).toBeFalsy()
   })
 
-  test('[fn] isNil', () => {
+  it('[fn] isNil', () => {
     expect(isNil(null)).toBeTruthy()
     expect(isNil(undefined)).toBeTruthy()
     expect(isNil()).toBeTruthy()
@@ -43,7 +43,7 @@ describe('Testing utility functions', () => {
     expect(isNil({})).toBeFalsy()
   })
 
-  test('[fn] getSiblingIndex()', () => {
+  it('[fn] getSiblingIndex()', () => {
     const wrapper = document.createElement('div')
     const childA = document.createElement('p')
     const childB = document.createElement('p')

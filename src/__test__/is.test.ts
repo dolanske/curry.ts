@@ -2,11 +2,11 @@
  * @vitest-environment jsdom
  */
 
-import { describe, expect, test } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { $ } from '../curry/index'
 
-describe('Conditional element matching', () => {
-  test('Single condition', async () => {
+describe('conditional element matching', () => {
+  it('single condition', async () => {
     const div = document.createElement('div')
     div.id = 'test'
 
@@ -16,7 +16,7 @@ describe('Conditional element matching', () => {
     expect($(div).is()).toBeFalsy()
   })
 
-  test('Multiple condition and apply types', async () => {
+  it('multiple condition and apply types', async () => {
     const div = document.createElement('div')
     div.id = 'id'
     div.classList.add('class')

@@ -1,6 +1,6 @@
 import type { Curry } from '..'
-import { toEl } from '../util'
 import type { EventCallback } from '../types'
+import { toEl } from '../util'
 
 export type On = (
   this: Curry,

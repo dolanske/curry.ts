@@ -2,10 +2,10 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $, Curry } from '../curry/index'
 
-test('Select element at provided index', async () => {
+it('select element at provided index', async () => {
   const div = document.createElement('div')
 
   for (let i = 0; i < 5; i++) {
@@ -26,7 +26,7 @@ test('Select element at provided index', async () => {
   ])
 })
 
-test('Select element at provided index with callback', async () => {
+it('select element at provided index with callback', async () => {
   const div = document.createElement('div')
 
   for (let i = 0; i < 5; i++) {

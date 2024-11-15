@@ -1,10 +1,10 @@
 // functions related to keypress events
 
 import type { Curry } from '..'
-import { $ } from '..'
-import type { KeyboardEventCallback } from '../types'
-import { toEl } from '../util'
 import type { KeyboardEventKey } from '../keycodes'
+import type { KeyboardEventCallback } from '../types'
+import { $ } from '..'
+import { toEl } from '../util'
 
 type KeyboardEvents = 'keydown' | 'keyup' | 'keypress'
 type Keys = KeyboardEventKey | KeyboardEventKey[]

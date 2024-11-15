@@ -2,11 +2,11 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $ } from '../curry/index'
 import { delay } from '../curry/util'
 
-test('Return attributes from selected elements', async () => {
+it('return attributes from selected elements', async () => {
   const div = document.createElement('div')
   div.title = 'Hello World'
   div.id = 'test'
@@ -22,7 +22,7 @@ test('Return attributes from selected elements', async () => {
   expect(nonExistent).toBe(null)
 })
 
-test('Set attributes for selected elements', async () => {
+it('set attributes for selected elements', async () => {
   const div = document.createElement('div')
 
   $(div).setAttr('title', 'Hello World')

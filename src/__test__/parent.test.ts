@@ -2,10 +2,10 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $ } from '../curry/index'
 
-test('Select parent element', async () => {
+it('select parent element', async () => {
   // Prepare some DOM elements
   const div = document.createElement('div')
   const first = document.createElement('span')
@@ -22,7 +22,7 @@ test('Select parent element', async () => {
   expect(parentButWrongSelector).toBeUndefined()
 })
 
-test('Select multiple parent elements', async () => {
+it('select multiple parent elements', async () => {
   // Prepare some DOM elements
 
   const parent1 = document.createElement('div')

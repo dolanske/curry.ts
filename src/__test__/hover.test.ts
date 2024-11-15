@@ -1,7 +1,7 @@
-import { describe, test } from 'vitest'
+import { describe, it } from 'vitest'
 
-describe.skip('Event suite for $.hover', () => {
-  test('Simple hover', () => {
+describe.skip('event suite for $.hover', () => {
+  it('simple hover', () => {
 
   })
 })

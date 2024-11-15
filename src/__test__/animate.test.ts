@@ -2,7 +2,7 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $ } from '../curry'
 import { delay, toEl } from '../curry/util'
 
@@ -10,7 +10,7 @@ import { delay, toEl } from '../curry/util'
 // #2 Trigger onFinish
 // #3 Test that all chained functions behind animation wait for it to complete
 
-test('Basic animation options', async () => {
+it('basic animation options', async () => {
   $(document.body).animate({ height: '500px' }, {
     duration: 10,
     easing: 'ease-in-out',
@@ -22,7 +22,7 @@ test('Basic animation options', async () => {
   })
 })
 
-test('Cancel animation mid execution', () => {
+it('cancel animation mid execution', () => {
   $(document.body).animate({ height: 0 }, {
     duration: 1000,
     async onStart(animation) {
@@ -37,7 +37,7 @@ test('Cancel animation mid execution', () => {
   })
 })
 
-test('Animate multiple elements', () => {
+it('animate multiple elements', () => {
   for (let i = 0; i < 3; i++)
     document.body.appendChild(document.createElement('div'))
 

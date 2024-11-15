@@ -1,5 +1,5 @@
-import { Curry } from ".."
-import { toEl } from "../util"
+import type { Curry } from '..'
+import { toEl } from '../util'
 
 export type OnResize = (
   this: Curry,
@@ -27,8 +27,8 @@ const registry = new WeakMap<Node, ResizeObserver>()
 export const _onResize: OnResize = function (this, fn, options) {
   this.queue(async () => {
     // Check if API is supported, if not, this chain is skipped with a warning
-    if (!("ResizeObserver" in window)) {
-      return console.warn("Unsupported API - Mutation Observer")
+    if (!('ResizeObserver' in window)) {
+      return console.warn('Unsupported API - Mutation Observer')
     }
 
     return new Promise((resolve) => {
@@ -90,7 +90,8 @@ export const _stopOnResize: StopOnResize = function (this) {
 export function stopOnResize(node: Node | Node[]) {
   if (node instanceof Node) {
     _removeEntry(node)
-  } else {
+  }
+  else {
     for (const _node of node) {
       _removeEntry(_node)
     }

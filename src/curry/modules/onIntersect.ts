@@ -1,8 +1,8 @@
-import { Curry } from "..";
-import { toEl } from "../util";
+import type { Curry } from '..'
+import { toEl } from '../util'
 
-type IntersectOptionsNoRoot = {
-  rootMargin?: IntersectionObserver['rootMargin'],
+interface IntersectOptionsNoRoot {
+  rootMargin?: IntersectionObserver['rootMargin']
   threshold: number | number[]
 }
 
@@ -15,10 +15,9 @@ export type OnIntersect = (
 
 const registry = new WeakMap<Node, IntersectionObserver>()
 
-
 /**
  * Observes teh selected nodes and how they interact with the provided root element.
- * 
+ *
  * @param root Root element which we observer the provided nodes against
  * @param cb Callback to execute on intersection update
  * @param options Optional object to customize the observer
@@ -28,8 +27,8 @@ const registry = new WeakMap<Node, IntersectionObserver>()
 export const _onIntersect: OnIntersect = function (root, cb, options) {
   this.queue(() => {
     // Check if API is supported, if not, this chain is skipped with a warning
-    if (!("IntersectionObserver" in window)) {
-      return console.warn("Unsupported API - Intersection Observer")
+    if (!('IntersectionObserver' in window)) {
+      return console.warn('Unsupported API - Intersection Observer')
     }
 
     const defaults: IntersectOptionsNoRoot = {
@@ -92,7 +91,8 @@ export const _stopOnIntersect: StopOnIntersect = function (this) {
 export function stopOnIntersect(node: Node | Node[]) {
   if (node instanceof Node) {
     _removeEntry(node)
-  } else {
+  }
+  else {
     for (const _node of node) {
       _removeEntry(_node)
     }

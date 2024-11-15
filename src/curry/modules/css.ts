@@ -1,7 +1,7 @@
 import type { Properties, PropertiesHyphen } from 'csstype'
 import type { Curry } from '..'
-import { isNil, toEl } from '../util'
 import type { ValueOf } from '../types'
+import { isNil, toEl } from '../util'
 
 interface CSSStyle extends Properties, PropertiesHyphen {}
 

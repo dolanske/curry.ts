@@ -2,10 +2,10 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $ } from '../curry'
 
-test('Query new set of dom nodes for a chain using $.query', async () => {
+it('query new set of dom nodes for a chain using $.query', async () => {
   const p = document.createElement('p')
   const b1 = document.createElement('b')
   const b2 = document.createElement('b')

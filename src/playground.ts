@@ -1,14 +1,13 @@
-import { $ } from "./curry"
-import { delay } from "./curry/util"
+import { $ } from './curry'
 
-function updateLogger() {
-  console.log("Resized!!!")
-}
+const state = $('#app').state({ count: 0 }, function (data) {
+  this.textContent = String(data.count)
+})
 
-$(".wrap").onResize(updateLogger).stopOnResize()
+setTimeout(() => {
+  state.count++
+}, 500)
 
-// $(".wrap").css("width", "200px")
-
-await delay(500)
-
-// $(".wrap").css("width", "500px")
+setTimeout(() => {
+  state.count++
+}, 1000)

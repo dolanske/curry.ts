@@ -2,11 +2,11 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $ } from '../curry/index'
 import { delay } from '../curry/util'
 
-test('Replace text using $.text()', async () => {
+it('replace text using $.text()', async () => {
   const el = document.createElement('span')
   $(el).text('Hello')
 
@@ -15,7 +15,7 @@ test('Replace text using $.text()', async () => {
   expect(el).toHaveProperty('textContent', 'Hello')
 })
 
-test('Append text using $.text()', async () => {
+it('append text using $.text()', async () => {
   // Replace
   const el = document.createElement('span')
   $(el).text('Hello')
@@ -26,7 +26,7 @@ test('Append text using $.text()', async () => {
   expect(el).toHaveProperty('textContent', 'Hello World')
 })
 
-test('Prepend text using $.text()', async () => {
+it('prepend text using $.text()', async () => {
   const el = document.createElement('span')
   $(el).text('Hello')
   $(el).text('World ', 'prepend')

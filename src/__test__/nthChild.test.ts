@@ -2,7 +2,7 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $, Curry } from '../curry/index'
 
 const div = document.createElement('div')
@@ -13,7 +13,7 @@ for (let i = 0; i < 5; i++) {
   div.appendChild(span)
 }
 
-test('Select an element child at provided index', async () => {
+it('select an element child at provided index', async () => {
   const shouldBeSecond = await $(div).nthChild(2).get()
   expect(shouldBeSecond).toStrictEqual([div.children[1]])
 
@@ -24,7 +24,7 @@ test('Select an element child at provided index', async () => {
   ])
 })
 
-test('Select an element child at provided index with callback', async () => {
+it('select an element child at provided index with callback', async () => {
   $(div).nthChild([2, 3], function ({ self, index, instance }) {
     if (index === 2) {
       expect(this).toStrictEqual(div.children[1])

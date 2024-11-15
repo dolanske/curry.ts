@@ -2,11 +2,11 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $, Curry } from '../curry/index'
 import { delay } from '../curry/util'
 
-test('Select every even element', async () => {
+it('select every even element', async () => {
   const div = document.createElement('div')
 
   for (let i = 0; i < 4; i++) {
@@ -23,7 +23,7 @@ test('Select every even element', async () => {
   expect(evenChildren).toStrictEqual([div.children[0], div.children[2]])
 })
 
-test('Apply correct callback parameters to $.even()', () => {
+it('apply correct callback parameters to $.even()', () => {
   const div = document.createElement('div')
   for (let i = 0; i < 2; i++) {
     const span = document.createElement('span')

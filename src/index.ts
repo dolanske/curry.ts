@@ -1,11 +1,19 @@
 export {
-  Curry,
   $,
+  Curry,
 } from './curry'
 
 export {
   _staticFullscreen as fullscreen,
 } from './curry/modules/fullscreen'
+
+export {
+  stopOnMutate,
+} from './curry/modules/onMutate'
+
+export {
+  stopOnResize,
+} from './curry/modules/onResize'
 
 export {
   _staticReplace as replace,
@@ -14,11 +22,3 @@ export {
 export {
   _staticSwap as swap,
 } from './curry/modules/swap'
-
-export {
-  stopOnMutate
-} from "./curry/modules/onMutate"
-
-export {
-  stopOnResize
-} from "./curry/modules/onResize"

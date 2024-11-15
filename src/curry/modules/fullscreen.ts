@@ -30,7 +30,7 @@ export const _staticFullscreen: StaticFullscreen = async function (target, optio
   if (typeof target === 'string') {
     const _target = _document.querySelector(target)
     if (!_target)
-      return Promise.reject(Error('[$.fullscreen] Target does not exist'))
+      return Promise.reject(new Error('[$.fullscreen] Target does not exist'))
     target = _target
   }
 
@@ -39,7 +39,7 @@ export const _staticFullscreen: StaticFullscreen = async function (target, optio
     const parsed = toEl<Element>(target)
 
     if (!Object.hasOwn(target, 'requestFullscreen'))
-      return Promise.reject(Error('[$.fullscreen] Target does not implement the fullscreen API'))
+      return Promise.reject(new Error('[$.fullscreen] Target does not implement the fullscreen API'))
 
     // If true, meaning there already is something fullscreen
     if (_document.fullscreenElement)
@@ -52,11 +52,11 @@ export const _staticFullscreen: StaticFullscreen = async function (target, optio
       })
       .catch(e => options?.onError
         ? options?.onError.apply(target, [e])
-        : Promise.reject(Error('[$.fullscreen] Error during initialization.')),
+        : Promise.reject(new Error('[$.fullscreen] Error during initialization.')),
       )
   }
 
-  return Promise.reject(Error('[$.fullscreen] Target does not exist'))
+  return Promise.reject(new Error('[$.fullscreen] Target does not exist'))
 }
 
 /**

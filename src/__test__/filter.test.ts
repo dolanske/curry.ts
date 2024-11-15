@@ -2,10 +2,10 @@
  * @vitest-environment jsdom
  */
 
-import { describe, expect, test } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { $, Curry } from '../curry/index'
 
-describe('Filter element selection', () => {
+describe('filter element selection', () => {
   // Prepare DOM stuff
   const div = document.createElement('div')
   for (let i = 0; i < 4; i++) {
@@ -14,7 +14,7 @@ describe('Filter element selection', () => {
     div.appendChild(span)
   }
 
-  test('Filter on selected elements with callback function', async () => {
+  it('filter on selected elements with callback function', async () => {
     const filtered = await $(div)
       .children()
       .filter(function ({ self, index, instance }) {
@@ -28,12 +28,12 @@ describe('Filter element selection', () => {
     expect(filtered).toStrictEqual([div.children[1]])
   })
 
-  test('Filter on selected elements with 1 rule', async () => {
+  it('filter on selected elements with 1 rule', async () => {
     const filtered = await $(div).children().filter('#span2').get()
     expect(filtered).toStrictEqual([div.children[2]])
   })
 
-  test('Filter on selected elements with set of rules', async () => {
+  it('filter on selected elements with set of rules', async () => {
     // Filters with returned values
     const filtered1 = await $(div)
       .children()

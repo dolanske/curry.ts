@@ -2,10 +2,10 @@
  * @vitest-environment jsdom
  */
 
-import { describe, expect, test } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { $ } from '../curry'
 
-describe('Selecting siblings', async () => {
+describe('selecting siblings', async () => {
   const first = document.createElement('div')
   first.id = 'first'
 
@@ -19,7 +19,7 @@ describe('Selecting siblings', async () => {
   document.body.appendChild(second)
   document.body.appendChild(third)
 
-  test('Selecting all siblings', async () => {
+  it('selecting all siblings', async () => {
     const all = await $(second).siblings().get()
     expect(all).toStrictEqual([first, third])
 
@@ -28,7 +28,7 @@ describe('Selecting siblings', async () => {
     expect(filtered).toStrictEqual([first])
   })
 
-  test('Selecting previous siblings', async () => {
+  it('selecting previous siblings', async () => {
     const elements = await $(third).prevSiblings().get()
     expect(elements).toStrictEqual([first, second])
 
@@ -37,7 +37,7 @@ describe('Selecting siblings', async () => {
     expect(filtered).toBeUndefined()
   })
 
-  test('Selecting next siblings', async () => {
+  it('selecting next siblings', async () => {
     const elements = await $(first).nextSiblings().get()
     expect(elements).toStrictEqual([second, third])
 

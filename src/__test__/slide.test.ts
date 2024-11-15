@@ -2,7 +2,7 @@
  * @vitest-environment jsdom
  */
 
-import { beforeEach, describe, expect, test } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { $ } from '../curry'
 import { delay } from '../curry/util'
 
@@ -13,7 +13,7 @@ describe('$.slide() methods', () => {
     document.body.innerHTML = ''
   })
 
-  test('slideUp & slideDown', async () => {
+  it('slideUp & slideDown', async () => {
     const el = document.createElement('div')
     document.body.appendChild(el)
     const start = performance.now()
@@ -37,7 +37,7 @@ describe('$.slide() methods', () => {
     expect((document.body.children[0] as HTMLDivElement).style.getPropertyValue('overflow')).toBe('')
   })
 
-  test('slideDown without being previously slid up', async () => {
+  it('slideDown without being previously slid up', async () => {
     const el = document.createElement('div')
 
     el.style.display = 'none'
@@ -50,7 +50,7 @@ describe('$.slide() methods', () => {
   })
 
   // Literally just a copy but methods are exchanged for the toggle version
-  test('slideToggle', async () => {
+  it('slideToggle', async () => {
     const el = document.createElement('div')
     document.body.appendChild(el)
     const start = performance.now()
@@ -71,7 +71,7 @@ describe('$.slide() methods', () => {
     expect((document.body.children[0] as HTMLDivElement).style.getPropertyValue('overflow')).toBe('')
   })
 
-  test('slideToggle multiple nodes with the override option', async () => {
+  it('slideToggle multiple nodes with the override option', async () => {
     const el1 = document.createElement('div')
     const el2 = document.createElement('span')
 

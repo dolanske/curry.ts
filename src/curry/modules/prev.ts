@@ -1,5 +1,5 @@
-import { selectNTHSibling } from '../util'
 import type { Next } from './next'
+import { selectNTHSibling } from '../util'
 
 /**
  *

@@ -1,5 +1,5 @@
-import { isArray, toEl } from '../util'
 import type { Add, AddShorthand } from './add'
+import { isArray, toEl } from '../util'
 
 export const _addChild: Add = function (this, node, location = 'append') {
   this.queue(() => {

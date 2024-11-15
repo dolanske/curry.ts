@@ -1,4 +1,4 @@
-import { Curry } from ".."
+import type { Curry } from '..'
 
 export type OnMutate = (
   this: Curry,
@@ -26,15 +26,15 @@ const registry = new WeakMap<Node, MutationObserver>()
 export const _onMutate: OnMutate = function (this, fn, options = {}) {
   this.queue(async () => {
     // Check if API is supported, if not, this chain is skipped with a warning
-    if (!("MutationObserver" in window)) {
-      return console.warn("Unsupported API - Mutation Observer")
+    if (!('MutationObserver' in window)) {
+      return console.warn('Unsupported API - Mutation Observer')
     }
 
     return new Promise((resolve) => {
       const defaults: MutationObserverInit = {
         attributes: true,
         childList: true,
-        subtree: true
+        subtree: true,
       }
       options = Object.assign(options, defaults)
 
@@ -94,7 +94,8 @@ export const _stopOnMutate: StopOnMutate = function (this) {
 export function stopOnMutate(node: Node | Node[]) {
   if (node instanceof Node) {
     _removeEntry(node)
-  } else {
+  }
+  else {
     for (const _node of node) {
       _removeEntry(_node)
     }

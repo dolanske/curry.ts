@@ -2,10 +2,10 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $ } from '../curry/index'
 
-test('Selects the next node $.next()', async () => {
+it('selects the next node $.next()', async () => {
   // Prepare some DOM elements
   const div = document.createElement('div')
   const first = document.createElement('span')

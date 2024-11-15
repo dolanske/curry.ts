@@ -2,11 +2,11 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $ } from '../curry/index'
 import { delay } from '../curry/util'
 
-test('Pauses chain for 10ms', async () => {
+it('pauses chain for 10ms', async () => {
   const span = document.createElement('span')
 
   $(span).wait(10).text('Hello')

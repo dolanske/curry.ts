@@ -2,10 +2,10 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $ } from '../curry'
 
-test('Get all children using $.children', () => {
+it('get all children using $.children', () => {
   const first = document.createElement('span')
   const second = document.createElement('span')
 
@@ -17,7 +17,7 @@ test('Get all children using $.children', () => {
   })
 })
 
-test('Select specific children with a selector in $.children', () => {
+it('select specific children with a selector in $.children', () => {
   const first = document.createElement('b')
   const second = document.createElement('p')
 

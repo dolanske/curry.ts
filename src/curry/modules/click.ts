@@ -1,6 +1,6 @@
 import type { Curry } from '..'
-import { $ } from '..'
 import type { EventCallback } from '../types'
+import { $ } from '..'
 import { toEl } from '../util'
 
 export type Click = (this: Curry, callback?: EventCallback) => Curry

@@ -2,11 +2,11 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $ } from '../curry/index'
 import { delay } from '../curry/util'
 
-test('Assign inline styles using $.css()', async () => {
+it('assign inline styles using $.css()', async () => {
   const div = document.createElement('div')
 
   $(div).css('color', 'red')
@@ -18,7 +18,7 @@ test('Assign inline styles using $.css()', async () => {
   expect(div).toHaveProperty('style.opacity', '50')
 })
 
-test('Assign inline style object using $.css()', async () => {
+it('assign inline style object using $.css()', async () => {
   const div = document.createElement('div')
 
   $(div).css({

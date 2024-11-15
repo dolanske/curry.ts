@@ -83,12 +83,12 @@ export const _animate: Animate = function (this, animator, options = {}) {
         if (onCancel)
           onCancel(animation, err)
         else
-          console.log('[$.animate] Animation cancelled \n', err)
+          console.warn('[$.animate] Animation cancelled \n', err)
       }
 
       // Animation is automatically removed by the browser
       // https://developer.mozilla.org/en-US/docs/Web/API/Animation#automatically_removing_filling_animations
-      animation.onremove = err => console.log('[$.animate] Animation removed by the browser \n', err)
+      animation.onremove = err => console.warn('[$.animate] Animation removed by the browser \n', err)
 
       // Wait until animation completes
       promises.push(animation.finished)

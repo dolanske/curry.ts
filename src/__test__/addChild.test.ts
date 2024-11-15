@@ -2,12 +2,12 @@
  * @vitest-environment jsdom
  */
 
-import { describe, expect, test } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { $ } from '../curry/index'
 import { delay } from '../curry/util'
 
-describe('Adding element child nodes', () => {
-  test('Create new child elements using $.addChild()', async () => {
+describe('adding element child nodes', () => {
+  it('create new child elements using $.addChild()', async () => {
     const wrapper = document.createElement('div')
     wrapper.appendChild(document.createElement('span'))
 
@@ -21,7 +21,7 @@ describe('Adding element child nodes', () => {
     expect(wrapper.children[2]).toBeInstanceOf(HTMLAnchorElement)
   })
 
-  test('Create new child elements using $.appendChild and $.prependChild shorthands', async () => {
+  it('create new child elements using $.appendChild and $.prependChild shorthands', async () => {
     const wrapper = document.createElement('div')
     wrapper.appendChild(document.createElement('span'))
 

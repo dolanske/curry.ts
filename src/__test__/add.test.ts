@@ -2,12 +2,12 @@
  * @vitest-environment jsdom
  */
 
-import { describe, expect, test } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { $ } from '../curry/index'
 import { delay } from '../curry/util'
 
-describe('Creating elements adjacent to the selected element', () => {
-  test('Append a new element next to the wrapper', async () => {
+describe('creating elements adjacent to the selected element', () => {
+  it('append a new element next to the wrapper', async () => {
     const wrapper = document.createElement('div')
     const base = document.createElement('span')
     wrapper.appendChild(base)
@@ -22,7 +22,7 @@ describe('Creating elements adjacent to the selected element', () => {
     expect(wrapper.children[2]).toBeInstanceOf(HTMLAnchorElement)
   })
 
-  test('Preppend a new element before the wrapper', async () => {
+  it('preppend a new element before the wrapper', async () => {
     const wrapper = document.createElement('div')
     const base = document.createElement('span')
     wrapper.appendChild(base)
@@ -37,7 +37,7 @@ describe('Creating elements adjacent to the selected element', () => {
     expect(wrapper.children[2]).toStrictEqual(base)
   })
 
-  test('Using $.prepend shorthand', async () => {
+  it('using $.prepend shorthand', async () => {
     const wrapper = document.createElement('div')
     const base = document.createElement('span')
     wrapper.appendChild(base)
@@ -52,7 +52,7 @@ describe('Creating elements adjacent to the selected element', () => {
     expect(wrapper.children[2]).toStrictEqual(base)
   })
 
-  test('sing $.append shorthand', async () => {
+  it('sing $.append shorthand', async () => {
     const wrapper = document.createElement('div')
     const base = document.createElement('span')
     wrapper.appendChild(base)

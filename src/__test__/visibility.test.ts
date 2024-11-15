@@ -2,11 +2,11 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $ } from '../curry/index'
 import { delay } from '../curry/util'
 
-test('Hide  element with $.hide()', async () => {
+it('hide  element with $.hide()', async () => {
   const div = document.createElement('div')
   div.style.display = 'none'
 
@@ -15,7 +15,7 @@ test('Hide  element with $.hide()', async () => {
   expect(div).toHaveProperty('style.display', 'none')
 })
 
-test('Show hidden element with $.show()', async () => {
+it('show hidden element with $.show()', async () => {
   const div = document.createElement('div')
   div.style.display = 'none'
 
@@ -24,7 +24,7 @@ test('Show hidden element with $.show()', async () => {
   expect(div).toHaveProperty('style.display', '')
 })
 
-test('Toggle show/hide element with $.show()', async () => {
+it('toggle show/hide element with $.show()', async () => {
   const div = document.createElement('div')
 
   $(div).toggle()

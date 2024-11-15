@@ -2,13 +2,13 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test, vi } from 'vitest'
+import { expect, it, vi } from 'vitest'
 import { $ } from '../curry'
 import { delay } from '../curry/util'
 
 const span = document.createComment('span')
 
-test('Test async $.run', async () => {
+it('test async $.run', async () => {
   const start = performance.now()
   const timeout = 250
 
@@ -20,7 +20,7 @@ test('Test async $.run', async () => {
 
 const fn = vi.fn(() => {})
 
-test('Test sync $.run', async () => {
+it('test sync $.run', async () => {
   await $(span).run(fn).run(fn).run(fn).get()
 
   expect(fn).toHaveBeenCalledTimes(3)

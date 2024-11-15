@@ -1,7 +1,7 @@
-import type { PrevNextCallback } from './types'
-import { CURRY_ATTR_PREFIX } from './config'
 import type { Selector } from '.'
+import type { PrevNextCallback } from './types'
 import { Curry } from '.'
+import { CURRY_ATTR_PREFIX } from './config'
 
 export function isArray(value: any): value is any[] {
   if (!value)

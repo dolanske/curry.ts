@@ -61,7 +61,7 @@ The primary selector which spawns a new chain
 
 ```ts
 // `selector` Queries the relevant dom nodes using document.querySelectorAll()
-// `document` Allows inserting a specific document node 
+// `document` Allows inserting a specific document node
 $(selector: NarrowSelector, document?: Document);
 ```
 
@@ -78,7 +78,7 @@ $('#trigger').click().text('I was clicked!')
 Select element's parent node
 ```ts
 $.parent(selector?: NarrowSelector);
-``` 
+```
 
 Usage
 ```ts
@@ -89,7 +89,7 @@ $('#child').parent()
 Select element's child nodes
 ```ts
 $.children(selector?: NarrowSelector);
-``` 
+```
 
 Usage
 ```ts
@@ -137,7 +137,7 @@ Selects all sibling elements rendered *after* the current selector
 ```ts
 $.nextSiblings(selector?: NarrowSelector);
 ```
-  
+
 ## first
 
 Filter down selected elements to the first one. Optionally executes the provided callback
@@ -156,7 +156,7 @@ $.last(callback?: GenericCallback);
 
 Selects the previous element sibling, if there is one available.
 ```ts
-// `index` select a previous sibling at specific index (starting from the current selector). 
+// `index` select a previous sibling at specific index (starting from the current selector).
 // Providing `0` and `1` will have the same result as using `prev()`
 $.prev(index?: number | PrevNextCallback, callback?: PrevNextCallback);
 ```
@@ -169,7 +169,7 @@ $('button').click().prev().text('I am the previous element')
 
 Selects the next element sibling, if there is one available.
 ```ts
-// `index` select a next sibling at specific index (starting from the current selector). 
+// `index` select a next sibling at specific index (starting from the current selector).
 // Providing `0` and `1` will have the same result as using `prev()`
 $.next(index?:number | PrevNextCallback, callback?: PrevNextCallback);
 ```
@@ -184,7 +184,7 @@ $('button').click().next().hide()
 Allows querying new set of DOM nodes during a chain execution instead of having to create new chain. The previously selected nodes can be optionally preserved.
 
 ```ts
-// `append` if set to `true`, the previously queried elements are preserved 
+// `append` if set to `true`, the previously queried elements are preserved
 $.query(selector: NarrowSelector, append?: boolean);
 ```
 
@@ -211,7 +211,7 @@ $('span#id').is('span') // true
 
 ## Events
 
-[on](#on) • [click](#click) • [key](#key) • [hover](#hover) • [trigger](#trigger) 
+[on](#on) • [click](#click) • [key](#key) • [hover](#hover) • [trigger](#trigger)
 
 Bind and trigger DOM events. This functionality is similar to how jQuery works, but it's been significantly improved upon.
 
@@ -255,7 +255,7 @@ $('button').on('click').text('Clicked!')
 
 Attach keyboard events to the selected elements. This is not a method but an object and can not have any more links chained to it.
 ```ts
-// `keys` 
+// `keys`
 $.key.down(keys: KeyboardEventKey | KeyboardEventKey[], callback: KeyboardEventCallback);
 $.key.up(keys: KeyboardEventKey | KeyboardEventKey[], callback: KeyboardEventCallback);
 $.key.press(keys: KeyboardEventKey | KeyboardEventKey[], callback: KeyboardEventCallback);
@@ -273,7 +273,7 @@ $(window).key.down(['Ctrl', 'C'], () => {})
 Shorthand for attaching `mouseenter` and `mouseleave` to selected elements. Supports two different syntaxes.
 Note: `hover` does not support trigger chaining. If you wish to trigger chains on hover, use the `$.on('mouseenter').<chain>` syntax
 ```ts
-// Experimental: Attempts to restore element to its pre-hover state. Meaning if 
+// Experimental: Attempts to restore element to its pre-hover state. Meaning if
 // any styles / classes are removed once the user stops hovering the element
 $('div').hover(callback?: EventCallback, options?: EventListenerOptions);
 
@@ -305,7 +305,7 @@ $(window).on('resize', function () {
 
 ## Attributes
 
-[classes](#classes) • [hasClass](#hasClass) • [display](#display) • [css](#css) • [setAttr](#setAttr) • [getAttr](#getAttr) 
+[classes](#classes) • [hasClass](#hasClass) • [display](#display) • [css](#css) • [setAttr](#setAttr) • [getAttr](#getAttr)
 
 Interaction with DOM element attributes and application of non-animation stylistic changes to elements
 
@@ -357,7 +357,7 @@ $('button').click().next().css({
 
 ## setAttr
 
-Add a specific attribute and its value to the selected elements. 
+Add a specific attribute and its value to the selected elements.
 If the attribute value is `null`, it will instead remove the attribute.
 ```ts
 type Attr = Record<string, string | number>;
@@ -491,7 +491,6 @@ $.slideToggle(options?: SlideToggleOptions);
 
 [each](#each) • [asyncEach](#asyncEach) • [odd](#odd) • [even](#even) • [filter](#filter)
 
-
 These method iterate over the selected elements and execute the provided callback. This callback exposes each of the elements as well as additional properties
 
 ## each
@@ -529,19 +528,18 @@ $.asyncEach(function (next, { index, self, instance }) {
 ```
 
 ## odd
- 
+
 Iterates over each odd selected element and executes a callback.
 ```ts
 $.odd(callback: IteratorCallback);
 ```
 
 ## even
- 
+
 Iterates over each even selected element and executes a callback.
 ```ts
 $.even(callback: IteratorCallback);
 ```
-
 
 ## filter
 
@@ -576,7 +574,6 @@ $('ul > li')
 ## Manipulators
 
 [bind](#bind) • [add](#add) • [prepend](#prepend) • [append](#append) • [addChild](#addChild) • [prependChild](#prependChild) • [appendChild](#appendChild) • [swap](#swap) • [replace](#replace) • [teleport](#teleport) • [fullscreen](#fullscreen) • [text](#text) • [del](#del)
-
 
 Methods which directly manipulate the DOM. Used for creating, deleting or moving elements around.
 Those which create elements accept the same time.
@@ -767,7 +764,6 @@ $('ul').children().del(':not(:first-child)')
 
 ---
 
-
 ## Meta
 
 [wait](#wait) • [run](#run) • [get](#get)
@@ -806,54 +802,4 @@ Usage
 // because there could be more chained links which take a while to execute.
 const listItems = await $('li').get()
 const listItemsContents = await $('li').get('textContent')
-```
-
----
-
-## Type Definitions
-
-```ts
-export type GenericCallback = (
-  this: Element,
-  options: {
-    self: Element
-    instance: Curry
-    index?: number
-  }
-) => void
-
-interface CustomEventProperty extends Event {
-  detail?: any
-}
-
-export type EventCallback = (
-  this: Element,
-  event: CustomEventProperty,
-  instance: Curry
-) => void
-
-export type KeyboardEventCallback = (
-  this: Element,
-  event: KeyboardEvent,
-  instance: Curry
-) => void
-
-export type IteratorCallback<T = void> = (
-  this: Element,
-  options: {
-    self: Element
-    instance: Curry
-    index: number
-  }
-) => T
-
-export type PrevNextCallback = (
-  this: Element,
-  options: {
-    self?: Element | null
-    prev?: Element | null
-    instance: Curry
-    index?: number
-  }
-) => void
 ```

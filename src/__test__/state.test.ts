@@ -2,13 +2,13 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $, Curry } from '../curry'
 import { isNil } from '../curry/util'
 
-test('Reactive data binding', () => {
+it('reactive data binding', () => {
   // Default state access
-  $(document).bind({
+  $(document).state({
     test: 10,
   }, ({ test }, inst) => {
     expect(test).toBe(10)
@@ -17,7 +17,7 @@ test('Reactive data binding', () => {
 
   // Update dom
   const el = document.createElement('div')
-  const binding = $(el).bind({ count: 0 }, function ({ count }) {
+  const binding = $(el).state({ count: 0 }, function ({ count }) {
     this.textContent = isNil(count) ? '' : String(count)
   })
 

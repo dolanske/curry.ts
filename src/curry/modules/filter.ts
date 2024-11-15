@@ -1,7 +1,7 @@
 import type { Curry } from '..'
+import type { IteratorCallback } from '../types'
 import { $ } from '..'
 import { isArray, toEl } from '../util'
-import type { IteratorCallback } from '../types'
 
 export type Filter = (
   this: Curry,

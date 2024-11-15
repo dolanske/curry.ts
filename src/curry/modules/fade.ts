@@ -78,7 +78,7 @@ export const _fadeToggle: FadeToggle = function (this, options = {}) {
     for (const _node of this.nodes) {
       // If current node has inline style called opacity at value
       const node = toEl<HTMLElement>(_node)
-      const opacity = parseFloat(node.style.opacity)
+      const opacity = Number.parseFloat(node.style.opacity)
 
       const defaults = {
         duration: 300,

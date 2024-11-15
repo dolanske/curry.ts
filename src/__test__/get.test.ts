@@ -2,10 +2,10 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $ } from '../curry/index'
 
-test('Return nodes from current chain', async () => {
+it('return nodes from current chain', async () => {
   const div = document.createElement('div')
   const returnDiv = await $(div).get()
   expect(returnDiv).toStrictEqual([div])
@@ -21,14 +21,14 @@ test('Return nodes from current chain', async () => {
   expect(returnSpans).toStrictEqual([span1, span2])
 })
 
-test('Return specific Element property', async () => {
+it('return specific Element property', async () => {
   const div = document.createElement('div')
   div.id = 'test'
   const returnDiv = await $(div).get('id')
   expect(returnDiv).toBe('test')
 })
 
-test('Return specific attributes from multiple elements', async () => {
+it('return specific attributes from multiple elements', async () => {
   const span1 = document.createElement('span')
   span1.title = 'Hello'
   const span2 = document.createElement('span')

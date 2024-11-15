@@ -2,8 +2,8 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
-import { $, Curry } from '../curry'
+import { expect, it } from 'vitest'
+import { $ } from '../curry'
 
 function prepareDom() {
   const wrapper = document.createElement('div')
@@ -13,7 +13,7 @@ function prepareDom() {
   return { wrapper, child, replacer }
 }
 
-test('Replace a child element using $.replace', async () => {
+it('replace a child element using $.replace', async () => {
   const { wrapper, child, replacer } = prepareDom()
   wrapper.appendChild(child)
 
@@ -26,7 +26,7 @@ test('Replace a child element using $.replace', async () => {
   expect(wrapper.children[0].textContent).toBe('Hello')
 })
 
-test('Replace a child using a string selector', async () => {
+it('replace a child using a string selector', async () => {
   const { wrapper, child, replacer } = prepareDom()
 
   child.id = 'child'
@@ -40,7 +40,7 @@ test('Replace a child using a string selector', async () => {
   expect(wrapper.firstChild).toStrictEqual(replacer)
 })
 
-test('Cover any null options', async () => {
+it('cover any null options', async () => {
   const { wrapper, child } = prepareDom()
 
   await $(wrapper).replace('#nonexistent', child).get()
@@ -50,13 +50,4 @@ test('Cover any null options', async () => {
 
   await $(wrapper).replace(child, '#alsonotexisting').get()
   expect(wrapper.firstChild).toStrictEqual(child)
-})
-
-test('Replace a child element using static replace', async () => {
-  const { wrapper, child, replacer } = prepareDom()
-
-  wrapper.appendChild(child)
-
-  Curry.replace(child, replacer)
-  expect(wrapper.firstChild).toStrictEqual(replacer)
 })

@@ -1,6 +1,6 @@
 import type { Curry } from '..'
-import { selectNTHSibling } from '../util'
 import type { PrevNextCallback } from '../types'
+import { selectNTHSibling } from '../util'
 
 export type Next = (
   this: Curry,

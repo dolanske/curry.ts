@@ -2,11 +2,11 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $ } from '../curry/index'
 import { delay } from '../curry/util'
 
-test('Remove html node using $.del()', async () => {
+it('remove html node using $.del()', async () => {
   const div = document.createElement('div')
 
   div.appendChild(document.createElement('span'))
@@ -19,7 +19,7 @@ test('Remove html node using $.del()', async () => {
   expect(div.children).toHaveLength(0)
 })
 
-test('Remove nodes using string selector', async () => {
+it('remove nodes using string selector', async () => {
   const div = document.createElement('div')
 
   div.appendChild(document.createElement('span'))

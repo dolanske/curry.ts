@@ -1,6 +1,6 @@
 import type { Curry } from '..'
-import { $ } from '..'
 import type { GenericCallback } from '../types'
+import { $ } from '..'
 
 export type NthChild = (
   this: Curry,

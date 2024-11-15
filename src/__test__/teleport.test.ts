@@ -2,11 +2,11 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $ } from '../curry/index'
 import { delay } from '../curry/util'
 
-test('Teleport selected element to target', async () => {
+it('teleport selected element to target', async () => {
   const wrap1 = document.createElement('div')
   wrap1.id = 'wrap1'
   const wrap2 = document.createElement('div')

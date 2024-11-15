@@ -2,11 +2,11 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $, Curry } from '../curry/index'
 import { delay } from '../curry/util'
 
-test('Iterate over selected elements and execute a provided callback', async () => {
+it('iterate over selected elements and execute a provided callback', async () => {
   const div = document.createElement('div')
 
   for (let i = 0; i < 3; i++) {

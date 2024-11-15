@@ -2,7 +2,7 @@
  * @vitest-environment jsdom
  */
 
-import { describe, expect, test } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { $ } from '../curry/index'
 import { delay } from '../curry/util'
 
@@ -27,8 +27,8 @@ function prepareDom() {
   }
 }
 
-describe('Swap two elements', () => {
-  test('HTML elements as params', async () => {
+describe('swap two elements', () => {
+  it('hTML elements as params', async () => {
     const { wrap1, wrap2, span1, span2 } = prepareDom()
 
     $(document).swap(span1, span2)
@@ -37,7 +37,7 @@ describe('Swap two elements', () => {
     expect(wrap2.firstChild).toStrictEqual(span1)
   })
 
-  test('First selector as string', async () => {
+  it('first selector as string', async () => {
     const { wrap1, wrap2, span1, span2 } = prepareDom()
 
     document.body.replaceChildren()
@@ -51,7 +51,7 @@ describe('Swap two elements', () => {
     expect(wrap2.firstChild).toStrictEqual(span1)
   })
 
-  test('Second selector as string', async () => {
+  it('second selector as string', async () => {
     const { wrap1, wrap2, span1, span2 } = prepareDom()
 
     document.body.replaceChildren()
@@ -65,7 +65,7 @@ describe('Swap two elements', () => {
     expect(wrap2.firstChild).toStrictEqual(span1)
   })
 
-  test('Swap selected nodes', async () => {
+  it('swap selected nodes', async () => {
     const { wrap1, wrap2, span2 } = prepareDom()
     document.body.replaceChildren()
     document.body.appendChild(wrap1)

@@ -2,12 +2,12 @@
  * @vitest-environment jsdom
  */
 
-import { describe, expect, test, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { $ } from '../curry'
 import { delay } from '../curry/util'
 
-describe('Test suite for $.on', () => {
-  test('Event triggering', async () => {
+describe('test suite for $.on', () => {
+  it('event triggering', async () => {
     const button = document.createElement('button')
     const callback = vi.fn(() => 0)
 
@@ -21,7 +21,7 @@ describe('Test suite for $.on', () => {
     expect(callback).toHaveBeenCalledTimes(2)
   })
 
-  test('Using options', async () => {
+  it('using options', async () => {
     const button = document.createElement('button')
     const callback = vi.fn(() => 0)
 

@@ -2,11 +2,11 @@
  * @vitest-environment jsdom
  */
 
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 import { $, Curry } from '../curry/index'
 import { delay } from '../curry/util'
 
-test('Select every odd element', async () => {
+it('select every odd element', async () => {
   const div = document.createElement('div')
 
   for (let i = 0; i < 4; i++) {
@@ -23,7 +23,7 @@ test('Select every odd element', async () => {
   expect(oddChildren).toStrictEqual([div.children[1], div.children[3]])
 })
 
-test('Apply correct callback parameters to $.odd()', () => {
+it('apply correct callback parameters to $.odd()', () => {
   const div = document.createElement('div')
   for (let i = 0; i < 2; i++) {
     const span = document.createElement('span')
