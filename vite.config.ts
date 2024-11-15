@@ -1,7 +1,10 @@
 // vite.config.js
-import { resolve } from 'node:path'
+import path, { resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
   build: {
