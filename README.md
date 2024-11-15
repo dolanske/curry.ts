@@ -7,7 +7,7 @@ The successor to the most known word in the javascript universe. Every person wh
 Because I have literally 0.1 braincells, idk how to set up npm. You directly install this repo and it will clone the `/dist` folder into your node_module.
 
  ```bash
- npm install github:dolanske/curry.ts
+ npm i @dolanske/curry
  ```
 
 Or you can just copy and paste the `curry.mjs` file wherever in your project and import it
