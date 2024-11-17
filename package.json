@@ -1,7 +1,7 @@
 {
   "name": "@dolanske/curry",
   "type": "module",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Fully typed, simple and powerful DOM manipulation library inspired by jQuery and umbrella.",
   "author": "dolanske",
   "license": "MIT",
@@ -38,7 +38,8 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "csstype": "^3.1.3"
+    "csstype": "^3.1.3",
+    "vitest": "^2.1.5"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.9.1",
